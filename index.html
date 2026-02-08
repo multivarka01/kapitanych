@@ -5,41 +5,47 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Kapitanych</title>
 
-<style>
-*{box-sizing:border-box}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
-body{
+<style>
+*{
   margin:0;
-  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
-  background:#0b0f1a;
-  color:white;
-  min-height:100vh;
-  overflow:hidden;
+  padding:0;
+  box-sizing:border-box;
 }
 
-/* ================= LOADER ================= */
+body{
+  font-family:Inter,system-ui,Arial;
+  background:#0b0f1a;
+  color:white;
+  overflow-x:hidden;
+}
 
-.loader{
+/* ---------------- LOADER ---------------- */
+
+#loader{
   position:fixed;
   inset:0;
   background:#0b0f1a;
   display:flex;
-  justify-content:center;
   align-items:center;
+  justify-content:center;
   z-index:999;
-  font-size:32px;
-  letter-spacing:4px;
-  font-weight:600;
+  transition:opacity 1s;
 }
 
-.loader span{
+#loader h1{
+  font-size:42px;
+  letter-spacing:6px;
   opacity:0;
-  animation:fade .6s forwards;
+  animation:fadeIn 2s forwards;
 }
-@keyframes fade{to{opacity:1}}
 
+@keyframes fadeIn{
+  to{opacity:1;}
+}
 
-/* ================= ВЕРХНЯЯ ПАНЕЛЬ ================= */
+/* ---------------- NAVBAR ---------------- */
 
 .nav{
   position:fixed;
@@ -47,35 +53,44 @@ body{
   left:0;
   width:100%;
   height:70px;
+
   display:flex;
   align-items:center;
-  justify-content:space-between;
-  padding:0 30px;
-  z-index:5;
+  justify-content:center;
+  gap:40px;
+
+  background:rgba(15,18,35,0.55);
+  backdrop-filter:blur(14px);
+  -webkit-backdrop-filter:blur(14px);
+
+  border-bottom:1px solid rgba(255,255,255,0.08);
+
+  z-index:10;
 }
 
 .nav-group{
   display:flex;
-  gap:18px;
+  gap:16px;
+  align-items:center;
 }
 
 .nav a{
+  color:#aaa;
   text-decoration:none;
-  color:#b9c0ff;
-  font-size:14px;
+  font-weight:600;
   transition:.3s;
 }
 
 .nav a:hover{
-  color:white;
+  color:#fff;
   text-shadow:0 0 10px #6cf;
 }
 
-/* аватар по центру */
+/* центр */
 .nav-center{
-  position:absolute;
-  left:50%;
-  transform:translateX(-50%);
+  display:flex;
+  align-items:center;
+  justify-content:center;
 }
 
 .nav-avatar{
@@ -89,194 +104,160 @@ body{
 }
 
 .nav-avatar:hover{
-  transform:scale(1.08);
-  box-shadow:0 0 18px #6cf;
+  transform:scale(1.1);
+  box-shadow:0 0 22px #6cf;
 }
 
+/* ---------------- HERO ---------------- */
 
-/* ================= ОСНОВНОЙ БЛОК ================= */
-
-.container{
-  position:relative;
+.hero{
+  min-height:100vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  flex-direction:column;
   text-align:center;
-  width:100%;
-  max-width:400px;
-  margin:0 auto;
-  padding-top:120px;
-  z-index:2;
-  opacity:0;
-  transition:opacity .6s ease;
+  padding-top:70px;
 }
 
-.subtitle{
-  color:#aaa;
-  margin-bottom:22px;
+.hero h2{
+  font-size:48px;
+  margin-bottom:20px;
 }
+
+/* ---------------- BUTTONS ---------------- */
 
 .links{
   display:flex;
   flex-direction:column;
-  gap:12px;
+  gap:15px;
+  margin-top:20px;
 }
 
-/* ================= НЕОНОВЫЕ КНОПКИ ================= */
-
-.link{
-  display:block;
-  padding:14px;
-  border-radius:14px;
-  text-decoration:none;
+.btn{
+  padding:14px 28px;
+  border-radius:12px;
+  border:2px solid #6cf;
   color:white;
-  background:#151a2c;
-  border:2px solid #00e5ff55;
-  box-shadow:0 0 8px #00e5ff33;
+  text-decoration:none;
+  font-weight:700;
   transition:.3s;
 }
 
-.link:hover{
-  border-color:#00e5ff;
-  box-shadow:0 0 12px #00e5ff, 0 0 28px #00e5ff88;
+.btn:hover{
+  background:#6cf;
+  color:#0b0f1a;
+  box-shadow:0 0 20px #6cf;
   transform:translateY(-3px);
 }
 
+/* ---------------- STARS ---------------- */
 
-/* ================= КРУГ К МЫШКЕ ================= */
-
-#cursor-glow{
-  width:800px;
-  height:800px;
-  background:radial-gradient(circle,
-    rgba(0,229,255,0.08) 0%,
-    rgba(0,0,0,0) 70%);
+#particles{
   position:fixed;
-  pointer-events:none;
-  z-index:0;
-  transform:translate(-50%,-50%);
+  inset:0;
+  z-index:-2;
 }
 
-
-/* ================= ЗВЁЗДЫ ================= */
-
-.particle{
-  position:fixed;
+.star{
+  position:absolute;
   width:2px;
   height:2px;
   background:white;
-  border-radius:50%;
-  opacity:.6;
-  pointer-events:none;
-  z-index:0;
+  opacity:.8;
 }
+
+/* ---------------- CURSOR GLOW ---------------- */
+
+#cursor{
+  position:fixed;
+  width:600px;
+  height:600px;
+  border-radius:50%;
+  pointer-events:none;
+  background:radial-gradient(circle, rgba(140,0,255,0.15) 0%, rgba(0,0,0,0) 70%);
+  transform:translate(-50%,-50%);
+  z-index:-1;
+}
+
 </style>
 </head>
-
 <body>
 
-<div class="loader" id="loader"></div>
+<!-- LOADER -->
+<div id="loader">
+  <h1>KAPITANYCH</h1>
+</div>
 
-<!-- верх -->
+<!-- NAV -->
 <div class="nav">
   <div class="nav-group">
-    <a href="#">Donatex</a>
-    <a href="#">DonatAlerts</a>
-    <a href="#">Telegram</a>
+    <a href="https://donatex.gg/donate/kapitanych">Donatex</a>
+    <a href="https://www.donationalerts.com/r/bossgg">DonatAlerts</a>
+    <a href="https://t.me/KapitanGG">Telegram</a>
   </div>
 
   <div class="nav-center">
-    <!-- ссылка на твич -->
-    <a href="#" target="_blank">
-      <img class="nav-avatar" src="https://i.imgur.com/6VBx3io.png">
-    </a>
+    <!-- СЮДА СТАВИШЬ АВАТАРКУ -->
+    <img src="https://i.ibb.co/pr0NNwxx/444444.png" class="nav-avatar" onclick="openTwitch()">
   </div>
 
   <div class="nav-group">
-    <a href="#">Discord</a>
-    <a href="#">YouTube</a>
-    <a href="#">TikTok</a>
+    <a href="https://discord.com/channels/596071929765560341/916292648875229185">Discord</a>
+    <a href="https://www.youtube.com/@Капитаныч">YouTube</a>
+    <a href="https://www.tiktok.com/@tt_kapitanych">TikTok</a>
   </div>
 </div>
 
-
-<div id="cursor-glow"></div>
-<div id="particles"></div>
-
-<!-- низ -->
-<div class="container" id="content">
-  <p class="subtitle">Добро пожаловать ✨</p>
+<!-- HERO -->
+<section class="hero">
+  <h2>Kapitanych</h2>
 
   <div class="links">
-    <a class="link" href="#">Расписание стримов</a>
-    <a class="link" href="#">Поддержать</a>
+    <a class="btn" href="#">Моя ссылка</a>
+    <a class="btn" href="#">Моя ссылка</a>
+    <a class="btn" href="#">Моя ссылка</a>
   </div>
-</div>
+</section>
 
+<div id="particles"></div>
+<div id="cursor"></div>
 
 <script>
-// ================= LOADER =================
-const nameText="Kapitanych";
-const loader=document.getElementById("loader");
-
-nameText.split("").forEach((l,i)=>{
-  const span=document.createElement("span");
-  span.textContent=l;
-  span.style.animationDelay=(i*0.1)+"s";
-  loader.appendChild(span);
+/* -------- LOADER -------- */
+window.addEventListener("load",()=>{
+  setTimeout(()=>{
+    document.getElementById("loader").style.opacity="0";
+    setTimeout(()=>{
+      document.getElementById("loader").style.display="none";
+    },1000);
+  },2000);
 });
 
-setTimeout(()=>{
-  loader.style.opacity="0";
-  loader.style.pointerEvents="none";
-  document.getElementById("content").style.opacity="1";
-},1600);
+/* -------- TWITCH CLICK -------- */
+function openTwitch(){
+  window.open("https://twitch.tv/kapitanych_","_blank"); // поменяешь
+}
 
+/* -------- STARS -------- */
+const container = document.getElementById("particles");
 
-// ================= КРУГ =================
-const glow=document.getElementById("cursor-glow");
-document.addEventListener("mousemove",(e)=>{
-  glow.style.left=e.clientX+"px";
-  glow.style.top=e.clientY+"px";
+for(let i=0;i<120;i++){
+  const s=document.createElement("div");
+  s.className="star";
+  s.style.left=Math.random()*100+"%";
+  s.style.top=Math.random()*100+"%";
+  s.style.opacity=Math.random();
+  container.appendChild(s);
+}
+
+/* -------- CURSOR -------- */
+const cursor=document.getElementById("cursor");
+
+document.addEventListener("mousemove",e=>{
+  cursor.style.left=e.clientX+"px";
+  cursor.style.top=e.clientY+"px";
 });
-
-
-// ================= ЗВЁЗДЫ =================
-const container=document.getElementById("particles");
-const particles=[];
-
-for(let i=0;i<40;i++){
-  const p=document.createElement("div");
-  p.className="particle";
-  let x=Math.random()*window.innerWidth;
-  let y=Math.random()*window.innerHeight;
-
-  p.style.left=x+"px";
-  p.style.top=y+"px";
-  container.appendChild(p);
-
-  particles.push({
-    el:p,
-    x,y,
-    vx:(Math.random()-0.5)*0.4,
-    vy:(Math.random()-0.5)*0.4
-  });
-}
-
-function animate(){
-  particles.forEach(p=>{
-    p.x+=p.vx;
-    p.y+=p.vy;
-
-    if(p.x<0)p.x=window.innerWidth;
-    if(p.x>window.innerWidth)p.x=0;
-    if(p.y<0)p.y=window.innerHeight;
-    if(p.y>window.innerHeight)p.y=0;
-
-    p.el.style.left=p.x+"px";
-    p.el.style.top=p.y+"px";
-  });
-
-  requestAnimationFrame(animate);
-}
-animate();
 </script>
 
 </body>
