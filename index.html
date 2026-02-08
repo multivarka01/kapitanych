@@ -8,7 +8,11 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
 <style>
-*{margin:0;padding:0;box-sizing:border-box;}
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
 
 body{
   font-family:Inter,system-ui,Arial;
@@ -18,6 +22,7 @@ body{
 }
 
 /* ---------------- LOADER ---------------- */
+
 #loader{
   position:fixed;
   inset:0;
@@ -28,42 +33,57 @@ body{
   z-index:999;
   transition:opacity 1s;
 }
+
 #loader h1{
   font-size:42px;
   letter-spacing:6px;
   opacity:0;
   animation:fadeIn 2s forwards;
 }
-@keyframes fadeIn{to{opacity:1;}}
+
+@keyframes fadeIn{
+  to{opacity:1;}
+}
 
 /* ---------------- NAVBAR ---------------- */
+
 .nav{
   position:fixed;
   top:0;
   left:0;
   width:100%;
   height:70px;
+
   display:flex;
   align-items:center;
   justify-content:center;
   gap:40px;
+
   background:rgba(15,18,35,0.55);
   backdrop-filter:blur(14px);
   border-bottom:1px solid rgba(255,255,255,0.08);
+
   z-index:10;
 }
-.nav-group{display:flex;gap:16px;align-items:center;}
+
+.nav-group{
+  display:flex;
+  gap:16px;
+  align-items:center;
+}
+
 .nav a{
   color:#aaa;
   text-decoration:none;
   font-weight:600;
   transition:.3s;
 }
+
 .nav a:hover{
   color:#fff;
   text-shadow:0 0 10px #6cf;
 }
-.nav-center{display:flex;align-items:center;justify-content:center;}
+
 .nav-avatar{
   width:46px;
   height:46px;
@@ -73,12 +93,14 @@ body{
   cursor:pointer;
   transition:.3s;
 }
+
 .nav-avatar:hover{
   transform:scale(1.1);
   box-shadow:0 0 22px #6cf;
 }
 
 /* ---------------- HERO ---------------- */
+
 .hero{
   min-height:100vh;
   display:flex;
@@ -86,41 +108,48 @@ body{
   justify-content:center;
   flex-direction:column;
   text-align:center;
-  padding-top:70px;
+  padding-top:90px;
+
   opacity:0;
   transform:translateY(20px);
   transition:1s;
 }
+
 .hero.show{
   opacity:1;
   transform:translateY(0);
 }
 
 .hero h2{
-  font-size:52px;
+  font-size:48px;
   margin-bottom:25px;
 }
 
 /* ---------------- BUTTONS ---------------- */
+
 .links{
   display:flex;
   flex-direction:column;
   gap:18px;
   margin-top:20px;
-  width:280px;
+  width:260px;
 }
 
 .btn{
-  padding:18px 30px;
+  padding:18px 28px;
   border-radius:14px;
   border:2px solid #6cf;
   color:white;
   text-decoration:none;
-  font-weight:800;
+  font-weight:700;
   font-size:18px;
-  transition:.4s;
+  transition:.3s;
+
   opacity:0;
-  transform:translateY(20px);
+  transform:translateY(15px);
+
+  transform-style:preserve-3d;
+  will-change:transform;
 }
 
 .btn.show{
@@ -132,24 +161,23 @@ body{
   background:#6cf;
   color:#0b0f1a;
   box-shadow:0 0 25px #6cf;
-  transform:translateY(-4px);
 }
 
-/* разделительная линия */
+/* разделители */
 .divider{
   height:1px;
-  width:100%;
   background:rgba(255,255,255,0.15);
   margin:5px 0;
 }
 
 /* ---------------- STARS ---------------- */
+
 #particles{
   position:fixed;
   inset:0;
   z-index:-2;
-  overflow:hidden;
 }
+
 .star{
   position:absolute;
   width:2px;
@@ -159,16 +187,18 @@ body{
 }
 
 /* ---------------- CURSOR ---------------- */
+
 #cursor{
   position:fixed;
-  width:700px;
-  height:700px;
+  width:600px;
+  height:600px;
   border-radius:50%;
   pointer-events:none;
   background:radial-gradient(circle, rgba(140,0,255,0.18) 0%, rgba(0,0,0,0) 70%);
   transform:translate(-50%,-50%);
   z-index:-1;
 }
+
 </style>
 </head>
 <body>
@@ -186,9 +216,7 @@ body{
     <a href="https://t.me/KapitanGG">Telegram</a>
   </div>
 
-  <div class="nav-center">
-    <img src="https://i.ibb.co/pr0NNwxx/444444.png" class="nav-avatar" onclick="openTwitch()">
-  </div>
+  <img src="https://i.ibb.co/pr0NNwxx/444444.png" class="nav-avatar" onclick="openTwitch()">
 
   <div class="nav-group">
     <a href="https://discord.com/channels/596071929765560341/916292648875229185">Discord</a>
@@ -230,7 +258,6 @@ window.addEventListener("load",()=>{
 
       document.getElementById("hero").classList.add("show");
 
-      // появление кнопок по очереди
       document.querySelectorAll(".btn").forEach((b,i)=>{
         setTimeout(()=>b.classList.add("show"),150*i);
       });
@@ -244,20 +271,25 @@ function openTwitch(){
   window.open("https://twitch.tv/kapitanych_","_blank");
 }
 
-/* -------- STARS -------- */
+/* -------- MOVING STARS -------- */
 const container = document.getElementById("particles");
 const stars=[];
+
 for(let i=0;i<120;i++){
   const s=document.createElement("div");
   s.className="star";
+
   let x=Math.random()*window.innerWidth;
   let y=Math.random()*window.innerHeight;
-  let speed=Math.random()*0.3+0.1;
+  let speed=Math.random()*0.4+0.2;
+
   s.style.left=x+"px";
   s.style.top=y+"px";
+
   container.appendChild(s);
   stars.push({el:s,x,y,speed});
 }
+
 function animateStars(){
   stars.forEach(star=>{
     star.y+=star.speed;
@@ -268,9 +300,10 @@ function animateStars(){
 }
 animateStars();
 
-/* -------- CURSOR -------- */
+/* -------- SMOOTH CURSOR -------- */
 const cursor=document.getElementById("cursor");
-let mouseX=0, mouseY=0, posX=0, posY=0;
+let mouseX=0, mouseY=0;
+let posX=0, posY=0;
 
 document.addEventListener("mousemove",e=>{
   mouseX=e.clientX;
@@ -285,6 +318,29 @@ function animateCursor(){
   requestAnimationFrame(animateCursor);
 }
 animateCursor();
+
+/* -------- 3D TILT -------- */
+document.querySelectorAll(".btn").forEach(btn=>{
+  btn.addEventListener("mousemove", e=>{
+    const rect = btn.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+
+    const centerX = rect.width / 2;
+    const centerY = rect.height / 2;
+
+    const rotateX = (y - centerY) / 10;
+    const rotateY = (centerX - x) / 10;
+
+    btn.style.transform =
+      `perspective(600px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.05)`;
+  });
+
+  btn.addEventListener("mouseleave", ()=>{
+    btn.style.transform =
+      "perspective(600px) rotateX(0) rotateY(0) scale(1)";
+  });
+});
 </script>
 
 </body>
