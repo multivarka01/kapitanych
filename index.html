@@ -88,7 +88,7 @@ body{
   gap:12px;
 }
 
-/* ================= LIQUID GLASS ================= */
+/* ================= НЕОНОВЫЕ КНОПКИ ================= */
 
 .link{
   position:relative;
@@ -98,39 +98,16 @@ body{
   text-decoration:none;
   color:white;
 
-  background:rgba(255,255,255,0.06);
-  backdrop-filter:blur(12px);
-  -webkit-backdrop-filter:blur(12px);
-
-  border:1px solid rgba(255,255,255,0.08);
-  overflow:hidden;
-}
-
-/* блик */
-.link::before{
-  content:"";
-  position:absolute;
-  top:-40%;
-  left:-60%;
-  width:120%;
-  height:200%;
-  background:linear-gradient(
-    120deg,
-    transparent,
-    rgba(255,255,255,0.25),
-    transparent
-  );
-  transform:rotate(25deg);
-  transition:0.6s;
+  background:#1a1a28;
+  border:2px solid #7f00ff;
+  box-shadow:0 0 6px #7f00ff44, 0 0 12px #7f00ff22;
+  transition:0.3s;
 }
 
 .link:hover{
+  box-shadow:0 0 12px #b84dff, 0 0 24px #b84dff88;
+  border-color:#b84dff;
   transform:translateY(-3px);
-  background:rgba(255,255,255,0.12);
-}
-
-.link:hover::before{
-  left:120%;
 }
 
 /* ================= появление ================= */
