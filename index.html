@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Капитаныч — ссылки</title>
+<title>Kapitanych</title>
 
 <style>
 *{box-sizing:border-box}
@@ -13,9 +13,6 @@ body{
   font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
   background:#0b0f1a;
   color:white;
-  display:flex;
-  justify-content:center;
-  align-items:center;
   min-height:100vh;
   overflow:hidden;
 }
@@ -37,32 +34,84 @@ body{
 
 .loader span{
   opacity:0;
-  animation:fade 0.6s forwards;
+  animation:fade .6s forwards;
 }
 @keyframes fade{to{opacity:1}}
 
-/* ================= ОСНОВА ================= */
+
+/* ================= ВЕРХНЯЯ ПАНЕЛЬ ================= */
+
+.nav{
+  position:fixed;
+  top:0;
+  left:0;
+  width:100%;
+  height:70px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:0 30px;
+  z-index:5;
+}
+
+.nav-group{
+  display:flex;
+  gap:18px;
+}
+
+.nav a{
+  text-decoration:none;
+  color:#b9c0ff;
+  font-size:14px;
+  transition:.3s;
+}
+
+.nav a:hover{
+  color:white;
+  text-shadow:0 0 10px #6cf;
+}
+
+/* аватар по центру */
+.nav-center{
+  position:absolute;
+  left:50%;
+  transform:translateX(-50%);
+}
+
+.nav-avatar{
+  width:46px;
+  height:46px;
+  border-radius:50%;
+  border:2px solid #6cf;
+  box-shadow:0 0 10px #6cf;
+  cursor:pointer;
+  transition:.3s;
+}
+
+.nav-avatar:hover{
+  transform:scale(1.08);
+  box-shadow:0 0 18px #6cf;
+}
+
+
+/* ================= ОСНОВНОЙ БЛОК ================= */
 
 .container{
   position:relative;
   text-align:center;
   width:100%;
   max-width:400px;
-  padding:20px;
+  margin:0 auto;
+  padding-top:120px;
   z-index:2;
   opacity:0;
   transition:opacity .6s ease;
 }
 
-.avatar{
-  width:110px;
-  height:110px;
-  border-radius:50%;
-  margin-bottom:15px;
+.subtitle{
+  color:#aaa;
+  margin-bottom:22px;
 }
-
-.title{margin:10px 0 5px}
-.subtitle{color:#aaa;margin-bottom:22px}
 
 .links{
   display:flex;
@@ -70,7 +119,7 @@ body{
   gap:12px;
 }
 
-/* ================= НЕОН ================= */
+/* ================= НЕОНОВЫЕ КНОПКИ ================= */
 
 .link{
   display:block;
@@ -90,6 +139,7 @@ body{
   transform:translateY(-3px);
 }
 
+
 /* ================= КРУГ К МЫШКЕ ================= */
 
 #cursor-glow{
@@ -103,6 +153,7 @@ body{
   z-index:0;
   transform:translate(-50%,-50%);
 }
+
 
 /* ================= ЗВЁЗДЫ ================= */
 
@@ -123,24 +174,42 @@ body{
 
 <div class="loader" id="loader"></div>
 
+<!-- верх -->
+<div class="nav">
+  <div class="nav-group">
+    <a href="#">Donatex</a>
+    <a href="#">DonatAlerts</a>
+    <a href="#">Telegram</a>
+  </div>
+
+  <div class="nav-center">
+    <!-- ссылка на твич -->
+    <a href="#" target="_blank">
+      <img class="nav-avatar" src="https://i.imgur.com/6VBx3io.png">
+    </a>
+  </div>
+
+  <div class="nav-group">
+    <a href="#">Discord</a>
+    <a href="#">YouTube</a>
+    <a href="#">TikTok</a>
+  </div>
+</div>
+
+
 <div id="cursor-glow"></div>
 <div id="particles"></div>
 
+<!-- низ -->
 <div class="container" id="content">
-  <img class="avatar" src="https://i.ibb.co/pr0NNwxx/444444.png">
+  <p class="subtitle">Добро пожаловать ✨</p>
 
-  <h1 class="title">Капитаныч</h1>
-
-<div class="links">
-    <a class="link" href="https://donatex.gg/donate/kapitanych" target="_blank">Donatex</a>
-    <a class="link" href="https://www.donationalerts.com/r/bossgg" target="_blank">DonatAlerts</a>
-    <a class="link" href="https://t.me/KapitanGG" target="_blank">Telegram</a>
-    <a class="link" href="https://discord.com/channels/596071929765560341/916292648875229185" target="_blank">Discord</a>
-    <a class="link" href="https://www.twitch.tv/kapitanych_" target="_blank">Twitch</a>
-    <a class="link" href="https://www.youtube.com/@Капитаныч" target="_blank">YouTube</a>
-    <a class="link" href="https://www.tiktok.com/@tt_kapitanych" target="_blank">TikTok</a>
+  <div class="links">
+    <a class="link" href="#">Расписание стримов</a>
+    <a class="link" href="#">Поддержать</a>
   </div>
 </div>
+
 
 <script>
 // ================= LOADER =================
@@ -163,7 +232,6 @@ setTimeout(()=>{
 
 // ================= КРУГ =================
 const glow=document.getElementById("cursor-glow");
-
 document.addEventListener("mousemove",(e)=>{
   glow.style.left=e.clientX+"px";
   glow.style.top=e.clientY+"px";
