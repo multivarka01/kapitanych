@@ -11,7 +11,7 @@
 body{
   margin:0;
   font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
-  background:#0e0e16;
+  background:#0b0f1a;
   color:white;
   display:flex;
   justify-content:center;
@@ -25,7 +25,7 @@ body{
 .loader{
   position:fixed;
   inset:0;
-  background:#0e0e16;
+  background:#0b0f1a;
   display:flex;
   justify-content:center;
   align-items:center;
@@ -39,10 +39,7 @@ body{
   opacity:0;
   animation:fade 0.6s forwards;
 }
-
-@keyframes fade{
-  to{opacity:1}
-}
+@keyframes fade{to{opacity:1}}
 
 /* ================= ОСНОВА ================= */
 
@@ -62,25 +59,10 @@ body{
   height:110px;
   border-radius:50%;
   margin-bottom:15px;
-  opacity:0;
-  transform:translateY(10px);
-  transition:.4s;
 }
 
-.title,.subtitle,.link{
-  opacity:0;
-  transform:translateY(10px);
-  transition:.4s;
-}
-
-.title{
-  margin:10px 0 5px;
-}
-
-.subtitle{
-  color:#aaa;
-  margin-bottom:22px;
-}
+.title{margin:10px 0 5px}
+.subtitle{color:#aaa;margin-bottom:22px}
 
 .links{
   display:flex;
@@ -88,80 +70,68 @@ body{
   gap:12px;
 }
 
-/* ================= НЕОНОВЫЕ КНОПКИ ================= */
+/* ================= НЕОН ================= */
 
 .link{
-  position:relative;
   display:block;
   padding:14px;
   border-radius:14px;
   text-decoration:none;
   color:white;
-
-  background:#1a1a28;
-  border:2px solid #7f00ff;
-  box-shadow:0 0 6px #7f00ff44, 0 0 12px #7f00ff22;
-  transition:0.3s;
+  background:#151a2c;
+  border:2px solid #00e5ff55;
+  box-shadow:0 0 8px #00e5ff33;
+  transition:.3s;
 }
 
 .link:hover{
-  box-shadow:0 0 12px #b84dff, 0 0 24px #b84dff88;
-  border-color:#b84dff;
+  border-color:#00e5ff;
+  box-shadow:0 0 12px #00e5ff, 0 0 28px #00e5ff88;
   transform:translateY(-3px);
 }
 
-/* ================= появление ================= */
+/* ================= КРУГ К МЫШКЕ ================= */
 
-.show{
-  opacity:1;
-  transform:translateY(0);
-}
-
-/* ================= звёзды ================= */
-
-#stars{
-  position:fixed;
-  top:0;
-  left:0;
-  width:100%;
-  height:100%;
-  z-index:0;
-}
-
-/* ================= шар ================= */
-
-.cursor{
-  position:fixed;
-  width:220px;
-  height:220px;
-  border-radius:50%;
-  pointer-events:none;
-  z-index:1;
+#cursor-glow{
+  width:800px;
+  height:800px;
   background:radial-gradient(circle,
-    rgba(150,0,255,0.35) 0%,
-    rgba(150,0,255,0.15) 40%,
-    rgba(150,0,255,0) 70%);
+    rgba(0,229,255,0.08) 0%,
+    rgba(0,0,0,0) 70%);
+  position:fixed;
+  pointer-events:none;
+  z-index:0;
   transform:translate(-50%,-50%);
+}
+
+/* ================= ЗВЁЗДЫ ================= */
+
+.particle{
+  position:fixed;
+  width:2px;
+  height:2px;
+  background:white;
+  border-radius:50%;
+  opacity:.6;
+  pointer-events:none;
+  z-index:0;
 }
 </style>
 </head>
 
 <body>
 
-<!-- LOADER -->
 <div class="loader" id="loader"></div>
 
-<!-- фон -->
-<canvas id="stars"></canvas>
-<div class="cursor"></div>
+<div id="cursor-glow"></div>
+<div id="particles"></div>
 
-<!-- контент -->
 <div class="container" id="content">
   <img class="avatar" src="https://i.ibb.co/pr0NNwxx/444444.png">
 
   <h1 class="title">Капитаныч</h1>
 
-  <div class="links">
+<div class="links">
     <a class="link" href="https://donatex.gg/donate/kapitanych" target="_blank">Donatex</a>
     <a class="link" href="https://www.donationalerts.com/r/bossgg" target="_blank">DonatAlerts</a>
     <a class="link" href="https://t.me/KapitanGG" target="_blank">Telegram</a>
@@ -173,9 +143,9 @@ body{
 </div>
 
 <script>
-// ================= LOADER TEXT =================
-const nameText = "Kapitanych";
-const loader = document.getElementById("loader");
+// ================= LOADER =================
+const nameText="Kapitanych";
+const loader=document.getElementById("loader");
 
 nameText.split("").forEach((l,i)=>{
   const span=document.createElement("span");
@@ -184,69 +154,61 @@ nameText.split("").forEach((l,i)=>{
   loader.appendChild(span);
 });
 
-// скрываем лоадер
 setTimeout(()=>{
   loader.style.opacity="0";
   loader.style.pointerEvents="none";
   document.getElementById("content").style.opacity="1";
-
-  const els=document.querySelectorAll(".avatar,.title,.subtitle,.link");
-  els.forEach((e,i)=>setTimeout(()=>e.classList.add("show"),120*i));
-}, 1600);
+},1600);
 
 
-// ================= шар =================
-const cursor=document.querySelector(".cursor");
-let mouseX=window.innerWidth/2;
-let mouseY=window.innerHeight/2;
-let posX=mouseX;
-let posY=mouseY;
+// ================= КРУГ =================
+const glow=document.getElementById("cursor-glow");
 
-window.addEventListener("mousemove",e=>{
-  mouseX=e.clientX;
-  mouseY=e.clientY;
+document.addEventListener("mousemove",(e)=>{
+  glow.style.left=e.clientX+"px";
+  glow.style.top=e.clientY+"px";
 });
 
-function animateCursor(){
-  posX+=(mouseX-posX)*0.1;
-  posY+=(mouseY-posY)*0.1;
-  cursor.style.left=posX+"px";
-  cursor.style.top=posY+"px";
-  requestAnimationFrame(animateCursor);
-}
-animateCursor();
 
+// ================= ЗВЁЗДЫ =================
+const container=document.getElementById("particles");
+const particles=[];
 
-// ================= звёзды =================
-const canvas=document.getElementById("stars");
-const ctx=canvas.getContext("2d");
+for(let i=0;i<40;i++){
+  const p=document.createElement("div");
+  p.className="particle";
+  let x=Math.random()*window.innerWidth;
+  let y=Math.random()*window.innerHeight;
 
-function resize(){
-  canvas.width=window.innerWidth;
-  canvas.height=window.innerHeight;
-}
-resize();
-window.addEventListener("resize",resize);
+  p.style.left=x+"px";
+  p.style.top=y+"px";
+  container.appendChild(p);
 
-const stars=Array.from({length:150},()=>({
-  x:Math.random()*canvas.width,
-  y:Math.random()*canvas.height,
-  size:Math.random()*2
-}));
-
-function drawStars(){
-  ctx.clearRect(0,0,canvas.width,canvas.height);
-  ctx.fillStyle="white";
-  stars.forEach(s=>{
-    s.y+=0.25;
-    if(s.y>canvas.height) s.y=0;
-    ctx.beginPath();
-    ctx.arc(s.x,s.y,s.size,0,Math.PI*2);
-    ctx.fill();
+  particles.push({
+    el:p,
+    x,y,
+    vx:(Math.random()-0.5)*0.4,
+    vy:(Math.random()-0.5)*0.4
   });
-  requestAnimationFrame(drawStars);
 }
-drawStars();
+
+function animate(){
+  particles.forEach(p=>{
+    p.x+=p.vx;
+    p.y+=p.vy;
+
+    if(p.x<0)p.x=window.innerWidth;
+    if(p.x>window.innerWidth)p.x=0;
+    if(p.y<0)p.y=window.innerHeight;
+    if(p.y>window.innerHeight)p.y=0;
+
+    p.el.style.left=p.x+"px";
+    p.el.style.top=p.y+"px";
+  });
+
+  requestAnimationFrame(animate);
+}
+animate();
 </script>
 
 </body>
