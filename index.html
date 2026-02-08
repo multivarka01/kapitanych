@@ -87,13 +87,21 @@ body{
   flex-direction:column;
   text-align:center;
   padding-top:70px;
+  opacity:0;
+  transform:translateY(20px);
+  transition:1s;
 }
+.hero.show{
+  opacity:1;
+  transform:translateY(0);
+}
+
 .hero h2{
   font-size:52px;
   margin-bottom:25px;
 }
 
-/* ---------------- BIG BUTTONS ---------------- */
+/* ---------------- BUTTONS ---------------- */
 .links{
   display:flex;
   flex-direction:column;
@@ -110,7 +118,14 @@ body{
   text-decoration:none;
   font-weight:800;
   font-size:18px;
-  transition:.3s;
+  transition:.4s;
+  opacity:0;
+  transform:translateY(20px);
+}
+
+.btn.show{
+  opacity:1;
+  transform:translateY(0);
 }
 
 .btn:hover{
@@ -120,6 +135,14 @@ body{
   transform:translateY(-4px);
 }
 
+/* разделительная линия */
+.divider{
+  height:1px;
+  width:100%;
+  background:rgba(255,255,255,0.15);
+  margin:5px 0;
+}
+
 /* ---------------- STARS ---------------- */
 #particles{
   position:fixed;
@@ -127,7 +150,6 @@ body{
   z-index:-2;
   overflow:hidden;
 }
-
 .star{
   position:absolute;
   width:2px;
@@ -136,7 +158,7 @@ body{
   opacity:.8;
 }
 
-/* ---------------- CURSOR GLOW ---------------- */
+/* ---------------- CURSOR ---------------- */
 #cursor{
   position:fixed;
   width:700px;
@@ -176,14 +198,20 @@ body{
 </div>
 
 <!-- HERO -->
-<section class="hero">
+<section class="hero" id="hero">
   <h2>Kapitanych</h2>
 
   <div class="links">
     <a class="btn" href="https://donatex.gg/donate/kapitanych">Donatex</a>
     <a class="btn" href="https://www.donationalerts.com/r/bossgg">DonatAlerts</a>
+
+    <div class="divider"></div>
+
     <a class="btn" href="https://t.me/KapitanGG">Telegram</a>
     <a class="btn" href="https://discord.com/channels/596071929765560341/916292648875229185">Discord</a>
+
+    <div class="divider"></div>
+
     <a class="btn" href="https://www.youtube.com/@Капитаныч">YouTube</a>
     <a class="btn" href="https://www.tiktok.com/@tt_kapitanych">TikTok</a>
   </div>
@@ -199,6 +227,14 @@ window.addEventListener("load",()=>{
     document.getElementById("loader").style.opacity="0";
     setTimeout(()=>{
       document.getElementById("loader").style.display="none";
+
+      document.getElementById("hero").classList.add("show");
+
+      // появление кнопок по очереди
+      document.querySelectorAll(".btn").forEach((b,i)=>{
+        setTimeout(()=>b.classList.add("show"),150*i);
+      });
+
     },1000);
   },2000);
 });
@@ -208,24 +244,20 @@ function openTwitch(){
   window.open("https://twitch.tv/kapitanych_","_blank");
 }
 
-/* -------- STARS MOVEMENT -------- */
+/* -------- STARS -------- */
 const container = document.getElementById("particles");
 const stars=[];
-
 for(let i=0;i<120;i++){
   const s=document.createElement("div");
   s.className="star";
   let x=Math.random()*window.innerWidth;
   let y=Math.random()*window.innerHeight;
   let speed=Math.random()*0.3+0.1;
-
   s.style.left=x+"px";
   s.style.top=y+"px";
-
   container.appendChild(s);
   stars.push({el:s,x,y,speed});
 }
-
 function animateStars(){
   stars.forEach(star=>{
     star.y+=star.speed;
@@ -236,10 +268,9 @@ function animateStars(){
 }
 animateStars();
 
-/* -------- SMOOTH CURSOR -------- */
+/* -------- CURSOR -------- */
 const cursor=document.getElementById("cursor");
-let mouseX=0, mouseY=0;
-let posX=0, posY=0;
+let mouseX=0, mouseY=0, posX=0, posY=0;
 
 document.addEventListener("mousemove",e=>{
   mouseX=e.clientX;
@@ -247,8 +278,8 @@ document.addEventListener("mousemove",e=>{
 });
 
 function animateCursor(){
-  posX += (mouseX-posX)*0.08;
-  posY += (mouseY-posY)*0.08;
+  posX+=(mouseX-posX)*0.08;
+  posY+=(mouseY-posY)*0.08;
   cursor.style.left=posX+"px";
   cursor.style.top=posY+"px";
   requestAnimationFrame(animateCursor);
