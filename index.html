@@ -21,44 +21,6 @@ body{
   overflow-x:hidden;
 }
 
-/* ---------------- AURORA ---------------- */
-
-.bg-aurora{
-  position:fixed;
-  inset:0;
-  z-index:-3;
-  overflow:hidden;
-}
-
-.bg-aurora::before,
-.bg-aurora::after{
-  content:"";
-  position:absolute;
-  width:1200px;
-  height:1200px;
-  filter:blur(120px);
-  opacity:0.35;
-  animation:moveAurora 18s infinite alternate ease-in-out;
-}
-
-.bg-aurora::before{
-  background:radial-gradient(circle, #7b5cff, transparent 60%);
-  top:-200px;
-  left:-200px;
-}
-
-.bg-aurora::after{
-  background:radial-gradient(circle, #00d4ff, transparent 60%);
-  bottom:-200px;
-  right:-200px;
-  animation-delay:4s;
-}
-
-@keyframes moveAurora{
-  from{ transform:translate(0,0) scale(1); }
-  to{ transform:translate(200px,100px) scale(1.2); }
-}
-
 /* ---------------- NAVBAR ---------------- */
 
 .nav{
@@ -136,34 +98,7 @@ body{
 
 .hero h2{
   font-size:48px;
-  margin-bottom:10px;
-}
-
-/* ---------------- STREAM STATUS ---------------- */
-
-.stream-status{
-  margin-bottom:20px;
-  font-weight:700;
-  font-size:14px;
-  letter-spacing:1px;
-  transition:.3s;
-}
-
-.live{
-  color:#a970ff;
-  text-shadow:0 0 10px #a970ff;
-  cursor:pointer;
-  animation:blink 1.2s infinite;
-}
-
-@keyframes blink{
-  0%,100%{opacity:1;}
-  50%{opacity:0.4;}
-}
-
-.offline{
-  color:#777;
-  cursor:default;
+  margin-bottom:25px;
 }
 
 /* ---------------- BUTTONS ---------------- */
@@ -208,7 +143,7 @@ body{
   margin:5px 0;
 }
 
-/* ---------------- STARS ---------------- */
+/* ---------------- MOVING STARS ---------------- */
 
 #particles{
   position:fixed;
@@ -222,6 +157,19 @@ body{
   height:2px;
   background:white;
   opacity:.8;
+}
+
+/* ---------------- CURSOR BALL ---------------- */
+
+#cursor{
+  position:fixed;
+  width:600px;
+  height:600px;
+  border-radius:50%;
+  pointer-events:none;
+  background:radial-gradient(circle, rgba(140,0,255,0.18) 0%, rgba(0,0,0,0) 70%);
+  transform:translate(-50%,-50%);
+  z-index:-1;
 }
 
 /* ---------------- FOOTER ---------------- */
@@ -267,13 +215,17 @@ body{
     width:90%;
     max-width:320px;
   }
+
+  /* уменьшаем шар */
+  #cursor{
+    width:250px;
+    height:250px;
+  }
 }
 
 </style>
 </head>
 <body>
-
-<div class="bg-aurora"></div>
 
 <!-- NAV -->
 <div class="nav">
@@ -296,7 +248,6 @@ body{
 <!-- HERO -->
 <section class="hero" id="hero">
   <h2>Kapitanych</h2>
-  <div id="streamStatus" class="stream-status">проверяем...</div>
 
   <div class="links">
     <a class="btn" href="https://donatex.gg/donate/kapitanych">Donatex</a>
@@ -321,9 +272,10 @@ body{
 </div>
 
 <div id="particles"></div>
+<div id="cursor"></div>
 
 <script>
-/* -------- HERO -------- */
+/* HERO */
 window.addEventListener("load",()=>{
   document.getElementById("hero").classList.add("show");
   document.querySelectorAll(".btn").forEach((b,i)=>{
@@ -331,44 +283,53 @@ window.addEventListener("load",()=>{
   });
 });
 
-/* -------- STREAM STATUS -------- */
-async function checkStream(){
-  const el = document.getElementById("streamStatus");
-
-  try{
-    const res = await fetch("https://decapi.me/twitch/uptime/themultivarka");
-    const text = await res.text();
-
-    if(text.toLowerCase().includes("offline")){
-      el.textContent = "● OFFLINE";
-      el.className = "stream-status offline";
-      el.onclick = null;
-    }else{
-      el.textContent = "● LIVE";
-      el.className = "stream-status live";
-      el.onclick = () => window.open("https://twitch.tv/kapitanych_","_blank");
-    }
-  }catch{
-    el.textContent = "● OFFLINE";
-    el.className = "stream-status offline";
-    el.onclick = null;
-  }
-}
-
-checkStream();
-setInterval(checkStream, 60000);
-
-/* -------- STARS -------- */
+/* MOVING STARS */
 const container = document.getElementById("particles");
-const starCount = window.innerWidth > 768 ? 120 : 40;
+const stars=[];
 
-for(let i=0;i<starCount;i++){
+for(let i=0;i<120;i++){
   const s=document.createElement("div");
   s.className="star";
-  s.style.left=Math.random()*window.innerWidth+"px";
-  s.style.top=Math.random()*window.innerHeight+"px";
+
+  let x=Math.random()*window.innerWidth;
+  let y=Math.random()*window.innerHeight;
+  let speed=Math.random()*0.4+0.2;
+
+  s.style.left=x+"px";
+  s.style.top=y+"px";
+
   container.appendChild(s);
+  stars.push({el:s,x,y,speed});
 }
+
+function animateStars(){
+  stars.forEach(star=>{
+    star.y+=star.speed;
+    if(star.y>window.innerHeight) star.y=0;
+    star.el.style.top=star.y+"px";
+  });
+  requestAnimationFrame(animateStars);
+}
+animateStars();
+
+/* CURSOR */
+const cursor=document.getElementById("cursor");
+let mouseX=0, mouseY=0;
+let posX=0, posY=0;
+
+document.addEventListener("mousemove",e=>{
+  mouseX=e.clientX;
+  mouseY=e.clientY;
+});
+
+function animateCursor(){
+  posX+=(mouseX-posX)*0.08;
+  posY+=(mouseY-posY)*0.08;
+  cursor.style.left=posX+"px";
+  cursor.style.top=posY+"px";
+  requestAnimationFrame(animateCursor);
+}
+animateCursor();
 </script>
 
 </body>
