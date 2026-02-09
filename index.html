@@ -21,6 +21,44 @@ body{
   overflow-x:hidden;
 }
 
+/* ---------------- AURORA BACKGROUND ---------------- */
+
+.bg-aurora{
+  position:fixed;
+  inset:0;
+  z-index:-3;
+  overflow:hidden;
+}
+
+.bg-aurora::before,
+.bg-aurora::after{
+  content:"";
+  position:absolute;
+  width:1200px;
+  height:1200px;
+  filter:blur(120px);
+  opacity:0.35;
+  animation:moveAurora 18s infinite alternate ease-in-out;
+}
+
+.bg-aurora::before{
+  background:radial-gradient(circle at center, #7b5cff, transparent 60%);
+  top:-200px;
+  left:-200px;
+}
+
+.bg-aurora::after{
+  background:radial-gradient(circle at center, #00d4ff, transparent 60%);
+  bottom:-200px;
+  right:-200px;
+  animation-delay:4s;
+}
+
+@keyframes moveAurora{
+  from{ transform:translate(0,0) scale(1); }
+  to{ transform:translate(200px,100px) scale(1.2); }
+}
+
 /* ---------------- LOADER ---------------- */
 
 #loader{
@@ -165,7 +203,6 @@ body{
   box-shadow:0 0 25px #6cf;
 }
 
-/* разделители */
 .divider{
   height:1px;
   background:rgba(255,255,255,0.15);
@@ -283,18 +320,18 @@ body{
     display:none;
   }
 
-  .bottom-inner .brand{
-    font-size:14px;
-  }
-
-  .bottom-inner .copy{
-    font-size:11px;
+  .bg-aurora::before,
+  .bg-aurora::after{
+    opacity:0.25;
   }
 }
 
 </style>
 </head>
 <body>
+
+<!-- AURORA -->
+<div class="bg-aurora"></div>
 
 <!-- LOADER -->
 <div id="loader">
@@ -372,10 +409,9 @@ function openTwitch(){
   window.open("https://twitch.tv/kapitanych_","_blank");
 }
 
-/* -------- MOVING STARS -------- */
+/* -------- STARS -------- */
 const container = document.getElementById("particles");
 const stars=[];
-
 const starCount = window.innerWidth > 768 ? 120 : 40;
 
 for(let i=0;i<starCount;i++){
@@ -403,7 +439,7 @@ function animateStars(){
 }
 animateStars();
 
-/* -------- SMOOTH CURSOR (ПК) -------- */
+/* -------- CURSOR (ПК) -------- */
 if (window.innerWidth > 768) {
   const cursor=document.getElementById("cursor");
   let mouseX=0, mouseY=0;
@@ -422,31 +458,6 @@ if (window.innerWidth > 768) {
     requestAnimationFrame(animateCursor);
   }
   animateCursor();
-}
-
-/* -------- 3D TILT (ПК) -------- */
-if (window.innerWidth > 768) {
-  document.querySelectorAll(".btn").forEach(btn=>{
-    btn.addEventListener("mousemove", e=>{
-      const rect = btn.getBoundingClientRect();
-      const x = e.clientX - rect.left;
-      const y = e.clientY - rect.top;
-
-      const centerX = rect.width / 2;
-      const centerY = rect.height / 2;
-
-      const rotateX = (y - centerY) / 10;
-      const rotateY = (centerX - x) / 10;
-
-      btn.style.transform =
-        `perspective(600px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.05)`;
-    });
-
-    btn.addEventListener("mouseleave", ()=>{
-      btn.style.transform =
-        "perspective(600px) rotateX(0) rotateY(0) scale(1)";
-    });
-  });
 }
 </script>
 
