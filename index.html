@@ -6,11 +6,7 @@
 <title>Kapitanych</title>
 
 <style>
-*{
-  margin:0;
-  padding:0;
-  box-sizing:border-box;
-}
+*{margin:0;padding:0;box-sizing:border-box;}
 
 body{
   font-family:Inter,system-ui,Arial;
@@ -20,7 +16,6 @@ body{
 }
 
 /* ---------------- AURORA ---------------- */
-
 .bg-aurora{
   position:fixed;
   inset:0;
@@ -57,11 +52,12 @@ body{
   to{ transform:translate(200px,100px) scale(1.2); }
 }
 
-/* ---------------- NAV ---------------- */
+/* ---------------- NAVBAR ---------------- */
 
 .nav{
   position:fixed;
   top:0;
+  left:0;
   width:100%;
   height:70px;
 
@@ -80,6 +76,7 @@ body{
 .nav-group{
   display:flex;
   gap:16px;
+  align-items:center;
 }
 
 .nav a{
@@ -91,6 +88,22 @@ body{
 
 .nav a:hover{
   color:#fff;
+  text-shadow:0 0 10px #6cf;
+}
+
+.nav-avatar{
+  width:46px;
+  height:46px;
+  border-radius:50%;
+  border:2px solid #6cf;
+  box-shadow:0 0 10px #6cf;
+  cursor:pointer;
+  transition:.3s;
+}
+
+.nav-avatar:hover{
+  transform:scale(1.1);
+  box-shadow:0 0 22px #6cf;
 }
 
 /* ---------------- HERO ---------------- */
@@ -103,7 +116,6 @@ body{
   flex-direction:column;
   text-align:center;
   padding-top:90px;
-  padding-bottom:120px;
 
   opacity:0;
   transform:translateY(20px);
@@ -123,7 +135,6 @@ body{
 /* ---------------- STREAM STATUS ---------------- */
 
 .stream-status{
-  margin-bottom:20px;
   font-weight:700;
   font-size:14px;
   letter-spacing:1px;
@@ -136,38 +147,6 @@ body{
 
 .offline{
   color:#777;
-}
-
-/* ---------------- BUTTONS ---------------- */
-
-.links{
-  display:flex;
-  flex-direction:column;
-  gap:18px;
-  width:260px;
-}
-
-.btn{
-  padding:18px 28px;
-  border-radius:14px;
-  border:2px solid #6cf;
-  color:white;
-  text-decoration:none;
-  font-weight:700;
-  transition:.3s;
-
-  opacity:0;
-  transform:translateY(15px);
-}
-
-.btn.show{
-  opacity:1;
-  transform:translateY(0);
-}
-
-.btn:hover{
-  background:#6cf;
-  color:#0b0f1a;
 }
 
 /* ---------------- STARS ---------------- */
@@ -186,36 +165,17 @@ body{
   opacity:.8;
 }
 
-/* ---------------- BOTTOM BAR ---------------- */
+/* ---------------- FOOTER ---------------- */
 
-.bottom-bar{
+.footer{
   position:fixed;
-  bottom:0;
+  bottom:20px;
   width:100%;
-  padding:14px 20px;
-
-  background:rgba(15,18,35,0.6);
-  backdrop-filter:blur(12px);
-  border-top:1px solid rgba(255,255,255,0.08);
-
-  z-index:5;
-}
-
-.bottom-inner{
-  display:flex;
-  flex-direction:column;
-  align-items:flex-start;
-  gap:4px;
-}
-
-.bottom-inner .brand{
-  font-weight:700;
-}
-
-.bottom-inner .copy{
-  font-size:12px;
+  text-align:center;
   color:#aaa;
+  font-size:14px;
   font-family:monospace;
+  opacity:.7;
 }
 
 /* ---------------- MOBILE ---------------- */
@@ -234,22 +194,8 @@ body{
     justify-content:center;
   }
 
-  .hero{
-    padding-top:160px;
-  }
-
   .hero h2{
     font-size:32px;
-  }
-
-  .links{
-    width:90%;
-    max-width:320px;
-  }
-
-  .bg-aurora::before,
-  .bg-aurora::after{
-    opacity:0.25;
   }
 }
 
@@ -263,9 +209,18 @@ body{
 <!-- NAV -->
 <div class="nav">
   <div class="nav-group">
-    <a href="https://twitch.tv/kapitanych_">Twitch</a>
+    <a href="https://donatex.gg/donate/kapitanych">Donatex</a>
+    <a href="https://www.donationalerts.com/r/bossgg">DonatAlerts</a>
     <a href="https://t.me/KapitanGG">Telegram</a>
+  </div>
+
+  <img src="https://i.ibb.co/pr0NNwxx/444444.png" class="nav-avatar"
+       onclick="window.open('https://twitch.tv/kapitanych_','_blank')">
+
+  <div class="nav-group">
+    <a href="https://discord.com/">Discord</a>
     <a href="https://www.youtube.com/@Капитаныч">YouTube</a>
+    <a href="https://www.tiktok.com/@tt_kapitanych">TikTok</a>
   </div>
 </div>
 
@@ -273,33 +228,22 @@ body{
 <section class="hero" id="hero">
   <h2>Kapitanych</h2>
   <div id="streamStatus" class="stream-status">проверяем...</div>
-
-  <div class="links">
-    <a class="btn" href="https://twitch.tv/kapitanych_">Смотреть стрим</a>
-    <a class="btn" href="https://donatex.gg/donate/kapitanych">Поддержать</a>
-  </div>
 </section>
 
-<!-- BOTTOM -->
-<div class="bottom-bar">
-  <div class="bottom-inner">
-    <div class="brand">Kapitanych</div>
-    <div class="copy">©2025 KAPITANYCH. ALL RIGHTS RESERVED</div>
-  </div>
+<!-- FOOTER -->
+<div class="footer">
+  ©2025 KAPITANYCH. ALL RIGHTS RESERVED
 </div>
 
 <div id="particles"></div>
 
 <script>
-/* -------- HERO ANIM -------- */
+/* -------- HERO SHOW -------- */
 window.addEventListener("load",()=>{
   document.getElementById("hero").classList.add("show");
-  document.querySelectorAll(".btn").forEach((b,i)=>{
-    setTimeout(()=>b.classList.add("show"),150*i);
-  });
 });
 
-/* -------- STREAM STATUS WITHOUT TOKEN -------- */
+/* -------- STREAM STATUS -------- */
 async function checkStream(){
   const el = document.getElementById("streamStatus");
 
