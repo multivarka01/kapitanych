@@ -8,17 +8,57 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
 <style>
-*{
-  margin:0;
-  padding:0;
-  box-sizing:border-box;
-}
+*{margin:0;padding:0;box-sizing:border-box;}
 
 body{
   font-family:Inter,system-ui,Arial;
-  background:#0b0f1a;
+  background:#070b16;
   color:white;
   overflow-x:hidden;
+}
+
+/* ---------------- EXTRA BACKGROUND ---------------- */
+
+.bg-flow{
+  position:fixed;
+  inset:0;
+  z-index:-3;
+  overflow:hidden;
+}
+
+.bg-flow span{
+  position:absolute;
+  width:900px;
+  height:900px;
+  border-radius:50%;
+  filter:blur(120px);
+  opacity:.25;
+  animation:float 25s infinite alternate ease-in-out;
+}
+
+.bg-flow span:nth-child(1){
+  background:#6c5cff;
+  top:-200px;
+  left:-200px;
+}
+
+.bg-flow span:nth-child(2){
+  background:#00d4ff;
+  bottom:-200px;
+  right:-200px;
+  animation-delay:5s;
+}
+
+.bg-flow span:nth-child(3){
+  background:#ff3cac;
+  top:30%;
+  left:40%;
+  animation-delay:10s;
+}
+
+@keyframes float{
+  from{ transform:translate(0,0) scale(1); }
+  to{ transform:translate(120px,80px) scale(1.2); }
 }
 
 /* ---------------- NAVBAR ---------------- */
@@ -136,14 +176,13 @@ body{
   box-shadow:0 0 25px #6cf;
 }
 
-/* разделители */
 .divider{
   height:1px;
   background:rgba(255,255,255,0.15);
   margin:5px 0;
 }
 
-/* ---------------- MOVING STARS ---------------- */
+/* ---------------- STARS ---------------- */
 
 #particles{
   position:fixed;
@@ -159,7 +198,7 @@ body{
   opacity:.8;
 }
 
-/* ---------------- CURSOR BALL ---------------- */
+/* ---------------- CURSOR ---------------- */
 
 #cursor{
   position:fixed;
@@ -194,38 +233,38 @@ body{
 /* ---------------- MOBILE ---------------- */
 
 @media (max-width:768px){
-
   .nav{
     height:auto;
     padding:10px;
     flex-direction:column;
     gap:10px;
   }
-
   .nav-group{
     flex-wrap:wrap;
     justify-content:center;
   }
-
   .hero h2{
     font-size:32px;
   }
-
   .links{
     width:90%;
     max-width:320px;
   }
-
-  /* уменьшаем шар */
   #cursor{
     width:250px;
     height:250px;
   }
 }
-
 </style>
 </head>
 <body>
+
+<!-- NEW FLOW BACKGROUND -->
+<div class="bg-flow">
+  <span></span>
+  <span></span>
+  <span></span>
+</div>
 
 <!-- NAV -->
 <div class="nav">
@@ -268,7 +307,7 @@ body{
 <!-- FOOTER -->
 <div class="footer">
   <div class="brand">Kapitanych</div>
-  <div>©2025 KAPITANYCH. ALL RIGHTS RESERVED</div>
+  <div>©2026 KAPITANYCH. ALL RIGHTS RESERVED</div>
 </div>
 
 <div id="particles"></div>
@@ -283,7 +322,7 @@ window.addEventListener("load",()=>{
   });
 });
 
-/* MOVING STARS */
+/* SLOW STARS */
 const container = document.getElementById("particles");
 const stars=[];
 
@@ -293,7 +332,7 @@ for(let i=0;i<120;i++){
 
   let x=Math.random()*window.innerWidth;
   let y=Math.random()*window.innerHeight;
-  let speed=Math.random()*0.4+0.2;
+  let speed=Math.random()*0.15+0.05; // МЕДЛЕННЕЕ
 
   s.style.left=x+"px";
   s.style.top=y+"px";
