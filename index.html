@@ -146,15 +146,24 @@ body{
   font-weight:700;
   font-size:14px;
   letter-spacing:1px;
+  transition:.3s;
 }
 
 .live{
   color:#a970ff;
   text-shadow:0 0 10px #a970ff;
+  cursor:pointer;
+  animation:blink 1.2s infinite;
+}
+
+@keyframes blink{
+  0%,100%{opacity:1;}
+  50%{opacity:0.4;}
 }
 
 .offline{
   color:#777;
+  cursor:default;
 }
 
 /* ---------------- BUTTONS ---------------- */
@@ -333,13 +342,16 @@ async function checkStream(){
     if(text.toLowerCase().includes("offline")){
       el.textContent = "● OFFLINE";
       el.className = "stream-status offline";
+      el.onclick = null;
     }else{
       el.textContent = "● LIVE";
       el.className = "stream-status live";
+      el.onclick = () => window.open("https://twitch.tv/kapitanych_","_blank");
     }
   }catch{
     el.textContent = "● OFFLINE";
     el.className = "stream-status offline";
+    el.onclick = null;
   }
 }
 
