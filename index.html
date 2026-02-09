@@ -88,14 +88,6 @@ body{
 .hero h2{
   font-size:48px;
   margin-bottom:25px;
-  transition:.3s;
-  cursor:pointer;
-}
-
-/* красный режим */
-.hero h2.evil{
-  color:#ff2e2e;
-  text-shadow:0 0 20px red, 0 0 40px darkred;
 }
 
 /* ---------------- BUTTONS ---------------- */
@@ -131,7 +123,7 @@ body{
   margin:5px 0;
 }
 
-/* ---------------- MOVING STARS ---------------- */
+/* ---------------- STARS ---------------- */
 
 #particles{
   position:fixed;
@@ -179,30 +171,42 @@ body{
   color:white;
 }
 
+/* ---------------- MUSIC BUTTON ---------------- */
+
+.music-btn{
+  position:fixed;
+  left:50%;
+  bottom:-80px;
+  transform:translateX(-50%);
+  padding:16px 28px;
+  border-radius:12px;
+  border:2px solid #ff2e2e;
+  background:#1a0b0b;
+  color:white;
+  font-weight:700;
+  cursor:pointer;
+  transition:.4s;
+  box-shadow:0 0 15px #ff2e2e;
+  z-index:20;
+}
+
+/* появление */
+.music-btn.show{
+  bottom:30px;
+}
+
+.music-btn:hover{
+  background:#ff2e2e;
+  color:black;
+  box-shadow:0 0 30px red;
+}
+
 /* ---------------- MOBILE ---------------- */
 
 @media (max-width:768px){
-
-  .nav{
-    height:auto;
-    padding:10px;
-    flex-direction:column;
-    gap:10px;
-  }
-
-  .hero h2{
-    font-size:32px;
-  }
-
-  .links{
-    width:90%;
-    max-width:320px;
-  }
-
-  #cursor{
-    width:200px;
-    height:200px;
-  }
+  .hero h2{ font-size:32px; }
+  .links{ width:90%; max-width:320px; }
+  #cursor{ width:200px; height:200px; }
 }
 
 </style>
@@ -229,7 +233,7 @@ body{
 
 <!-- HERO -->
 <section class="hero">
-  <h2 id="nickname">Kapitanych</h2>
+  <h2>Kapitanych</h2>
 
   <div class="links">
     <a class="btn" href="https://donatex.gg/donate/kapitanych">Donatex</a>
@@ -253,31 +257,34 @@ body{
   <div>© 2026 KAPITANYCH. ALL RIGHTS RESERVED</div>
 </div>
 
+<!-- КНОПКА -->
+<button class="music-btn" id="musicBtn">НЕ НАЖИМАЙ🔴</button>
+
+<!-- ЗВУК -->
+<audio id="music" src="https://files.catbox.moe/tfag86.mp3"></audio>
+
 <div id="particles"></div>
 <div id="cursor"></div>
 
-<!-- ЗВУК -->
-<audio id="evilSound"
-src="https://files.catbox.moe/gxcx61.mp3"></audio>
-
 <script>
-/* ---------------- PASCHALKA ---------------- */
 
-const nick = document.getElementById("nickname");
-const sound = document.getElementById("evilSound");
-
-nick.addEventListener("mouseenter", () => {
-  nick.classList.add("evil");
-  sound.currentTime = 0;
-  sound.play();
+/* -------- ПОЯВЛЕНИЕ КНОПКИ -------- */
+window.addEventListener("load",()=>{
+  setTimeout(()=>{
+    document.getElementById("musicBtn").classList.add("show");
+  },800);
 });
 
-nick.addEventListener("mouseleave", () => {
-  nick.classList.remove("evil");
+/* -------- ПРОИГРЫВАНИЕ -------- */
+const audio = document.getElementById("music");
+const btn = document.getElementById("musicBtn");
+
+btn.addEventListener("click", ()=>{
+  audio.currentTime = 0;
+  audio.play();
 });
 
-/* ---------------- STARS ---------------- */
-
+/* -------- STARS -------- */
 const container = document.getElementById("particles");
 const stars=[];
 
@@ -287,7 +294,7 @@ for(let i=0;i<120;i++){
 
   let x=Math.random()*window.innerWidth;
   let y=Math.random()*window.innerHeight;
-  let speed=Math.random()*0.15+0.05; /* медленнее */
+  let speed=Math.random()*0.15+0.05;
 
   s.style.left=x+"px";
   s.style.top=y+"px";
@@ -306,8 +313,7 @@ function animateStars(){
 }
 animateStars();
 
-/* ---------------- CURSOR ---------------- */
-
+/* -------- CURSOR -------- */
 const cursor=document.getElementById("cursor");
 let mouseX=0, mouseY=0;
 let posX=0, posY=0;
