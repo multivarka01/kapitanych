@@ -5,8 +5,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Kapitanych</title>
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-
 <style>
 *{
   margin:0;
@@ -21,7 +19,7 @@ body{
   overflow-x:hidden;
 }
 
-/* ---------------- AURORA BACKGROUND ---------------- */
+/* ---------------- AURORA ---------------- */
 
 .bg-aurora{
   position:fixed;
@@ -42,13 +40,13 @@ body{
 }
 
 .bg-aurora::before{
-  background:radial-gradient(circle at center, #7b5cff, transparent 60%);
+  background:radial-gradient(circle, #7b5cff, transparent 60%);
   top:-200px;
   left:-200px;
 }
 
 .bg-aurora::after{
-  background:radial-gradient(circle at center, #00d4ff, transparent 60%);
+  background:radial-gradient(circle, #00d4ff, transparent 60%);
   bottom:-200px;
   right:-200px;
   animation-delay:4s;
@@ -59,36 +57,11 @@ body{
   to{ transform:translate(200px,100px) scale(1.2); }
 }
 
-/* ---------------- LOADER ---------------- */
-
-#loader{
-  position:fixed;
-  inset:0;
-  background:#0b0f1a;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  z-index:999;
-  transition:opacity 1s;
-}
-
-#loader h1{
-  font-size:42px;
-  letter-spacing:6px;
-  opacity:0;
-  animation:fadeIn 2s forwards;
-}
-
-@keyframes fadeIn{
-  to{opacity:1;}
-}
-
-/* ---------------- NAVBAR ---------------- */
+/* ---------------- NAV ---------------- */
 
 .nav{
   position:fixed;
   top:0;
-  left:0;
   width:100%;
   height:70px;
 
@@ -107,7 +80,6 @@ body{
 .nav-group{
   display:flex;
   gap:16px;
-  align-items:center;
 }
 
 .nav a{
@@ -115,27 +87,10 @@ body{
   text-decoration:none;
   font-weight:600;
   transition:.3s;
-  font-size:16px;
 }
 
 .nav a:hover{
   color:#fff;
-  text-shadow:0 0 10px #6cf;
-}
-
-.nav-avatar{
-  width:46px;
-  height:46px;
-  border-radius:50%;
-  border:2px solid #6cf;
-  box-shadow:0 0 10px #6cf;
-  cursor:pointer;
-  transition:.3s;
-}
-
-.nav-avatar:hover{
-  transform:scale(1.1);
-  box-shadow:0 0 22px #6cf;
 }
 
 /* ---------------- HERO ---------------- */
@@ -162,7 +117,25 @@ body{
 
 .hero h2{
   font-size:48px;
-  margin-bottom:25px;
+  margin-bottom:10px;
+}
+
+/* ---------------- STREAM STATUS ---------------- */
+
+.stream-status{
+  margin-bottom:20px;
+  font-weight:700;
+  font-size:14px;
+  letter-spacing:1px;
+}
+
+.live{
+  color:#a970ff;
+  text-shadow:0 0 10px #a970ff;
+}
+
+.offline{
+  color:#777;
 }
 
 /* ---------------- BUTTONS ---------------- */
@@ -171,7 +144,6 @@ body{
   display:flex;
   flex-direction:column;
   gap:18px;
-  margin-top:20px;
   width:260px;
 }
 
@@ -182,14 +154,10 @@ body{
   color:white;
   text-decoration:none;
   font-weight:700;
-  font-size:18px;
   transition:.3s;
 
   opacity:0;
   transform:translateY(15px);
-
-  transform-style:preserve-3d;
-  will-change:transform;
 }
 
 .btn.show{
@@ -200,13 +168,6 @@ body{
 .btn:hover{
   background:#6cf;
   color:#0b0f1a;
-  box-shadow:0 0 25px #6cf;
-}
-
-.divider{
-  height:1px;
-  background:rgba(255,255,255,0.15);
-  margin:5px 0;
 }
 
 /* ---------------- STARS ---------------- */
@@ -225,25 +186,11 @@ body{
   opacity:.8;
 }
 
-/* ---------------- CURSOR ---------------- */
-
-#cursor{
-  position:fixed;
-  width:600px;
-  height:600px;
-  border-radius:50%;
-  pointer-events:none;
-  background:radial-gradient(circle, rgba(140,0,255,0.18) 0%, rgba(0,0,0,0) 70%);
-  transform:translate(-50%,-50%);
-  z-index:-1;
-}
-
 /* ---------------- BOTTOM BAR ---------------- */
 
 .bottom-bar{
   position:fixed;
   bottom:0;
-  left:0;
   width:100%;
   padding:14px 20px;
 
@@ -263,18 +210,17 @@ body{
 
 .bottom-inner .brand{
   font-weight:700;
-  font-size:16px;
 }
 
 .bottom-inner .copy{
   font-size:12px;
   color:#aaa;
   font-family:monospace;
-  opacity:0.8;
 }
 
-/* ================= MOBILE ================= */
-@media (max-width: 768px){
+/* ---------------- MOBILE ---------------- */
+
+@media (max-width:768px){
 
   .nav{
     height:auto;
@@ -286,16 +232,6 @@ body{
   .nav-group{
     flex-wrap:wrap;
     justify-content:center;
-    gap:12px;
-  }
-
-  .nav a{
-    font-size:14px;
-  }
-
-  .nav-avatar{
-    width:38px;
-    height:38px;
   }
 
   .hero{
@@ -311,15 +247,6 @@ body{
     max-width:320px;
   }
 
-  .btn{
-    font-size:16px;
-    padding:14px 18px;
-  }
-
-  #cursor{
-    display:none;
-  }
-
   .bg-aurora::before,
   .bg-aurora::after{
     opacity:0.25;
@@ -333,49 +260,27 @@ body{
 <!-- AURORA -->
 <div class="bg-aurora"></div>
 
-<!-- LOADER -->
-<div id="loader">
-  <h1>KAPITANYCH</h1>
-</div>
-
 <!-- NAV -->
 <div class="nav">
   <div class="nav-group">
-    <a href="https://donatex.gg/donate/kapitanych">Donatex</a>
-    <a href="https://www.donationalerts.com/r/bossgg">DonatAlerts</a>
+    <a href="https://twitch.tv/kapitanych_">Twitch</a>
     <a href="https://t.me/KapitanGG">Telegram</a>
-  </div>
-
-  <img src="https://i.ibb.co/pr0NNwxx/444444.png" class="nav-avatar" onclick="openTwitch()">
-
-  <div class="nav-group">
-    <a href="https://discord.com/channels/596071929765560341/916292648875229185">Discord</a>
     <a href="https://www.youtube.com/@Капитаныч">YouTube</a>
-    <a href="https://www.tiktok.com/@tt_kapitanych">TikTok</a>
   </div>
 </div>
 
 <!-- HERO -->
 <section class="hero" id="hero">
   <h2>Kapitanych</h2>
+  <div id="streamStatus" class="stream-status">проверяем...</div>
 
   <div class="links">
-    <a class="btn" href="https://donatex.gg/donate/kapitanych">Donatex</a>
-    <a class="btn" href="https://www.donationalerts.com/r/bossgg">DonatAlerts</a>
-
-    <div class="divider"></div>
-
-    <a class="btn" href="https://t.me/KapitanGG">Telegram</a>
-    <a class="btn" href="https://discord.com/channels/596071929765560341/916292648875229185">Discord</a>
-
-    <div class="divider"></div>
-
-    <a class="btn" href="https://www.youtube.com/@Капитаныч">YouTube</a>
-    <a class="btn" href="https://www.tiktok.com/@tt_kapitanych">TikTok</a>
+    <a class="btn" href="https://twitch.tv/kapitanych_">Смотреть стрим</a>
+    <a class="btn" href="https://donatex.gg/donate/kapitanych">Поддержать</a>
   </div>
 </section>
 
-<!-- НИЖНИЙ БАР -->
+<!-- BOTTOM -->
 <div class="bottom-bar">
   <div class="bottom-inner">
     <div class="brand">Kapitanych</div>
@@ -384,80 +289,50 @@ body{
 </div>
 
 <div id="particles"></div>
-<div id="cursor"></div>
 
 <script>
-/* -------- LOADER -------- */
+/* -------- HERO ANIM -------- */
 window.addEventListener("load",()=>{
-  setTimeout(()=>{
-    document.getElementById("loader").style.opacity="0";
-    setTimeout(()=>{
-      document.getElementById("loader").style.display="none";
-
-      document.getElementById("hero").classList.add("show");
-
-      document.querySelectorAll(".btn").forEach((b,i)=>{
-        setTimeout(()=>b.classList.add("show"),150*i);
-      });
-
-    },1000);
-  },2000);
+  document.getElementById("hero").classList.add("show");
+  document.querySelectorAll(".btn").forEach((b,i)=>{
+    setTimeout(()=>b.classList.add("show"),150*i);
+  });
 });
 
-/* -------- TWITCH -------- */
-function openTwitch(){
-  window.open("https://twitch.tv/kapitanych_","_blank");
+/* -------- STREAM STATUS WITHOUT TOKEN -------- */
+async function checkStream(){
+  const el = document.getElementById("streamStatus");
+
+  try{
+    const res = await fetch("https://decapi.me/twitch/uptime/kapitanych_");
+    const text = await res.text();
+
+    if(text.toLowerCase().includes("offline")){
+      el.textContent = "● OFFLINE";
+      el.className = "stream-status offline";
+    }else{
+      el.textContent = "● LIVE";
+      el.className = "stream-status live";
+    }
+  }catch{
+    el.textContent = "● OFFLINE";
+    el.className = "stream-status offline";
+  }
 }
+
+checkStream();
+setInterval(checkStream, 60000);
 
 /* -------- STARS -------- */
 const container = document.getElementById("particles");
-const stars=[];
 const starCount = window.innerWidth > 768 ? 120 : 40;
 
 for(let i=0;i<starCount;i++){
   const s=document.createElement("div");
   s.className="star";
-
-  let x=Math.random()*window.innerWidth;
-  let y=Math.random()*window.innerHeight;
-  let speed=Math.random()*0.4+0.2;
-
-  s.style.left=x+"px";
-  s.style.top=y+"px";
-
+  s.style.left=Math.random()*window.innerWidth+"px";
+  s.style.top=Math.random()*window.innerHeight+"px";
   container.appendChild(s);
-  stars.push({el:s,x,y,speed});
-}
-
-function animateStars(){
-  stars.forEach(star=>{
-    star.y+=star.speed;
-    if(star.y>window.innerHeight) star.y=0;
-    star.el.style.top=star.y+"px";
-  });
-  requestAnimationFrame(animateStars);
-}
-animateStars();
-
-/* -------- CURSOR (ПК) -------- */
-if (window.innerWidth > 768) {
-  const cursor=document.getElementById("cursor");
-  let mouseX=0, mouseY=0;
-  let posX=0, posY=0;
-
-  document.addEventListener("mousemove",e=>{
-    mouseX=e.clientX;
-    mouseY=e.clientY;
-  });
-
-  function animateCursor(){
-    posX+=(mouseX-posX)*0.08;
-    posY+=(mouseY-posY)*0.08;
-    cursor.style.left=posX+"px";
-    cursor.style.top=posY+"px";
-    requestAnimationFrame(animateCursor);
-  }
-  animateCursor();
 }
 </script>
 
