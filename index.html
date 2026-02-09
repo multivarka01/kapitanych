@@ -77,6 +77,7 @@ body{
   text-decoration:none;
   font-weight:600;
   transition:.3s;
+  font-size:16px;
 }
 
 .nav a:hover{
@@ -199,7 +200,7 @@ body{
   z-index:-1;
 }
 
-/* ---------------- FOOTER / COPYRIGHT ---------------- */
+/* ---------------- FOOTER ---------------- */
 .footer {
   position: fixed;
   bottom: 20px;
@@ -210,6 +211,55 @@ body{
   font-family: monospace;
   z-index: 5;
   opacity: 0.7;
+}
+
+/* ================= MOBILE ================= */
+@media (max-width: 768px){
+
+  .nav{
+    height:auto;
+    padding:10px;
+    flex-direction:column;
+    gap:10px;
+  }
+
+  .nav-group{
+    flex-wrap:wrap;
+    justify-content:center;
+    gap:12px;
+  }
+
+  .nav a{
+    font-size:14px;
+  }
+
+  .nav-avatar{
+    width:38px;
+    height:38px;
+  }
+
+  .hero{
+    padding-top:160px;
+  }
+
+  .hero h2{
+    font-size:32px;
+  }
+
+  .links{
+    width:90%;
+    max-width:320px;
+  }
+
+  .btn{
+    font-size:16px;
+    padding:14px 18px;
+  }
+
+  /* на телефонах курсор не нужен */
+  #cursor{
+    display:none;
+  }
 }
 
 </style>
@@ -258,7 +308,6 @@ body{
   </div>
 </section>
 
-<!-- КОПИРАЙТ ВНИЗУ СТРАНИЦЫ -->
 <div class="footer">
   ©2025 KAPITANYCH. ALL RIGHTS RESERVED
 </div>
@@ -293,7 +342,9 @@ function openTwitch(){
 const container = document.getElementById("particles");
 const stars=[];
 
-for(let i=0;i<120;i++){
+const starCount = window.innerWidth > 768 ? 120 : 40;
+
+for(let i=0;i<starCount;i++){
   const s=document.createElement("div");
   s.className="star";
 
@@ -318,47 +369,51 @@ function animateStars(){
 }
 animateStars();
 
-/* -------- SMOOTH CURSOR -------- */
-const cursor=document.getElementById("cursor");
-let mouseX=0, mouseY=0;
-let posX=0, posY=0;
+/* -------- SMOOTH CURSOR (только ПК) -------- */
+if (window.innerWidth > 768) {
+  const cursor=document.getElementById("cursor");
+  let mouseX=0, mouseY=0;
+  let posX=0, posY=0;
 
-document.addEventListener("mousemove",e=>{
-  mouseX=e.clientX;
-  mouseY=e.clientY;
-});
+  document.addEventListener("mousemove",e=>{
+    mouseX=e.clientX;
+    mouseY=e.clientY;
+  });
 
-function animateCursor(){
-  posX+=(mouseX-posX)*0.08;
-  posY+=(mouseY-posY)*0.08;
-  cursor.style.left=posX+"px";
-  cursor.style.top=posY+"px";
-  requestAnimationFrame(animateCursor);
+  function animateCursor(){
+    posX+=(mouseX-posX)*0.08;
+    posY+=(mouseY-posY)*0.08;
+    cursor.style.left=posX+"px";
+    cursor.style.top=posY+"px";
+    requestAnimationFrame(animateCursor);
+  }
+  animateCursor();
 }
-animateCursor();
 
-/* -------- 3D TILT -------- */
-document.querySelectorAll(".btn").forEach(btn=>{
-  btn.addEventListener("mousemove", e=>{
-    const rect = btn.getBoundingClientRect();
-    const x = e.clientX - rect.left;
-    const y = e.clientY - rect.top;
+/* -------- 3D TILT (только ПК) -------- */
+if (window.innerWidth > 768) {
+  document.querySelectorAll(".btn").forEach(btn=>{
+    btn.addEventListener("mousemove", e=>{
+      const rect = btn.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
 
-    const centerX = rect.width / 2;
-    const centerY = rect.height / 2;
+      const centerX = rect.width / 2;
+      const centerY = rect.height / 2;
 
-    const rotateX = (y - centerY) / 10;
-    const rotateY = (centerX - x) / 10;
+      const rotateX = (y - centerY) / 10;
+      const rotateY = (centerX - x) / 10;
 
-    btn.style.transform =
-      `perspective(600px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.05)`;
+      btn.style.transform =
+        `perspective(600px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.05)`;
+    });
+
+    btn.addEventListener("mouseleave", ()=>{
+      btn.style.transform =
+        "perspective(600px) rotateX(0) rotateY(0) scale(1)";
+    });
   });
-
-  btn.addEventListener("mouseleave", ()=>{
-    btn.style.transform =
-      "perspective(600px) rotateX(0) rotateY(0) scale(1)";
-  });
-});
+}
 </script>
 
 </body>
