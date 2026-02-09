@@ -110,6 +110,7 @@ body{
   flex-direction:column;
   text-align:center;
   padding-top:90px;
+  padding-bottom:120px;
 
   opacity:0;
   transform:translateY(20px);
@@ -200,17 +201,39 @@ body{
   z-index:-1;
 }
 
-/* ---------------- FOOTER ---------------- */
-.footer {
-  position: fixed;
-  bottom: 20px;
-  width: 100%;
-  text-align: center;
-  color: #aaa;
-  font-size: 14px;
-  font-family: monospace;
-  z-index: 5;
-  opacity: 0.7;
+/* ---------------- BOTTOM BAR ---------------- */
+
+.bottom-bar{
+  position:fixed;
+  bottom:0;
+  left:0;
+  width:100%;
+  padding:14px 20px;
+
+  background:rgba(15,18,35,0.6);
+  backdrop-filter:blur(12px);
+  border-top:1px solid rgba(255,255,255,0.08);
+
+  z-index:5;
+}
+
+.bottom-inner{
+  display:flex;
+  flex-direction:column;
+  align-items:flex-start;
+  gap:4px;
+}
+
+.bottom-inner .brand{
+  font-weight:700;
+  font-size:16px;
+}
+
+.bottom-inner .copy{
+  font-size:12px;
+  color:#aaa;
+  font-family:monospace;
+  opacity:0.8;
 }
 
 /* ================= MOBILE ================= */
@@ -256,9 +279,16 @@ body{
     padding:14px 18px;
   }
 
-  /* на телефонах курсор не нужен */
   #cursor{
     display:none;
+  }
+
+  .bottom-inner .brand{
+    font-size:14px;
+  }
+
+  .bottom-inner .copy{
+    font-size:11px;
   }
 }
 
@@ -308,8 +338,12 @@ body{
   </div>
 </section>
 
-<div class="footer">
-  ©2025 KAPITANYCH. ALL RIGHTS RESERVED
+<!-- НИЖНИЙ БАР -->
+<div class="bottom-bar">
+  <div class="bottom-inner">
+    <div class="brand">Kapitanych</div>
+    <div class="copy">©2025 KAPITANYCH. ALL RIGHTS RESERVED</div>
+  </div>
 </div>
 
 <div id="particles"></div>
@@ -369,7 +403,7 @@ function animateStars(){
 }
 animateStars();
 
-/* -------- SMOOTH CURSOR (только ПК) -------- */
+/* -------- SMOOTH CURSOR (ПК) -------- */
 if (window.innerWidth > 768) {
   const cursor=document.getElementById("cursor");
   let mouseX=0, mouseY=0;
@@ -390,7 +424,7 @@ if (window.innerWidth > 768) {
   animateCursor();
 }
 
-/* -------- 3D TILT (только ПК) -------- */
+/* -------- 3D TILT (ПК) -------- */
 if (window.innerWidth > 768) {
   document.querySelectorAll(".btn").forEach(btn=>{
     btn.addEventListener("mousemove", e=>{
