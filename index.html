@@ -336,7 +336,7 @@ async function checkStream(){
   const el = document.getElementById("streamStatus");
 
   try{
-    const res = await fetch("https://decapi.me/twitch/uptime/kapitanych_");
+    const res = await fetch("https://decapi.me/twitch/uptime/themultivarka");
     const text = await res.text();
 
     if(text.toLowerCase().includes("offline")){
