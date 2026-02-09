@@ -4,8 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Kapitanych</title>
-<p class="subtitle">Multivarka</p>
-  
+
 <style>
 *{
   margin:0;
@@ -21,9 +20,13 @@ body{
 }
 
 /* всё что блюрится */
+.wrapper{
+  position:relative;
+  transition:transform .2s ease, filter .4s;
+}
+
 .wrapper.blur{
   filter:blur(8px);
-  transition:.4s;
 }
 
 /* ---------------- NAVBAR ---------------- */
@@ -91,7 +94,13 @@ body{
 
 .hero h2{
   font-size:48px;
-  margin-bottom:25px;
+}
+
+.subtitle{
+  margin-top:8px;
+  font-size:18px;
+  color:#888;
+  letter-spacing:2px;
 }
 
 /* ---------------- BUTTONS ---------------- */
@@ -100,7 +109,7 @@ body{
   display:flex;
   flex-direction:column;
   gap:18px;
-  margin-top:20px;
+  margin-top:25px;
   width:260px;
 }
 
@@ -225,6 +234,7 @@ body{
 
 @media (max-width:768px){
   .hero h2{ font-size:32px; }
+  .subtitle{ font-size:14px; }
   .links{ width:90%; max-width:320px; }
   #cursor{ width:200px; height:200px; }
   .countdown{ font-size:70px; }
@@ -257,6 +267,7 @@ body{
   <!-- HERO -->
   <section class="hero">
     <h2>Kapitanych</h2>
+    <div class="subtitle">Multivarka</div>
 
     <div class="links">
       <a class="btn" href="https://donatex.gg/donate/kapitanych">Donatex</a>
@@ -283,7 +294,7 @@ body{
 </div>
 
 <!-- КНОПКА -->
-<button class="music-btn" id="musicBtn">🔴НЕ НАЖИМАЙ</button>
+<button class="music-btn" id="musicBtn">🔴НЕ НАЖИМАЙ🔴</button>
 
 <!-- ОТСЧЁТ -->
 <div class="countdown" id="countdown">3</div>
@@ -296,15 +307,21 @@ body{
 
 <script>
 
-/* -------- КНОПКА -> БЛЮР + ОТСЧЁТ -------- */
+/* -------- PARALLAX ГЛУБИНЫ -------- */
+const wrapper = document.getElementById("wrapper");
 
+document.addEventListener("mousemove", e=>{
+  const x = (e.clientX / window.innerWidth - 0.5) * 10;
+  const y = (e.clientY / window.innerHeight - 0.5) * 10;
+  wrapper.style.transform = `translate(${x}px, ${y}px)`;
+});
+
+/* -------- КНОПКА -> ОТСЧЁТ -------- */
 const btn = document.getElementById("musicBtn");
 const audio = document.getElementById("music");
-const wrapper = document.getElementById("wrapper");
 const countdown = document.getElementById("countdown");
 
 btn.addEventListener("click", ()=>{
-
   wrapper.classList.add("blur");
   countdown.classList.add("show");
 
@@ -323,7 +340,6 @@ btn.addEventListener("click", ()=>{
       audio.play();
     }
   },1000);
-
 });
 
 /* -------- STARS -------- */
