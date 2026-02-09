@@ -307,15 +307,6 @@ body{
 
 <script>
 
-/* -------- PARALLAX ГЛУБИНЫ -------- */
-const wrapper = document.getElementById("wrapper");
-
-document.addEventListener("mousemove", e=>{
-  const x = (e.clientX / window.innerWidth - 0.5) * 10;
-  const y = (e.clientY / window.innerHeight - 0.5) * 10;
-  wrapper.style.transform = `translate(${x}px, ${y}px)`;
-});
-
 /* -------- КНОПКА -> ОТСЧЁТ -------- */
 const btn = document.getElementById("musicBtn");
 const audio = document.getElementById("music");
