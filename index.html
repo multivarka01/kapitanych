@@ -16,7 +16,7 @@ body{
   font-family:Inter,system-ui,Arial;
   background:#0b0f1a;
   color:white;
-  overflow:hidden; /* УБРАЛИ ЛИШНИЙ СКРОЛЛ */
+  overflow:hidden;
 }
 
 /* ---------------- NAVBAR ---------------- */
@@ -111,15 +111,27 @@ body{
   text-decoration:none;
   font-weight:700;
   font-size:18px;
-  transition:.3s;
+  transition:.4s;
 
+  /* ВИДНЫ БЕЗ JS */
   opacity:0;
-  transform:translateY(15px);
+  transform:translateY(10px);
+  animation:showBtn .6s forwards;
 }
 
-.btn.show{
-  opacity:1;
-  transform:translateY(0);
+/* задержки появления */
+.btn:nth-child(1){animation-delay:.1s;}
+.btn:nth-child(2){animation-delay:.2s;}
+.btn:nth-child(4){animation-delay:.3s;}
+.btn:nth-child(5){animation-delay:.4s;}
+.btn:nth-child(7){animation-delay:.5s;}
+.btn:nth-child(8){animation-delay:.6s;}
+
+@keyframes showBtn{
+  to{
+    opacity:1;
+    transform:translateY(0);
+  }
 }
 
 .btn:hover{
@@ -150,7 +162,7 @@ body{
   opacity:.8;
 }
 
-/* ---------------- BIG CIRCLES ---------------- */
+/* ---------------- CIRCLES ---------------- */
 
 #circles{
   position:fixed;
@@ -223,8 +235,7 @@ body{
   }
 
   #cursor{
-    width:200px;
-    height:200px;
+    display:none;
   }
 }
 
@@ -283,65 +294,60 @@ body{
 
 <script>
 
-/* -------- КНОПКИ (ГАРАНТИРОВАННЫЙ ЗАПУСК) -------- */
-document.querySelectorAll(".btn").forEach((b,i)=>{
-  setTimeout(()=>b.classList.add("show"),150*i);
-});
+/* ---- лёгкие независимые эффекты, которые не ломают сайт ---- */
 
-/* -------- STARS -------- */
+/* STARS */
 const starContainer = document.getElementById("particles");
-
-for(let i=0;i<120;i++){
-  const s=document.createElement("div");
-  s.className="star";
-  s.style.left=Math.random()*window.innerWidth+"px";
-  s.style.top=Math.random()*window.innerHeight+"px";
-  starContainer.appendChild(s);
+if(starContainer){
+  for(let i=0;i<100;i++){
+    const s=document.createElement("div");
+    s.className="star";
+    s.style.left=Math.random()*window.innerWidth+"px";
+    s.style.top=Math.random()*window.innerHeight+"px";
+    starContainer.appendChild(s);
+  }
 }
 
-/* -------- CIRCLES -------- */
+/* CIRCLES */
 const circles = document.getElementById("circles");
-const colors = [
-  "rgba(108,200,255,0.4)",
-  "rgba(170,120,255,0.4)",
-  "rgba(255,120,200,0.4)",
-  "rgba(120,255,200,0.4)"
-];
+if(circles){
+  const colors=[
+    "rgba(108,200,255,0.4)",
+    "rgba(170,120,255,0.4)",
+    "rgba(255,120,200,0.4)",
+    "rgba(120,255,200,0.4)"
+  ];
 
-function spawnCircle(){
-  const c = document.createElement("div");
-  c.className="circle";
-  const size = Math.random()*200 + 120;
-  c.style.width=size+"px";
-  c.style.height=size+"px";
-  c.style.left=Math.random()*100+"vw";
-  c.style.top=Math.random()*100+"vh";
-  c.style.background=`radial-gradient(circle, ${colors[Math.floor(Math.random()*colors.length)]}, transparent 70%)`;
-  circles.appendChild(c);
-  setTimeout(()=>c.remove(),6000);
+  setInterval(()=>{
+    const c=document.createElement("div");
+    c.className="circle";
+    const size=Math.random()*200+120;
+    c.style.width=size+"px";
+    c.style.height=size+"px";
+    c.style.left=Math.random()*100+"vw";
+    c.style.top=Math.random()*100+"vh";
+    c.style.background=`radial-gradient(circle, ${colors[Math.floor(Math.random()*colors.length)]}, transparent 70%)`;
+    circles.appendChild(c);
+    setTimeout(()=>c.remove(),6000);
+  },1200);
 }
-setInterval(spawnCircle,1200);
 
-/* -------- CURSOR -------- */
+/* CURSOR */
 const cursor=document.getElementById("cursor");
-
 if(cursor){
-let mouseX=0, mouseY=0;
-let posX=0, posY=0;
-
-document.addEventListener("mousemove",e=>{
-  mouseX=e.clientX;
-  mouseY=e.clientY;
-});
-
-function animateCursor(){
-  posX+=(mouseX-posX)*0.08;
-  posY+=(mouseY-posY)*0.08;
-  cursor.style.left=posX+"px";
-  cursor.style.top=posY+"px";
-  requestAnimationFrame(animateCursor);
-}
-animateCursor();
+  let mouseX=0, mouseY=0, posX=0, posY=0;
+  document.addEventListener("mousemove",e=>{
+    mouseX=e.clientX;
+    mouseY=e.clientY;
+  });
+  function loop(){
+    posX+=(mouseX-posX)*0.08;
+    posY+=(mouseY-posY)*0.08;
+    cursor.style.left=posX+"px";
+    cursor.style.top=posY+"px";
+    requestAnimationFrame(loop);
+  }
+  loop();
 }
 
 </script>
