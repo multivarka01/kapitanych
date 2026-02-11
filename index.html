@@ -19,16 +19,6 @@ body{
   overflow-x:hidden;
 }
 
-/* всё что блюрится */
-.wrapper{
-  position:relative;
-  transition:transform .2s ease, filter .4s;
-}
-
-.wrapper.blur{
-  filter:blur(8px);
-}
-
 /* ---------------- NAVBAR ---------------- */
 
 .nav{
@@ -37,13 +27,16 @@ body{
   left:0;
   width:100%;
   height:70px;
+
   display:flex;
   align-items:center;
   justify-content:center;
   gap:40px;
+
   background:rgba(15,18,35,0.55);
   backdrop-filter:blur(14px);
   border-bottom:1px solid rgba(255,255,255,0.08);
+
   z-index:10;
 }
 
@@ -136,20 +129,37 @@ body{
   margin:5px 0;
 }
 
-/* ---------------- STARS ---------------- */
+/* ---------------- FLOATING CIRCLES ---------------- */
 
-#particles{
+#bg{
   position:fixed;
   inset:0;
   z-index:-2;
+  overflow:hidden;
 }
 
-.star{
+.circle{
   position:absolute;
-  width:2px;
-  height:2px;
-  background:white;
-  opacity:.8;
+  border-radius:50%;
+  background:radial-gradient(circle, rgba(108,200,255,0.25), transparent 70%);
+  animation: float 18s linear infinite;
+}
+
+@keyframes float{
+  0%{
+    transform:translateY(0) scale(1);
+    opacity:0;
+  }
+  10%{
+    opacity:.6;
+  }
+  90%{
+    opacity:.6;
+  }
+  100%{
+    transform:translateY(-120vh) scale(1.4);
+    opacity:0;
+  }
 }
 
 /* ---------------- CURSOR BALL ---------------- */
@@ -184,183 +194,117 @@ body{
   color:white;
 }
 
-/* ---------------- MUSIC BUTTON ---------------- */
-
-.music-btn{
-  position:fixed;
-  left:50%;
-  bottom:30px;
-  transform:translateX(-50%);
-  padding:16px 28px;
-  border-radius:12px;
-  border:2px solid #ff2e2e;
-  background:#1a0b0b;
-  color:white;
-  font-weight:700;
-  cursor:pointer;
-  transition:.4s;
-  box-shadow:0 0 15px #ff2e2e;
-  z-index:20;
-}
-
-.music-btn:hover{
-  background:#ff2e2e;
-  color:black;
-  box-shadow:0 0 30px red;
-}
-
-/* ---------------- COUNTDOWN ---------------- */
-
-.countdown{
-  position:fixed;
-  inset:0;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  font-size:120px;
-  font-weight:900;
-  background:rgba(0,0,0,0.4);
-  z-index:30;
-  opacity:0;
-  pointer-events:none;
-  transition:.3s;
-}
-
-.countdown.show{
-  opacity:1;
-}
-
 /* ---------------- MOBILE ---------------- */
 
 @media (max-width:768px){
-  .hero h2{ font-size:32px; }
-  .subtitle{ font-size:14px; }
-  .links{ width:90%; max-width:320px; }
-  #cursor{ width:200px; height:200px; }
-  .countdown{ font-size:70px; }
+
+  .nav{
+    height:auto;
+    padding:10px;
+    flex-direction:column;
+    gap:10px;
+  }
+
+  .nav-group{
+    flex-wrap:wrap;
+    justify-content:center;
+  }
+
+  .hero h2{
+    font-size:32px;
+  }
+
+  .subtitle{
+    font-size:14px;
+  }
+
+  .links{
+    width:90%;
+    max-width:320px;
+  }
+
+  #cursor{
+    width:200px;
+    height:200px;
+  }
 }
 
 </style>
 </head>
 <body>
 
-<div class="wrapper" id="wrapper">
-
-  <!-- NAV -->
-  <div class="nav">
-    <div class="nav-group">
-      <a href="https://donatex.gg/donate/kapitanych">Donatex</a>
-      <a href="https://www.donationalerts.com/r/bossgg">DonatAlerts</a>
-      <a href="https://t.me/KapitanGG">Telegram</a>
-    </div>
-
-    <img src="https://i.ibb.co/pr0NNwxx/444444.png" class="nav-avatar"
-         onclick="window.open('https://twitch.tv/kapitanych_','_blank')">
-
-    <div class="nav-group">
-      <a href="https://discord.com/">Discord</a>
-      <a href="https://www.youtube.com/@Капитаныч">YouTube</a>
-      <a href="https://www.tiktok.com/@tt_kapitanych">TikTok</a>
-    </div>
+<!-- NAV -->
+<div class="nav">
+  <div class="nav-group">
+    <a href="https://donatex.gg/donate/kapitanych">Donatex</a>
+    <a href="https://www.donationalerts.com/r/bossgg">DonatAlerts</a>
+    <a href="https://t.me/KapitanGG">Telegram</a>
   </div>
 
-  <!-- HERO -->
-  <section class="hero">
-    <h2>Kapitanych</h2>
-    <div class="subtitle">Multivarka</div>
+  <img src="https://i.ibb.co/pr0NNwxx/444444.png" class="nav-avatar"
+       onclick="window.open('https://twitch.tv/kapitanych_','_blank')">
 
-    <div class="links">
-      <a class="btn" href="https://donatex.gg/donate/kapitanych">Donatex</a>
-      <a class="btn" href="https://www.donationalerts.com/r/bossgg">DonatAlerts</a>
-
-      <div class="divider"></div>
-
-      <a class="btn" href="https://t.me/KapitanGG">Telegram</a>
-      <a class="btn" href="https://discord.com/">Discord</a>
-
-      <div class="divider"></div>
-
-      <a class="btn" href="https://www.youtube.com/@Капитаныч">YouTube</a>
-      <a class="btn" href="https://www.tiktok.com/@tt_kapitanych">TikTok</a>
-    </div>
-  </section>
-
-  <!-- FOOTER -->
-  <div class="footer">
-    <div class="brand">Kapitanych</div>
-    <div>© 2026 KAPITANYCH. ALL RIGHTS RESERVED</div>
+  <div class="nav-group">
+    <a href="https://discord.com/">Discord</a>
+    <a href="https://www.youtube.com/@Капитаныч">YouTube</a>
+    <a href="https://www.tiktok.com/@tt_kapitanych">TikTok</a>
   </div>
-
 </div>
 
-<!-- КНОПКА -->
-<button class="music-btn" id="musicBtn">🔴НЕ НАЖИМАЙ🔴</button>
+<!-- HERO -->
+<section class="hero">
+  <h2>Kapitanych</h2>
+  <div class="subtitle">Multivarka</div>
 
-<!-- ОТСЧЁТ -->
-<div class="countdown" id="countdown">3</div>
+  <div class="links">
+    <a class="btn" href="https://donatex.gg/donate/kapitanych">Donatex</a>
+    <a class="btn" href="https://www.donationalerts.com/r/bossgg">DonatAlerts</a>
 
-<!-- ЗВУК -->
-<audio id="music" src="test.mp3"></audio>
+    <div class="divider"></div>
 
-<div id="particles"></div>
+    <a class="btn" href="https://t.me/KapitanGG">Telegram</a>
+    <a class="btn" href="https://discord.com/">Discord</a>
+
+    <div class="divider"></div>
+
+    <a class="btn" href="https://www.youtube.com/@Капитаныч">YouTube</a>
+    <a class="btn" href="https://www.tiktok.com/@tt_kapitanych">TikTok</a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<div class="footer">
+  <div class="brand">Kapitanych</div>
+  <div>© 2026 KAPITANYCH. ALL RIGHTS RESERVED</div>
+</div>
+
+<div id="bg"></div>
 <div id="cursor"></div>
 
 <script>
 
-/* -------- КНОПКА -> ОТСЧЁТ -------- */
-const btn = document.getElementById("musicBtn");
-const audio = document.getElementById("music");
-const countdown = document.getElementById("countdown");
+/* -------- СОЗДАНИЕ КРУГОВ -------- */
+const bg = document.getElementById("bg");
 
-btn.addEventListener("click", ()=>{
-  wrapper.classList.add("blur");
-  countdown.classList.add("show");
+function createCircle(){
+  const c = document.createElement("div");
+  c.className = "circle";
 
-  let num = 3;
-  countdown.textContent = num;
+  const size = Math.random()*120 + 40;
+  c.style.width = size + "px";
+  c.style.height = size + "px";
 
-  const interval = setInterval(()=>{
-    num--;
-    if(num > 0){
-      countdown.textContent = num;
-    } else {
-      clearInterval(interval);
-      countdown.classList.remove("show");
-      wrapper.classList.remove("blur");
-      audio.currentTime = 0;
-      audio.play();
-    }
-  },1000);
-});
+  c.style.left = Math.random()*100 + "vw";
+  c.style.bottom = "-150px";
 
-/* -------- STARS -------- */
-const container = document.getElementById("particles");
-const stars=[];
+  c.style.animationDuration = (Math.random()*10 + 15) + "s";
 
-for(let i=0;i<120;i++){
-  const s=document.createElement("div");
-  s.className="star";
+  bg.appendChild(c);
 
-  let x=Math.random()*window.innerWidth;
-  let y=Math.random()*window.innerHeight;
-  let speed=Math.random()*0.15+0.05;
-
-  s.style.left=x+"px";
-  s.style.top=y+"px";
-
-  container.appendChild(s);
-  stars.push({el:s,y,speed});
+  setTimeout(()=> c.remove(), 25000);
 }
 
-function animateStars(){
-  stars.forEach(star=>{
-    star.y+=star.speed;
-    if(star.y>window.innerHeight) star.y=0;
-    star.el.style.top=star.y+"px";
-  });
-  requestAnimationFrame(animateStars);
-}
-animateStars();
+setInterval(createCircle, 1200);
 
 /* -------- CURSOR -------- */
 const cursor=document.getElementById("cursor");
