@@ -82,6 +82,30 @@ body{
   padding-top:90px;
 }
 
+/* ---------- VERIFIED BADGE ---------- */
+
+.badge{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  padding:8px 16px;
+  margin-bottom:16px;
+  border-radius:999px;
+  border:2px solid #a855f7;
+  color:#e9d5ff;
+  font-weight:700;
+  font-size:14px;
+  letter-spacing:1px;
+  box-shadow:0 0 15px #a855f7;
+  background:rgba(168,85,247,0.08);
+}
+
+.badge .check{
+  font-size:14px;
+}
+
+/* ---------------- TITLE ---------------- */
+
 .hero h2{
   font-size:48px;
 }
@@ -113,13 +137,11 @@ body{
   font-size:18px;
   transition:.4s;
 
-  /* ВИДНЫ БЕЗ JS */
   opacity:0;
   transform:translateY(10px);
   animation:showBtn .6s forwards;
 }
 
-/* задержки появления */
 .btn:nth-child(1){animation-delay:.1s;}
 .btn:nth-child(2){animation-delay:.2s;}
 .btn:nth-child(4){animation-delay:.3s;}
@@ -220,23 +242,10 @@ body{
 /* ---------------- MOBILE ---------------- */
 
 @media (max-width:768px){
-
-  .hero h2{
-    font-size:32px;
-  }
-
-  .subtitle{
-    font-size:14px;
-  }
-
-  .links{
-    width:90%;
-    max-width:320px;
-  }
-
-  #cursor{
-    display:none;
-  }
+  .hero h2{font-size:32px;}
+  .subtitle{font-size:14px;}
+  .links{width:90%; max-width:320px;}
+  #cursor{display:none;}
 }
 
 </style>
@@ -263,6 +272,12 @@ body{
 
 <!-- HERO -->
 <section class="hero">
+
+  <div class="badge">
+    <span class="check">✔</span>
+    Verified
+  </div>
+
   <h2>Kapitanych</h2>
   <div class="subtitle">Multivarka</div>
 
@@ -293,8 +308,6 @@ body{
 <div id="cursor"></div>
 
 <script>
-
-/* ---- лёгкие независимые эффекты, которые не ломают сайт ---- */
 
 /* STARS */
 const starContainer = document.getElementById("particles");
