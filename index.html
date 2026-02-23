@@ -143,21 +143,31 @@ body{
   transform:translateY(0);
 }
 
-.avatar{
-  width:120px;
-  height:120px;
-  border-radius:50%;
-  border:3px solid #a855f7;
-  box-shadow:0 0 30px #a855f7;
-  margin-bottom:20px;
-  transition:.4s;
-  cursor:pointer;
-  object-fit:cover;
+/* ===== АВАТАР-ЗАГЛУШКА (БУКВА К) ===== */
+
+.avatar-placeholder {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  background: rgba(168, 85, 247, 0.1);
+  border: 3px solid #a855f7;
+  box-shadow: 0 0 30px #a855f7;
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Orbitron', sans-serif;
+  font-size: 60px;
+  font-weight: 900;
+  color: white;
+  text-shadow: 0 0 20px #a855f7;
+  transition: 0.4s;
+  cursor: pointer;
 }
 
-.avatar:hover{
-  transform:scale(1.08);
-  box-shadow:0 0 60px #a855f7;
+.avatar-placeholder:hover {
+  transform: scale(1.08);
+  box-shadow: 0 0 60px #a855f7;
 }
 
 h1{
@@ -273,10 +283,8 @@ h1{
 
 <section class="hero" id="hero">
 
-  <img src="https://i.postimg.cc/kX0Y0L0M/avatar.jpg" 
-       class="avatar" 
-       alt="Kapitanych avatar"
-       onclick="window.open('https://twitch.tv/kapitanych_','_blank')">
+  <!-- НОВЫЙ ЭЛЕМЕНТ ВМЕСТО АВАТАРА: БУКВА K -->
+  <div class="avatar-placeholder" onclick="window.open('https://twitch.tv/kapitanych_','_blank')">K</div>
 
   <h1>KAPITANYCH</h1>
 
