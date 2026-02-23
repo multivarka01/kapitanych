@@ -5,110 +5,35 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Kapitanych</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Inter:wght@400;600&display=swap" rel="stylesheet">
-
 <style>
-*{margin:0;padding:0;box-sizing:border-box;}
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
 
 body{
-  font-family:Inter,system-ui;
-  background:#06080f;
+  font-family:Inter,system-ui,Arial;
+  background:#0b0f1a;
   color:white;
   overflow-x:hidden;
 }
 
-/* ===== PRELOADER ===== */
-
-#preloader{
-  position:fixed;
-  inset:0;
-  background:#05070d;
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  justify-content:center;
-  z-index:9999;
-  transition:opacity .8s ease, visibility .8s ease;
-}
-
-.loader-title{
-  font-family:Orbitron;
-  font-size:32px;
-  letter-spacing:4px;
-  animation:glitch 1.5s infinite;
-}
-
-.scan-bar{
-  margin-top:25px;
-  width:220px;
-  height:3px;
-  background:rgba(168,85,247,.2);
-  overflow:hidden;
-  position:relative;
-}
-
-.scan-bar::after{
-  content:"";
-  position:absolute;
-  height:100%;
-  width:40%;
-  background:#a855f7;
-  animation:scan 1.2s infinite;
-}
-
-@keyframes scan{
-  0%{left:-40%;}
-  100%{left:100%;}
-}
-
-@keyframes glitch{
-  0%{text-shadow:2px 0 #a855f7,-2px 0 #ff00ff;}
-  50%{text-shadow:-2px 0 #a855f7,2px 0 #ff00ff;}
-  100%{text-shadow:2px 0 #a855f7,-2px 0 #ff00ff;}
-}
-
-/* ===== ANIMATED BACKGROUND ===== */
-
-.background{
-  position:fixed;
-  inset:0;
-  z-index:-2;
-  background:
-    radial-gradient(circle at 30% 30%, rgba(168,85,247,.15), transparent 60%),
-    radial-gradient(circle at 70% 70%, rgba(255,0,255,.1), transparent 60%),
-    #06080f;
-}
-
-.grid{
-  position:fixed;
-  inset:0;
-  background-image:
-    linear-gradient(rgba(168,85,247,.07) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(168,85,247,.07) 1px, transparent 1px);
-  background-size:60px 60px;
-  animation:moveGrid 20s linear infinite;
-  z-index:-1;
-}
-
-@keyframes moveGrid{
-  0%{transform:translateY(0);}
-  100%{transform:translateY(60px);}
-}
-
-/* ===== NAV ===== */
+/* NAVBAR */
 
 .nav{
   position:fixed;
   top:0;
+  left:0;
   width:100%;
   height:70px;
   display:flex;
   align-items:center;
   justify-content:center;
-  gap:35px;
-  background:rgba(10,12,20,0.6);
+  gap:30px;
+  background:rgba(15,18,35,0.6);
   backdrop-filter:blur(14px);
-  border-bottom:1px solid rgba(255,255,255,0.05);
+  border-bottom:1px solid rgba(255,255,255,0.08);
   z-index:10;
 }
 
@@ -120,58 +45,55 @@ body{
 }
 
 .nav a:hover{
-  color:#a855f7;
-  text-shadow:0 0 12px #a855f7;
+  color:#fff;
+  text-shadow:0 0 12px #6cf;
 }
 
-/* ===== HERO ===== */
+.nav-avatar{
+  width:48px;
+  height:48px;
+  border-radius:50%;
+  border:2px solid #6cf;
+  box-shadow:0 0 15px #6cf;
+  cursor:pointer;
+  transition:.3s;
+}
+
+.nav-avatar:hover{
+  transform:scale(1.1);
+  box-shadow:0 0 25px #6cf;
+}
+
+/* HERO */
 
 .hero{
   min-height:100vh;
-  padding-top:130px;
   display:flex;
   flex-direction:column;
   align-items:center;
+  justify-content:center;
+  padding-top:100px;
   text-align:center;
-  opacity:0;
-  transform:translateY(20px);
-  transition:1s ease;
 }
 
-.hero.show{
-  opacity:1;
-  transform:translateY(0);
+.hero h1{
+  font-size:48px;
+  margin-bottom:10px;
 }
 
-.avatar{
-  width:120px;
-  height:120px;
-  border-radius:50%;
-  border:3px solid #a855f7;
-  box-shadow:0 0 30px #a855f7;
-  margin-bottom:20px;
-  transition:.4s;
-  cursor:pointer;
+.subtitle{
+  color:#888;
+  letter-spacing:2px;
 }
 
-.avatar:hover{
-  transform:scale(1.08);
-  box-shadow:0 0 60px #a855f7;
-}
-
-h1{
-  font-family:Orbitron;
-  font-size:52px;
-  letter-spacing:4px;
-}
-
-/* ===== MODULES ===== */
+/* MODULES */
 
 .modules{
   margin-top:60px;
   display:flex;
   flex-direction:column;
   gap:30px;
+  align-items:center;
 }
 
 .row{
@@ -182,134 +104,114 @@ h1{
 }
 
 .module{
-  position:relative;
-  padding:35px 45px;
-  min-width:260px;
-  background:rgba(255,255,255,0.03);
-  border:1px solid rgba(168,85,247,0.4);
+  width:220px;
+  height:120px;
+  border:2px solid #6cf;
   border-radius:16px;
-  backdrop-filter:blur(10px);
-  transition:.4s;
+  display:flex;
+  align-items:center;
+  justify-content:center;
   cursor:pointer;
-  overflow:hidden;
-}
-
-.module::before,
-.module::after{
-  content:"";
-  position:absolute;
-  width:25px;
-  height:25px;
-  border:2px solid #a855f7;
-}
-
-.module::before{
-  top:0;
-  left:0;
-  border-right:none;
-  border-bottom:none;
-}
-
-.module::after{
-  bottom:0;
-  right:0;
-  border-left:none;
-  border-top:none;
+  transition:.4s;
+  background:rgba(255,255,255,0.03);
 }
 
 .module h3{
-  font-family:Orbitron;
-  letter-spacing:3px;
-  font-size:18px;
+  letter-spacing:2px;
 }
 
 .module:hover{
-  transform:translateY(-6px) scale(1.03);
-  box-shadow:0 0 40px rgba(168,85,247,.7);
+  background:#6cf;
+  color:#0b0f1a;
+  box-shadow:0 0 25px #6cf;
+  transform:translateY(-6px);
 }
 
 /* FOOTER */
 
 .footer{
-  margin-top:120px;
-  padding-bottom:40px;
-  text-align:center;
+  position:fixed;
+  bottom:20px;
+  left:20px;
   font-family:monospace;
-  color:#777;
+  font-size:14px;
+  opacity:.7;
 }
 
-.footer .engineer{
-  margin-top:8px;
-  font-size:13px;
-  letter-spacing:2px;
-  color:#555;
+.footer .brand{
+  font-weight:700;
+  color:white;
 }
 
-@media(max-width:768px){
-  h1{font-size:34px;}
-  .module{min-width:220px;}
+.dev{
+  margin-top:4px;
+  color:#888;
+}
+
+/* MOBILE */
+
+@media (max-width:768px){
+  .hero h1{font-size:32px;}
+  .module{width:90%; max-width:300px;}
 }
 </style>
 </head>
 <body>
 
-<div id="preloader">
-  <div class="loader-title">INITIALIZING</div>
-  <div class="scan-bar"></div>
-</div>
-
-<div class="background"></div>
-<div class="grid"></div>
-
+<!-- NAV -->
 <div class="nav">
-  <a href="#">Donatex</a>
-  <a href="#">DonatAlerts</a>
-  <a href="#">Telegram</a>
-  <a href="#">Discord</a>
-  <a href="#">YouTube</a>
-  <a href="#">TikTok</a>
+  <a href="https://www.donationalerts.com/r/bossgg" target="_blank">DonatAlerts</a>
+  <a href="https://t.me/KapitanGG" target="_blank">Telegram</a>
+
+  <!-- ЛОКАЛЬНЫЙ PNG -->
+  <img src="assets/avatar.png" class="nav-avatar"
+       onclick="window.open('https://twitch.tv/kapitanych_','_blank')">
+
+  <a href="https://www.youtube.com/@Капитаныч" target="_blank">YouTube</a>
+  <a href="https://www.tiktok.com/@tt_kapitanych" target="_blank">TikTok</a>
 </div>
 
-<section class="hero" id="hero">
+<!-- HERO -->
+<section class="hero">
 
-  <img src="https://i.ibb.co/pr0NNwxx/444444.png"
-       class="avatar">
-
-  <h1>KAPITANYCH</h1>
+  <h1>Kapitanych</h1>
+  <div class="subtitle">STANDOFF 2</div>
 
   <div class="modules">
 
     <div class="row">
-      <div class="module"><h3>DONATALERTS</h3></div>
-      <div class="module"><h3>TELEGRAM</h3></div>
-      <div class="module"><h3>YOUTUBE</h3></div>
+      <div class="module" onclick="window.open('https://www.donationalerts.com/r/bossgg','_blank')">
+        <h3>DONATALERTS</h3>
+      </div>
+
+      <div class="module" onclick="window.open('https://t.me/KapitanGG','_blank')">
+        <h3>TELEGRAM</h3>
+      </div>
+
+      <div class="module" onclick="window.open('https://www.youtube.com/@Капитаныч','_blank')">
+        <h3>YOUTUBE</h3>
+      </div>
     </div>
 
     <div class="row">
-      <div class="module"><h3>DISCORD</h3></div>
-      <div class="module"><h3>TIKTOK</h3></div>
+      <div class="module" onclick="window.open('https://discord.com/','_blank')">
+        <h3>DISCORD</h3>
+      </div>
+
+      <div class="module" onclick="window.open('https://www.tiktok.com/@tt_kapitanych','_blank')">
+        <h3>TIKTOK</h3>
+      </div>
     </div>
 
   </div>
-
-  <div class="footer">
-    © 2026 Kapitanych
-    <div class="engineer">
-      MULTIVARKA
-    </div>
-  </div>
-
 </section>
 
-<script>
-window.addEventListener("load",()=>{
-  setTimeout(()=>{
-    document.getElementById("preloader").style.opacity="0";
-    document.getElementById("preloader").style.visibility="hidden";
-    document.getElementById("hero").classList.add("show");
-  },1500);
-});
-</script>
+<!-- FOOTER -->
+<div class="footer">
+  <div class="brand">Kapitanych</div>
+  <div>© 2026 KAPITANYCH. ALL RIGHTS RESERVED</div>
+  <div class="dev">Разработка — Multivarka</div>
+</div>
 
 </body>
 </html>
