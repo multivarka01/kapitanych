@@ -14,7 +14,7 @@
       overflow-x: hidden;
       display: flex;
       flex-direction: column;
-      min-height: 100vh; /* вся высота экрана */
+      min-height: 100vh;
     }
 
     /* ===== PRELOADER ===== */
@@ -113,8 +113,8 @@
 
     /* ===== HERO ===== */
     .hero {
-      flex: 1; /* занимает всё свободное место между nav и bar */
-      padding-top: 130px; /* отступ под фиксированную навигацию */
+      flex: 1;
+      padding-top: 130px;
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -189,18 +189,17 @@
       color: #ccc;
       font-weight: 500;
       letter-spacing: 0.5px;
-      pointer-events: none;      /* отключаем клики */
+      pointer-events: none;
       cursor: default;
       border-bottom: none;
-      transition: none;          /* убираем анимацию */
+      transition: none;
     }
     .glass-bar .bar-label:hover {
-      color: #ccc;               /* без изменений */
+      color: #ccc;
       border-bottom-color: transparent;
       text-shadow: none;
     }
 
-    /* Вертикальный блок */
     .vertical-block {
       display: flex;
       flex-direction: column;
@@ -209,10 +208,7 @@
       margin: 0 10px;
       text-align: center;
     }
-    .vertical-block .bar-label {
-      font-weight: 600;
-      border-bottom: none;
-    }
+    .vertical-block .bar-label { font-weight: 600; border-bottom: none; }
 
     /* Кнопки остаются активными */
     .bar-button {
@@ -237,6 +233,125 @@
       transform: scale(1.05);
     }
 
+    /* ===== КАСТОМНОЕ МОДАЛЬНОЕ ОКНО ===== */
+    .modal-overlay {
+      position: fixed;
+      top: 0; left: 0; width: 100%; height: 100%;
+      background: rgba(0,0,0,0.7);
+      backdrop-filter: blur(5px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 10000;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.3s ease, visibility 0.3s ease;
+    }
+
+    .modal-overlay.show {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .modal-content {
+      background: rgba(10,12,20,0.95);
+      border: 2px solid #a855f7;
+      border-radius: 24px;
+      padding: 30px 40px;
+      max-width: 450px;
+      width: 90%;
+      box-shadow: 0 0 50px #a855f7;
+      text-align: center;
+      position: relative;
+      transform: scale(0.9);
+      transition: transform 0.3s ease;
+    }
+
+    .modal-overlay.show .modal-content {
+      transform: scale(1);
+    }
+
+    .modal-content h2 {
+      font-family: Orbitron;
+      font-size: 28px;
+      margin-bottom: 20px;
+      background: linear-gradient(45deg, #a855f7, #ff00ff, #00ccff);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      text-shadow: 0 0 15px rgba(168,85,247,0.7);
+      animation: pulseGlow 2s infinite alternate;
+    }
+
+    @keyframes pulseGlow {
+      0% { text-shadow: 0 0 10px #a855f7, 0 0 20px #ff00ff; }
+      100% { text-shadow: 0 0 20px #ff00ff, 0 0 40px #00ccff; }
+    }
+
+    .modal-content p {
+      font-size: 18px;
+      line-height: 1.5;
+      margin-bottom: 25px;
+      color: #ddd;
+    }
+
+    .modal-content a {
+      color: inherit;
+      text-decoration: none;
+      font-weight: 700;
+      background: linear-gradient(45deg, #a855f7, #ff00ff);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      border-bottom: 2px solid transparent;
+      transition: 0.2s;
+    }
+
+    .modal-content a:hover {
+      border-bottom-color: #a855f7;
+      text-shadow: 0 0 15px #a855f7;
+    }
+
+    .clickable-hint {
+      font-size: 14px;
+      color: #aaa;
+      margin-left: 5px;
+      font-style: italic;
+    }
+
+    .modal-close {
+      position: absolute;
+      top: 15px;
+      right: 20px;
+      font-size: 28px;
+      cursor: pointer;
+      color: #aaa;
+      transition: 0.2s;
+      line-height: 1;
+    }
+
+    .modal-close:hover {
+      color: #a855f7;
+      text-shadow: 0 0 10px #a855f7;
+    }
+
+    .modal-button {
+      background: rgba(168,85,247,0.2);
+      border: 1px solid #a855f7;
+      border-radius: 40px;
+      padding: 12px 30px;
+      font-size: 16px;
+      font-weight: 600;
+      color: white;
+      cursor: pointer;
+      transition: 0.3s;
+      margin-top: 10px;
+    }
+
+    .modal-button:hover {
+      background: #a855f7;
+      color: #000;
+      box-shadow: 0 0 20px #a855f7;
+    }
+
     /* мобильная адаптация */
     @media (max-width: 768px) {
       h1 { font-size:34px; }
@@ -249,6 +364,8 @@
       }
       .bar-button { padding:6px 18px; }
       .vertical-block { margin:5px 0; }
+      .modal-content { padding: 25px 20px; }
+      .modal-content h2 { font-size: 24px; }
     }
   </style>
 </head>
@@ -281,17 +398,77 @@
   </div>
 </section>
 
-<!-- Стеклянный бар (только кнопки + бледный копирайт, без прокрутки) -->
+<!-- Стеклянный бар -->
 <div class="glass-bar">
-  <button class="bar-button" onclick="alert('Левая кнопка — настройте ссылку')">Кнопка 1</button>
+  <!-- Левая кнопка Soon... 1 теперь открывает модальное окно "Скоро..." -->
+  <button class="bar-button" onclick="showSoonModal()">Soon... 1</button>
   <div class="vertical-block" style="opacity:0.4;">
     <span class="bar-label">© 2026 Kapitanych</span>
     <span class="bar-label">MULTIVARKA</span>
   </div>
-  <button class="bar-button" onclick="alert('Поддержи Twitch своей платной подпиской! https://www.twitch.tv/products/kapitanych_')">Twitch Sub</button>
+  <button class="bar-button" onclick="showTwitchModal()">Twitch Sub</button>
+</div>
+
+<!-- МОДАЛЬНОЕ ОКНО ДЛЯ TWITCH SUB -->
+<div class="modal-overlay" id="twitchModalOverlay" onclick="closeTwitchModal(event)">
+  <div class="modal-content">
+    <span class="modal-close" onclick="closeTwitchModal(event)">&times;</span>
+    <h2>Подписка на Twitch</h2>
+    <p>
+      <a href="https://www.twitch.tv/products/kapitanych_" target="_blank">
+        Поддержи Twitch своей платной подпиской!
+      </a>
+      <span class="clickable-hint">*кликабельно*</span>
+    </p>
+    <button class="modal-button" onclick="closeTwitchModal()">Закрыть</button>
+  </div>
+</div>
+
+<!-- МОДАЛЬНОЕ ОКНО ДЛЯ SOON... -->
+<div class="modal-overlay" id="soonModalOverlay" onclick="closeSoonModal(event)">
+  <div class="modal-content">
+    <span class="modal-close" onclick="closeSoonModal(event)">&times;</span>
+    <h2>Скоро...</h2>
+    <p>Функция в разработке</p>
+    <p style="font-size: 24px; font-weight: bold; color: #a855f7;">Soon...</p>
+    <button class="modal-button" onclick="closeSoonModal()">Закрыть</button>
+  </div>
 </div>
 
 <script>
+// Функции для модального окна Twitch
+function showTwitchModal() {
+  document.getElementById('twitchModalOverlay').classList.add('show');
+}
+
+function closeTwitchModal(event) {
+  const modal = document.getElementById('twitchModalOverlay');
+  modal.classList.remove('show');
+}
+
+// Функции для модального окна Soon
+function showSoonModal() {
+  document.getElementById('soonModalOverlay').classList.add('show');
+}
+
+function closeSoonModal(event) {
+  const modal = document.getElementById('soonModalOverlay');
+  modal.classList.remove('show');
+}
+
+// Закрытие всех модальных окон по Escape
+function closeAllModals() {
+  document.querySelectorAll('.modal-overlay').forEach(modal => {
+    modal.classList.remove('show');
+  });
+}
+
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Escape') {
+    closeAllModals();
+  }
+});
+
 window.addEventListener("load",()=>{
   setTimeout(()=>{
     document.getElementById("preloader").style.opacity="0";
