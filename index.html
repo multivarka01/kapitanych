@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Kapitanych</title>
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+
 <style>
 *{margin:0;padding:0;box-sizing:border-box;}
 body{
@@ -136,7 +137,6 @@ h1{
   box-shadow:0 0 40px rgba(168,85,247,.7);
 }
 
-/* Анимации */
 .left-start{transform:translateX(-120px);}
 .right-start{transform:translateX(120px);}
 .bottom-start{transform:translateY(60px);}
@@ -150,7 +150,7 @@ h1{
   background:rgba(10,12,20,0.7);
   backdrop-filter:blur(16px);
   border-top:1px solid rgba(168,85,247,0.3);
-  padding:10px 15px; /* уменьшили */
+  padding:10px 15px;
   display:flex;
   flex-direction:column;
   align-items:center;
@@ -187,12 +187,12 @@ h1{
   font-size:13px;
 }
 
-/* ===== MODAL ===== */
+/* ===== MODALS ===== */
 .modal-overlay{
   position:fixed;
   inset:0;
-  background:rgba(0,0,0,0.7);
-  backdrop-filter:blur(5px);
+  background:rgba(0,0,0,0.8);
+  backdrop-filter:blur(6px);
   display:flex;
   align-items:center;
   justify-content:center;
@@ -203,24 +203,25 @@ h1{
 }
 .modal-overlay.show{opacity:1;visibility:visible;}
 .modal-content{
+  position:relative;
   background:rgba(10,12,20,0.95);
   border:2px solid #a855f7;
   border-radius:24px;
-  padding:30px 40px;
+  padding:35px 40px;
   max-width:450px;
   width:90%;
-  box-shadow:0 0 50px #a855f7;
+  box-shadow:0 0 60px #a855f7;
   text-align:center;
 }
 .modal-content h2{
   font-family:Orbitron;
-  font-size:28px;
+  font-size:26px;
   margin-bottom:20px;
   background:linear-gradient(45deg,#a855f7,#ff00ff,#00ccff);
   -webkit-background-clip:text;
   -webkit-text-fill-color:transparent;
 }
-.modal-content p{font-size:18px;margin-bottom:25px;color:#ddd;}
+.modal-content p{font-size:18px;margin-bottom:20px;color:#ddd;}
 .modal-button{
   background:#a855f7;
   border:none;
@@ -241,11 +242,22 @@ h1{
 }
 .modal-close:hover{color:#a855f7;}
 
-@media(max-width:768px){
-  h1{font-size:34px;}
-  .row{flex-direction:column;}
-  .module{min-width:220px;width:90%;}
+/* ===== ADMIN BUTTON ===== */
+#adminToggle{
+  position:fixed;
+  top:15px;
+  right:15px;
+  z-index:9999;
+  padding:8px 18px;
+  border-radius:30px;
+  background:#a855f7;
+  border:none;
+  color:black;
+  font-weight:600;
+  cursor:pointer;
+  display:none;
 }
+
 </style>
 </head>
 <body>
@@ -263,66 +275,121 @@ h1{
 </div>
 
 <section class="hero">
-  <!-- АВАТАРКА С GITHUB -->
-  <img src="https://raw.githubusercontent.com/multivarka01/kapitanych/main/avatar.jpg"
-       class="avatar-img"
-       onclick="window.open('https://twitch.tv/kapitanych_','_blank')">
+<img src="https://raw.githubusercontent.com/multivarka01/kapitanych/main/avatar.jpg"
+class="avatar-img"
+onclick="window.open('https://twitch.tv/kapitanych_','_blank')">
 
-  <h1>KAPITANYCH</h1>
+<h1>KAPITANYCH</h1>
 
-  <div class="modules">
-    <div class="row">
-      <div class="module left-start" id="donatex" onclick="window.open('https://donatex.gg/donate/kapitanych','_blank')"><h3>DONATEX</h3></div>
-      <div class="module bottom-start" id="telegram" onclick="window.open('https://t.me/KapitanGG','_blank')"><h3>TELEGRAM</h3></div>
-      <div class="module right-start" id="youtube" onclick="window.open('https://www.youtube.com/@Капитаныч','_blank')"><h3>YOUTUBE</h3></div>
-    </div>
-    <div class="row">
-      <div class="module left-start" id="discord" onclick="window.open('https://discord.com/','_blank')"><h3>DISCORD</h3></div>
-      <div class="module right-start" id="tiktok" onclick="window.open('https://www.tiktok.com/@tt_kapitanych','_blank')"><h3>TIKTOK</h3></div>
-    </div>
-  </div>
+<div class="modules">
+<div class="row">
+<div class="module left-start" id="donatex" onclick="window.open('https://donatex.gg/donate/kapitanych','_blank')"><h3>DONATEX</h3></div>
+<div class="module bottom-start" id="telegram" onclick="window.open('https://t.me/KapitanGG','_blank')"><h3>TELEGRAM</h3></div>
+<div class="module right-start" id="youtube" onclick="window.open('https://www.youtube.com/@Капитаныч','_blank')"><h3>YOUTUBE</h3></div>
+</div>
+<div class="row">
+<div class="module left-start" id="discord" onclick="window.open('https://discord.com/','_blank')"><h3>DISCORD</h3></div>
+<div class="module right-start" id="tiktok" onclick="window.open('https://www.tiktok.com/@tt_kapitanych','_blank')"><h3>TIKTOK</h3></div>
+</div>
+</div>
 </section>
 
 <div class="glass-bar">
-  <!-- Twitch над надписью -->
-  <button class="bar-button" onclick="showTwitchModal()">Twitch Sub</button>
-  <div class="vertical-block">
-    <span>© 2026 Kapitanych</span>
-    <span>MULTIVARKA</span>
-  </div>
+<button class="bar-button" onclick="showTwitchModal()">Twitch Sub</button>
+<div class="vertical-block">
+<span>© 2026 Kapitanych</span>
+<span>MULTIVARKA</span>
+</div>
 </div>
 
+<button id="adminToggle">🔒 Закрыть сайт</button>
+
+<!-- Twitch Modal -->
 <div class="modal-overlay" id="twitchModalOverlay">
-  <div class="modal-content">
-    <span class="modal-close" onclick="closeTwitchModal()">&times;</span>
-    <h2>Подписка на Twitch</h2>
-    <p>
-      <a href="https://www.twitch.tv/products/kapitanych_" target="_blank" style="color:#a855f7;text-decoration:none;">
-        Поддержи Twitch своей платной подпиской!
-      </a>
-    </p>
-    <button class="modal-button" onclick="closeTwitchModal()">Закрыть</button>
-  </div>
+<div class="modal-content">
+<span class="modal-close" onclick="closeTwitchModal()">&times;</span>
+<h2>Подписка на Twitch</h2>
+<p>
+<a href="https://www.twitch.tv/products/kapitanych_" target="_blank" style="color:#a855f7;text-decoration:none;">
+Поддержи Twitch своей подпиской!
+</a>
+</p>
+<button class="modal-button" onclick="closeTwitchModal()">Закрыть</button>
+</div>
+</div>
+
+<!-- Site Closed Modal -->
+<div class="modal-overlay" id="siteClosedOverlay">
+<div class="modal-content">
+<h2>Сайт временно недоступен</h2>
+<p>⚠ Администратор временно закрыл сайт.<br>Попробуйте позже.</p>
+</div>
 </div>
 
 <script>
+
+const ADMIN_PASSWORD = "kapitanych_admin"; // СМЕНИ ПАРОЛЬ
+
 window.addEventListener("load",()=>{
-  setTimeout(()=>donatex.classList.add("show"),200);
-  setTimeout(()=>youtube.classList.add("show"),350);
-  setTimeout(()=>telegram.classList.add("show"),500);
-  setTimeout(()=>discord.classList.add("show"),650);
-  setTimeout(()=>tiktok.classList.add("show"),800);
+
+setTimeout(()=>donatex.classList.add("show"),200);
+setTimeout(()=>youtube.classList.add("show"),350);
+setTimeout(()=>telegram.classList.add("show"),500);
+setTimeout(()=>discord.classList.add("show"),650);
+setTimeout(()=>tiktok.classList.add("show"),800);
+
+checkSiteStatus();
+
+if(localStorage.getItem("isAdmin")==="true"){
+document.getElementById("adminToggle").style.display="block";
+}
+
 });
 
 function showTwitchModal(){
-  document.getElementById("twitchModalOverlay").classList.add("show");
+document.getElementById("twitchModalOverlay").classList.add("show");
 }
 function closeTwitchModal(){
-  document.getElementById("twitchModalOverlay").classList.remove("show");
+document.getElementById("twitchModalOverlay").classList.remove("show");
 }
+
+function checkSiteStatus(){
+if(localStorage.getItem("siteClosed")==="true"){
+document.getElementById("siteClosedOverlay").classList.add("show");
+}
+}
+
+function adminLogin(){
+const pass=prompt("Введите пароль администратора:");
+if(pass===ADMIN_PASSWORD){
+localStorage.setItem("isAdmin","true");
+document.getElementById("adminToggle").style.display="block";
+alert("Админ доступ получен");
+}else{
+alert("Неверный пароль");
+}
+}
+
+function toggleSite(){
+const closed=localStorage.getItem("siteClosed");
+if(closed==="true"){
+localStorage.setItem("siteClosed","false");
+document.getElementById("siteClosedOverlay").classList.remove("show");
+document.getElementById("adminToggle").innerText="🔒 Закрыть сайт";
+}else{
+localStorage.setItem("siteClosed","true");
+document.getElementById("siteClosedOverlay").classList.add("show");
+document.getElementById("adminToggle").innerText="🔓 Открыть сайт";
+}
+}
+
 document.addEventListener("keydown",e=>{
-  if(e.key==="Escape") closeTwitchModal();
+if(e.key==="Escape") closeTwitchModal();
+if(e.ctrlKey && e.shiftKey && e.key==="A") adminLogin();
 });
+
+document.getElementById("adminToggle").addEventListener("click",toggleSite);
+
 </script>
 
 </body>
