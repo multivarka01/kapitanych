@@ -154,6 +154,345 @@ h1{
   background:rgba(10,12,20,0.7);
   backdrop-filter:blur(16px);
   border-top:1px solid rgba(168,85,247,0.3);
+  padding:20px;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  gap:10px;
+  box-shadow:0 -10px 30px rgba(0,0,0,0.5);
+}
+
+.vertical-block{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  font-family:Orbitron;
+  letter-spacing:2px;
+  font-size:13px;
+  opacity:.8;
+}
+
+.bar-button{
+  font-family:Orbitron;
+  letter-spacing:2px;
+  font-size:14px;
+  background:rgba(255,255,255,0.03);
+  border:1px solid rgba(168,85,247,0.4);
+  border-radius:30px;
+  padding:10px 26px;
+  color:white;
+  cursor:pointer;
+  transition:.3s;
+  text-transform:uppercase;
+}
+
+.bar-button:hover{
+  transform:translateY(-3px) scale(1.05);
+  border-color:#a855f7;
+  box-shadow:0 0 25px rgba(168,85,247,.8);
+}
+
+/* MODAL */
+.modal-overlay{
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,0.7);
+  backdrop-filter:blur(5px);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  opacity:0;
+  visibility:hidden;
+  transition:.3s;
+  z-index:1000;
+}
+
+.modal-overlay.show{
+  opacity:1;
+  visibility:visible;
+}
+
+.modal-content{
+  background:rgba(10,12,20,0.95);
+  border:2px solid #a855f7;
+  border-radius:24px;
+  padding:30px 40px;
+  max-width:400px;
+  width:90%;
+  text-align:center;
+  box-shadow:0 0 50px #a855f7;
+}
+
+.modal-content h2{
+  font-family:Orbitron;
+  margin-bottom:15px;
+}
+
+.modal-button{
+  margin-top:20px;
+  padding:10px 25px;
+  border-radius:30px;
+  border:1px solid #a855f7;
+  background:rgba(168,85,247,0.2);
+  color:white;
+  cursor:pointer;
+  transition:.3s;
+}
+
+.modal-button:hover{
+  background:#a855f7;
+  color:black;
+}
+
+/* MOBILE */
+@media (max-width:768px){
+  .row{flex-direction:column;align-items:center;}
+  .module{width:90%;}
+  .glass-bar{flex-direction:column;gap:10px;}
+}
+</style>
+</head>
+
+<body>
+
+<div class="background"></div>
+<div class="grid"></div>
+
+<div class="nav">
+<a href="#">Donatex</a>
+<a href="#">DonatPay</a>
+<a href="#">Telegram</a>
+<a href="#">Discord</a>
+<a href="#">YouTube</a>
+<a href="#">TikTok</a>
+</div>
+
+<section class="hero">
+
+<img src="avatar.jpg" class="avatar-img">
+
+<h1>KAPITANYCH</h1>
+
+<div class="modules">
+<div class="row">
+<div class="module left-start" id="donatex"><h3>DONATEX</h3></div>
+<div class="module bottom-start" id="telegram"><h3>TELEGRAM</h3></div>
+<div class="module right-start" id="youtube"><h3>YOUTUBE</h3></div>
+</div>
+<div class="row">
+<div class="module left-start" id="discord"><h3>DISCORD</h3></div>
+<div class="module right-start" id="tiktok"><h3>TIKTOK</h3></div>
+</div>
+</div>
+
+</section>
+
+<!-- GLASS BAR -->
+<div class="glass-bar">
+<button class="bar-button" onclick="showTwitch()">TWITCH SUB</button>
+<div class="vertical-block">
+<span>© 2026 KAPITANYCH</span>
+<span>MULTIVARKA</span>
+</div>
+</div>
+
+<!-- MODAL TWITCH -->
+<div class="modal-overlay" id="twitchModal" onclick="closeModal(event,'twitchModal')">
+<div class="modal-content">
+<h2>ПОДПИСКА НА TWITCH</h2>
+<p>Поддержи стримера платной подпиской 💜</p>
+<button class="modal-button"
+onclick="window.open('https://www.twitch.tv/products/kapitanych_','_blank')">
+Перейти
+</button>
+</div>
+</div>
+
+<script>
+// Анимация модулей
+window.addEventListener("load",()=>{
+  setTimeout(()=>{document.getElementById("donatex").classList.add("show");},200);
+  setTimeout(()=>{document.getElementById("youtube").classList.add("show");},350);
+  setTimeout(()=>{document.getElementById("telegram").classList.add("show");},500);
+  setTimeout(()=>{document.getElementById("discord").classList.add("show");},650);
+  setTimeout(()=>{document.getElementById("tiktok").classList.add("show");},800);
+});
+
+// Модалка Twitch
+function showTwitch(){
+  document.getElementById("twitchModal").classList.add("show");
+}
+function closeModal(e,id){
+  if(!e || e.target.classList.contains("modal-overlay")){
+    document.getElementById(id).classList.remove("show");
+  }
+}
+
+document.addEventListener("keydown",function(e){
+  if(e.key==="Escape"){
+    document.querySelectorAll(".modal-overlay").forEach(m=>m.classList.remove("show"));
+  }
+});
+</script>
+
+</body>
+</html><!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kapitanych</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+
+body{
+  font-family:Inter,system-ui;
+  background:#06080f;
+  color:white;
+  overflow-x:hidden;
+  display:flex;
+  flex-direction:column;
+  min-height:100vh;
+}
+
+/* BACKGROUND */
+.background{
+  position:fixed;
+  inset:0;
+  z-index:-2;
+  background:
+    radial-gradient(circle at 30% 30%, rgba(168,85,247,0.15), transparent 60%),
+    radial-gradient(circle at 70% 70%, rgba(255,0,255,0.1), transparent 60%),
+    #06080f;
+}
+
+.grid{
+  position:fixed;
+  inset:0;
+  background-image:
+    linear-gradient(rgba(168,85,247,0.07) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(168,85,247,0.07) 1px, transparent 1px);
+  background-size:60px 60px;
+  animation:moveGrid 20s linear infinite;
+  z-index:-1;
+}
+
+@keyframes moveGrid{
+  0%{transform:translateY(0);}
+  100%{transform:translateY(60px);}
+}
+
+/* NAV */
+.nav{
+  position:fixed;
+  top:0;
+  width:100%;
+  height:70px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:35px;
+  background:rgba(10,12,20,0.6);
+  backdrop-filter:blur(14px);
+  border-bottom:1px solid rgba(255,255,255,0.05);
+  z-index:10;
+}
+
+.nav a{
+  color:#aaa;
+  text-decoration:none;
+  font-weight:600;
+  transition:.3s;
+}
+
+.nav a:hover{
+  color:#a855f7;
+  text-shadow:0 0 12px #a855f7;
+}
+
+/* HERO */
+.hero{
+  flex:1;
+  padding-top:130px;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  text-align:center;
+}
+
+/* AVATAR */
+.avatar-img{
+  width:120px;
+  height:120px;
+  border-radius:50%;
+  object-fit:cover;
+  border:3px solid #a855f7;
+  box-shadow:0 0 30px #a855f7;
+  margin-bottom:20px;
+  cursor:pointer;
+  transition:.4s;
+}
+
+.avatar-img:hover{
+  transform:scale(1.08);
+  box-shadow:0 0 60px #a855f7;
+}
+
+h1{
+  font-family:Orbitron;
+  font-size:52px;
+  letter-spacing:4px;
+}
+
+/* MODULES */
+.modules{margin-top:60px;display:flex;flex-direction:column;gap:30px;}
+.row{display:flex;gap:25px;justify-content:center;flex-wrap:wrap;}
+
+.module{
+  position:relative;
+  padding:35px 45px;
+  min-width:260px;
+  background:rgba(255,255,255,0.03);
+  border:1px solid rgba(168,85,247,0.4);
+  border-radius:16px;
+  backdrop-filter:blur(10px);
+  transition:.6s ease;
+  cursor:pointer;
+  overflow:hidden;
+  opacity:0;
+}
+
+.module h3{
+  font-family:Orbitron;
+  letter-spacing:3px;
+  font-size:18px;
+}
+
+/* ANIMATIONS */
+.left-start{transform:translateX(-120px);}
+.right-start{transform:translateX(120px);}
+.bottom-start{transform:translateY(60px);}
+
+.show{
+  transform:translateX(0) translateY(0);
+  opacity:1;
+}
+
+.module:hover{
+  transform:translateY(-6px) scale(1.03);
+  box-shadow:0 0 40px rgba(168,85,247,.7);
+}
+
+/* GLASS BAR */
+.glass-bar{
+  width:100%;
+  background:rgba(10,12,20,0.7);
+  backdrop-filter:blur(16px);
+  border-top:1px solid rgba(168,85,247,0.3);
   padding:24px 20px;
   display:flex;
   align-items:center;
