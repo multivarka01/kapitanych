@@ -122,7 +122,7 @@
 
     .hero.show { opacity:1; transform:translateY(0); }
 
-    /* ===== АВАТАР (реальный jpg) ===== */
+    /* АВАТАР */
     .avatar-img {
       width: 120px;
       height: 120px;
@@ -142,26 +142,6 @@
 
     h1 { font-family:Orbitron; font-size:52px; letter-spacing:4px; }
 
-    .modules { margin-top:60px; display:flex; flex-direction:column; gap:30px; }
-    .row { display:flex; gap:25px; justify-content:center; flex-wrap:wrap; }
-
-    .module {
-      position:relative; padding:35px 45px; min-width:260px;
-      background:rgba(255,255,255,0.03); border:1px solid rgba(168,85,247,0.4);
-      border-radius:16px; backdrop-filter:blur(10px); transition:0.4s; cursor:pointer;
-      overflow:hidden;
-    }
-
-    .module::before, .module::after {
-      content:""; position:absolute; width:25px; height:25px; border:2px solid #a855f7;
-    }
-
-    .module::before { top:0; left:0; border-right:none; border-bottom:none; }
-    .module::after { bottom:0; right:0; border-left:none; border-top:none; }
-
-    .module h3 { font-family:Orbitron; letter-spacing:3px; font-size:18px; }
-    .module:hover { transform:translateY(-6px) scale(1.03); box-shadow:0 0 40px rgba(168,85,247,.7); }
-
   </style>
 </head>
 <body>
@@ -174,8 +154,17 @@
 <div class="background"></div>
 <div class="grid"></div>
 
+<div class="nav">
+  <a href="https://donatex.gg/donate/kapitanych" target="_blank">Donatex</a>
+  <a href="https://new.donatepay.ru/@Kapitan" target="_blank">DonatPay</a>
+  <a href="https://t.me/KapitanGG" target="_blank">Telegram</a>
+  <a href="https://discord.com/" target="_blank">Discord</a>
+  <a href="https://www.youtube.com/@Капитаныч" target="_blank">YouTube</a>
+  <a href="https://www.tiktok.com/@tt_kapitanych" target="_blank">TikTok</a>
+</div>
+
 <section class="hero" id="hero">
-  <!-- ВОТ ТУТ ТЕПЕРЬ РЕАЛЬНАЯ КАРТИНКА -->
+
   <img 
     src="avatar.jpg" 
     class="avatar-img"
@@ -183,6 +172,7 @@
   >
 
   <h1>KAPITANYCH</h1>
+
 </section>
 
 <script>
