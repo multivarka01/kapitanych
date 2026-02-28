@@ -121,26 +121,26 @@ h1{
   border:1px solid rgba(168,85,247,0.4);
   border-radius:16px;
   backdrop-filter:blur(10px);
-  transition:.4s;
+  transition:.6s ease;
   cursor:pointer;
   overflow:hidden;
+  opacity:0;
 }
-
-.module::before,.module::after{
-  content:"";
-  position:absolute;
-  width:25px;
-  height:25px;
-  border:2px solid #a855f7;
-}
-
-.module::before{top:0;left:0;border-right:none;border-bottom:none;}
-.module::after{bottom:0;right:0;border-left:none;border-top:none;}
 
 .module h3{
   font-family:Orbitron;
   letter-spacing:3px;
   font-size:18px;
+}
+
+/* ANIMATIONS */
+.left-start{transform:translateX(-120px);}
+.right-start{transform:translateX(120px);}
+.bottom-start{transform:translateY(60px);}
+
+.show{
+  transform:translateX(0) translateY(0);
+  opacity:1;
 }
 
 .module:hover{
@@ -159,14 +159,12 @@ h1{
   align-items:center;
   justify-content:center;
   gap:40px;
-  box-shadow:0 -10px 30px rgba(0,0,0,0.5);
 }
 
 .vertical-block{
   display:flex;
   flex-direction:column;
   align-items:center;
-  line-height:1.3;
   font-family:Orbitron;
   letter-spacing:2px;
   font-size:13px;
@@ -193,103 +191,11 @@ h1{
   box-shadow:0 0 25px rgba(168,85,247,.8);
 }
 
-/* MODAL */
-.modal-overlay{
-  position:fixed;
-  inset:0;
-  background:rgba(0,0,0,0.7);
-  backdrop-filter:blur(5px);
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  opacity:0;
-  visibility:hidden;
-  transition:.3s;
-  z-index:1000;
-}
-
-.modal-overlay.show{
-  opacity:1;
-  visibility:visible;
-}
-
-.modal-content{
-  background:rgba(10,12,20,0.95);
-  border:2px solid #a855f7;
-  border-radius:24px;
-  padding:30px 40px;
-  max-width:400px;
-  width:90%;
-  text-align:center;
-  box-shadow:0 0 50px #a855f7;
-}
-
-.modal-content h2{
-  font-family:Orbitron;
-  margin-bottom:15px;
-}
-
-.modal-button{
-  margin-top:20px;
-  padding:10px 25px;
-  border-radius:30px;
-  border:1px solid #a855f7;
-  background:rgba(168,85,247,0.2);
-  color:white;
-  cursor:pointer;
-  transition:.3s;
-}
-
-.modal-button:hover{
-  background:#a855f7;
-  color:black;
-}
-
-/* ================= MOBILE ================= */
-@media (max-width: 768px){
-
-  .nav{
-    gap:15px;
-    flex-wrap:wrap;
-    height:auto;
-    padding:15px 10px;
-  }
-
-  .hero{
-    padding-top:160px;
-  }
-
-  h1{
-    font-size:34px;
-    letter-spacing:2px;
-  }
-
-  .modules{
-    gap:20px;
-  }
-
-  .row{
-    flex-direction:column;
-    align-items:center;
-  }
-
-  .module{
-    width:90%;
-    min-width:unset;
-    padding:25px;
-  }
-
-  .glass-bar{
-    flex-direction:column;
-    gap:15px;
-    padding:20px;
-    text-align:center;
-  }
-
-  .bar-button{
-    width:80%;
-    max-width:280px;
-  }
+/* MOBILE */
+@media (max-width:768px){
+  .row{flex-direction:column;align-items:center;}
+  .module{width:90%;}
+  .glass-bar{flex-direction:column;gap:15px;}
 }
 </style>
 </head>
@@ -300,84 +206,41 @@ h1{
 <div class="grid"></div>
 
 <div class="nav">
-<a href="https://donatex.gg/donate/kapitanych" target="_blank">Donatex</a>
-<a href="https://new.donatepay.ru/@Kapitan" target="_blank">DonatPay</a>
-<a href="https://t.me/KapitanGG" target="_blank">Telegram</a>
-<a href="https://discord.com/" target="_blank">Discord</a>
-<a href="https://www.youtube.com/@Капитаныч" target="_blank">YouTube</a>
-<a href="https://www.tiktok.com/@tt_kapitanych" target="_blank">TikTok</a>
+<a href="#">Donatex</a>
+<a href="#">DonatPay</a>
+<a href="#">Telegram</a>
+<a href="#">Discord</a>
+<a href="#">YouTube</a>
+<a href="#">TikTok</a>
 </div>
 
 <section class="hero">
 
-<img src="avatar.jpg" class="avatar-img"
-onclick="window.open('https://twitch.tv/kapitanych_','_blank')">
+<img src="avatar.jpg" class="avatar-img">
 
 <h1>KAPITANYCH</h1>
 
 <div class="modules">
 <div class="row">
-<div class="module" onclick="window.open('https://donatex.gg/donate/kapitanych','_blank')"><h3>DONATEX</h3></div>
-<div class="module" onclick="window.open('https://t.me/KapitanGG','_blank')"><h3>TELEGRAM</h3></div>
-<div class="module" onclick="window.open('https://www.youtube.com/@Капитаныч','_blank')"><h3>YOUTUBE</h3></div>
+<div class="module left-start" id="donatex"><h3>DONATEX</h3></div>
+<div class="module bottom-start" id="telegram"><h3>TELEGRAM</h3></div>
+<div class="module right-start" id="youtube"><h3>YOUTUBE</h3></div>
 </div>
 <div class="row">
-<div class="module" onclick="window.open('https://discord.com/','_blank')"><h3>DISCORD</h3></div>
-<div class="module" onclick="window.open('https://www.tiktok.com/@tt_kapitanych','_blank')"><h3>TIKTOK</h3></div>
+<div class="module left-start" id="discord"><h3>DISCORD</h3></div>
+<div class="module right-start" id="tiktok"><h3>TIKTOK</h3></div>
 </div>
 </div>
 
 </section>
 
-<div class="glass-bar">
-<button class="bar-button" onclick="showSoon()">SOON</button>
-
-<div class="vertical-block">
-<span>© 2026 KAPITANYCH</span>
-<span>MULTIVARKA</span>
-</div>
-
-<button class="bar-button" onclick="showTwitch()">TWITCH SUB</button>
-</div>
-
-<div class="modal-overlay" id="soonModal" onclick="closeModal(event,'soonModal')">
-<div class="modal-content">
-<h2>СКОРО...</h2>
-<p>Функция в разработке</p>
-<button class="modal-button" onclick="closeModal(null,'soonModal')">Закрыть</button>
-</div>
-</div>
-
-<div class="modal-overlay" id="twitchModal" onclick="closeModal(event,'twitchModal')">
-<div class="modal-content">
-<h2>ПОДПИСКА</h2>
-<p>Поддержи стримера 💜</p>
-<button class="modal-button"
-onclick="window.open('https://www.twitch.tv/products/kapitanych_','_blank')">
-Перейти
-</button>
-</div>
-</div>
-
 <script>
-function showSoon(){
-document.getElementById("soonModal").classList.add("show");
-}
-
-function showTwitch(){
-document.getElementById("twitchModal").classList.add("show");
-}
-
-function closeModal(e,id){
-if(!e || e.target.classList.contains("modal-overlay")){
-document.getElementById(id).classList.remove("show");
-}
-}
-
-document.addEventListener("keydown",function(e){
-if(e.key==="Escape"){
-document.querySelectorAll(".modal-overlay").forEach(m=>m.classList.remove("show"));
-}
+window.addEventListener("load",()=>{
+  setTimeout(()=>{document.getElementById("donatex").classList.add("show");},200);
+  setTimeout(()=>{document.getElementById("youtube").classList.add("show");},350);
+  setTimeout(()=>{document.getElementById("telegram").classList.add("show");},500);
+  setTimeout(()=>{document.getElementById("discord").classList.add("show");},650);
+  setTimeout(()=>{document.getElementById("tiktok").classList.add("show");},800);
 });
 </script>
 
