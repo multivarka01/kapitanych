@@ -191,7 +191,7 @@ h1{
 .modal-overlay{
   position:fixed;
   inset:0;
-  background:rgba(0,0,0,0.8);
+  background:rgba(0,0,0,0.85);
   backdrop-filter:blur(6px);
   display:flex;
   align-items:center;
@@ -222,27 +222,7 @@ h1{
   -webkit-text-fill-color:transparent;
 }
 .modal-content p{font-size:18px;margin-bottom:20px;color:#ddd;}
-.modal-button{
-  background:#a855f7;
-  border:none;
-  border-radius:40px;
-  padding:10px 25px;
-  font-size:15px;
-  font-weight:600;
-  color:#000;
-  cursor:pointer;
-}
-.modal-close{
-  position:absolute;
-  top:15px;
-  right:20px;
-  font-size:26px;
-  cursor:pointer;
-  color:#aaa;
-}
-.modal-close:hover{color:#a855f7;}
 
-/* ===== ADMIN BUTTON ===== */
 #adminToggle{
   position:fixed;
   top:15px;
@@ -257,7 +237,6 @@ h1{
   cursor:pointer;
   display:none;
 }
-
 </style>
 </head>
 <body>
@@ -304,21 +283,6 @@ onclick="window.open('https://twitch.tv/kapitanych_','_blank')">
 
 <button id="adminToggle">🔒 Закрыть сайт</button>
 
-<!-- Twitch Modal -->
-<div class="modal-overlay" id="twitchModalOverlay">
-<div class="modal-content">
-<span class="modal-close" onclick="closeTwitchModal()">&times;</span>
-<h2>Подписка на Twitch</h2>
-<p>
-<a href="https://www.twitch.tv/products/kapitanych_" target="_blank" style="color:#a855f7;text-decoration:none;">
-Поддержи Twitch своей подпиской!
-</a>
-</p>
-<button class="modal-button" onclick="closeTwitchModal()">Закрыть</button>
-</div>
-</div>
-
-<!-- Site Closed Modal -->
 <div class="modal-overlay" id="siteClosedOverlay">
 <div class="modal-content">
 <h2>Сайт временно недоступен</h2>
@@ -327,37 +291,23 @@ onclick="window.open('https://twitch.tv/kapitanych_','_blank')">
 </div>
 
 <script>
-
-const ADMIN_PASSWORD = "kapitanych_admin"; // СМЕНИ ПАРОЛЬ
+const ADMIN_PASSWORD = "kapitanych_admin";
 
 window.addEventListener("load",()=>{
-
 setTimeout(()=>donatex.classList.add("show"),200);
 setTimeout(()=>youtube.classList.add("show"),350);
 setTimeout(()=>telegram.classList.add("show"),500);
 setTimeout(()=>discord.classList.add("show"),650);
 setTimeout(()=>tiktok.classList.add("show"),800);
 
-checkSiteStatus();
+if(localStorage.getItem("siteClosed")==="true"){
+document.getElementById("siteClosedOverlay").classList.add("show");
+}
 
 if(localStorage.getItem("isAdmin")==="true"){
 document.getElementById("adminToggle").style.display="block";
 }
-
 });
-
-function showTwitchModal(){
-document.getElementById("twitchModalOverlay").classList.add("show");
-}
-function closeTwitchModal(){
-document.getElementById("twitchModalOverlay").classList.remove("show");
-}
-
-function checkSiteStatus(){
-if(localStorage.getItem("siteClosed")==="true"){
-document.getElementById("siteClosedOverlay").classList.add("show");
-}
-}
 
 function adminLogin(){
 const pass=prompt("Введите пароль администратора:");
@@ -384,12 +334,13 @@ document.getElementById("adminToggle").innerText="🔓 Открыть сайт";
 }
 
 document.addEventListener("keydown",e=>{
-if(e.key==="Escape") closeTwitchModal();
-if(e.ctrlKey && e.shiftKey && e.key==="A") adminLogin();
+if(e.ctrlKey && (e.key==="q" || e.key==="й")){
+e.preventDefault();
+adminLogin();
+}
 });
 
 document.getElementById("adminToggle").addEventListener("click",toggleSite);
-
 </script>
 
 </body>
