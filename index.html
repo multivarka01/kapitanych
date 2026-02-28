@@ -122,6 +122,294 @@
 
     .hero.show { opacity:1; transform:translateY(0); }
 
+    /* ===== АВАТАР ===== */
+    .avatar-img {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 3px solid #a855f7;
+      box-shadow: 0 0 30px #a855f7;
+      margin-bottom: 20px;
+      cursor: pointer;
+      transition: 0.4s;
+    }
+
+    .avatar-img:hover {
+      transform: scale(1.08);
+      box-shadow: 0 0 60px #a855f7;
+    }
+
+    h1 { font-family:Orbitron; font-size:52px; letter-spacing:4px; }
+
+    .modules { margin-top:60px; display:flex; flex-direction:column; gap:30px; }
+    .row { display:flex; gap:25px; justify-content:center; flex-wrap:wrap; }
+    .module {
+      position:relative; padding:35px 45px; min-width:260px;
+      background:rgba(255,255,255,0.03); border:1px solid rgba(168,85,247,0.4);
+      border-radius:16px; backdrop-filter:blur(10px); transition:0.4s; cursor:pointer;
+      overflow:hidden;
+    }
+    .module::before, .module::after {
+      content:""; position:absolute; width:25px; height:25px; border:2px solid #a855f7;
+    }
+    .module::before { top:0; left:0; border-right:none; border-bottom:none; }
+    .module::after { bottom:0; right:0; border-left:none; border-top:none; }
+    .module h3 { font-family:Orbitron; letter-spacing:3px; font-size:18px; }
+    .module:hover { transform:translateY(-6px) scale(1.03); box-shadow:0 0 40px rgba(168,85,247,.7); }
+
+    .glass-bar {
+      width: 100%;
+      background: rgba(10,12,20,0.7);
+      backdrop-filter: blur(16px);
+      border-top: 1px solid rgba(168,85,247,0.3);
+      padding: 24px 20px;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: center;
+      gap: 20px 30px;
+      box-shadow: 0 -10px 30px rgba(0,0,0,0.5);
+      font-size: 15px;
+    }
+
+    .bar-label { color: #ccc; pointer-events:none; }
+    .vertical-block { display:flex; flex-direction:column; align-items:center; }
+
+    .bar-button {
+      background: rgba(168,85,247,0.15);
+      border: 1px solid rgba(168,85,247,0.5);
+      border-radius: 30px;
+      padding: 8px 22px;
+      color: white;
+      font-weight: 600;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .bar-button:hover {
+      background: rgba(168,85,247,0.3);
+      border-color: #a855f7;
+      box-shadow: 0 0 20px #a855f7;
+      transform: scale(1.05);
+    }
+
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.7);
+      backdrop-filter: blur(5px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 10000;
+      opacity: 0;
+      visibility: hidden;
+      transition: 0.3s;
+    }
+
+    .modal-overlay.show { opacity:1; visibility:visible; }
+
+    .modal-content {
+      background: rgba(10,12,20,0.95);
+      border: 2px solid #a855f7;
+      border-radius: 24px;
+      padding: 30px 40px;
+      max-width: 450px;
+      width: 90%;
+      text-align: center;
+      position: relative;
+    }
+
+    .modal-close {
+      position: absolute;
+      top: 15px;
+      right: 20px;
+      font-size: 28px;
+      cursor: pointer;
+      color: #aaa;
+    }
+  </style>
+</head>
+<body>
+
+<div id="preloader"><div class="loader-title">INITIALIZING</div><div class="scan-bar"></div></div>
+<div class="background"></div><div class="grid"></div>
+
+<div class="nav">
+  <a href="https://donatex.gg/donate/kapitanych" target="_blank">Donatex</a>
+  <a href="https://new.donatepay.ru/@Kapitan" target="_blank">DonatPay</a>
+  <a href="https://t.me/KapitanGG" target="_blank">Telegram</a>
+  <a href="https://discord.com/" target="_blank">Discord</a>
+  <a href="https://www.youtube.com/@Капитаныч" target="_blank">YouTube</a>
+  <a href="https://www.tiktok.com/@tt_kapitanych" target="_blank">TikTok</a>
+</div>
+
+<section class="hero" id="hero">
+  <img src="avatar.jpg" class="avatar-img"
+       onclick="window.open('https://twitch.tv/kapitanych_','_blank')">
+  <h1>KAPITANYCH</h1>
+
+  <div class="modules">
+    <div class="row">
+      <div class="module" onclick="window.open('https://donatex.gg/donate/kapitanych','_blank')"><h3>DONATEX</h3></div>
+      <div class="module" onclick="window.open('https://t.me/KapitanGG','_blank')"><h3>TELEGRAM</h3></div>
+      <div class="module" onclick="window.open('https://www.youtube.com/@Капитаныч','_blank')"><h3>YOUTUBE</h3></div>
+    </div>
+    <div class="row">
+      <div class="module" onclick="window.open('https://discord.com/','_blank')"><h3>DISCORD</h3></div>
+      <div class="module" onclick="window.open('https://www.tiktok.com/@tt_kapitanych','_blank')"><h3>TIKTOK</h3></div>
+    </div>
+  </div>
+</section>
+
+<div class="glass-bar">
+  <button class="bar-button" onclick="showSoonModal()">Soon...</button>
+  <div class="vertical-block">
+    <span class="bar-label">© 2026 Kapitanych</span>
+    <span class="bar-label">MULTIVARKA</span>
+  </div>
+  <button class="bar-button" onclick="showTwitchModal()">Twitch Sub</button>
+</div>
+
+<script>
+function showTwitchModal(){ alert("Подписка на Twitch скоро будет здесь"); }
+function showSoonModal(){ alert("Функция в разработке"); }
+
+window.addEventListener("load",()=>{
+  setTimeout(()=>{
+    document.getElementById("preloader").style.opacity="0";
+    document.getElementById("preloader").style.visibility="hidden";
+    document.getElementById("hero").classList.add("show");
+  },1500);
+});
+</script>
+
+</body>
+</html><!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kapitanych</title>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body {
+      font-family: Inter, system-ui;
+      background: #06080f;
+      color: white;
+      overflow-x: hidden;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    #preloader {
+      position: fixed;
+      inset: 0;
+      background: #05070d;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      z-index: 9999;
+      transition: opacity 0.8s ease, visibility 0.8s ease;
+    }
+
+    .loader-title {
+      font-family: Orbitron;
+      font-size: 32px;
+      letter-spacing: 4px;
+      animation: glitch 1.5s infinite;
+    }
+
+    .scan-bar {
+      margin-top: 25px;
+      width: 220px;
+      height: 3px;
+      background: rgba(168,85,247,0.2);
+      overflow: hidden;
+      position: relative;
+    }
+
+    .scan-bar::after {
+      content: "";
+      position: absolute;
+      height: 100%;
+      width: 40%;
+      background: #a855f7;
+      animation: scan 1.2s infinite;
+    }
+
+    @keyframes scan { 0%{ left:-40%; } 100%{ left:100%; } }
+    @keyframes glitch {
+      0%{ text-shadow:2px 0 #a855f7,-2px 0 #ff00ff; }
+      50%{ text-shadow:-2px 0 #a855f7,2px 0 #ff00ff; }
+      100%{ text-shadow:2px 0 #a855f7,-2px 0 #ff00ff; }
+    }
+
+    .background {
+      position: fixed;
+      inset: 0;
+      z-index: -2;
+      background:
+        radial-gradient(circle at 30% 30%, rgba(168,85,247,0.15), transparent 60%),
+        radial-gradient(circle at 70% 70%, rgba(255,0,255,0.1), transparent 60%),
+        #06080f;
+    }
+
+    .grid {
+      position: fixed;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(168,85,247,0.07) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(168,85,247,0.07) 1px, transparent 1px);
+      background-size: 60px 60px;
+      animation: moveGrid 20s linear infinite;
+      z-index: -1;
+    }
+
+    @keyframes moveGrid { 0%{ transform:translateY(0); } 100%{ transform:translateY(60px); } }
+
+    .nav {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      height: 70px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 35px;
+      background: rgba(10,12,20,0.6);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+      z-index: 10;
+    }
+
+    .nav a {
+      color: #aaa;
+      text-decoration: none;
+      font-weight: 600;
+      transition: 0.3s;
+    }
+
+    .nav a:hover { color:#a855f7; text-shadow:0 0 12px #a855f7; }
+
+    .hero {
+      flex: 1;
+      padding-top: 130px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: 1s ease;
+    }
+
+    .hero.show { opacity:1; transform:translateY(0); }
+
     /* АВАТАР */
     .avatar-img {
       width: 120px;
