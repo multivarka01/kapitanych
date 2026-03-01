@@ -23,16 +23,16 @@ body{
   inset:0;
   z-index:-2;
   background:
-    radial-gradient(circle at 30% 30%, rgba(168,85,247,0.15), transparent 60%),
-    radial-gradient(circle at 70% 70%, rgba(255,0,255,0.1), transparent 60%),
+    radial-gradient(circle at 30% 30%, rgba(0,204,255,0.12), transparent 60%),
+    radial-gradient(circle at 70% 70%, rgba(0,150,255,0.1), transparent 60%),
     #06080f;
 }
 .grid{
   position:fixed;
   inset:0;
   background-image:
-    linear-gradient(rgba(168,85,247,0.07) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(168,85,247,0.07) 1px, transparent 1px);
+    linear-gradient(rgba(0,204,255,0.07) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0,204,255,0.07) 1px, transparent 1px);
   background-size:60px 60px;
   animation:moveGrid 20s linear infinite;
   z-index:-1;
@@ -64,8 +64,8 @@ body{
   transition:.3s;
 }
 .nav a:hover{
-  color:#a855f7;
-  text-shadow:0 0 12px #a855f7;
+  color:#00ccff;
+  text-shadow:0 0 12px #00ccff;
 }
 
 /* ===== HERO ===== */
@@ -83,8 +83,8 @@ body{
   width:120px;
   height:120px;
   border-radius:50%;
-  border:3px solid #a855f7;
-  box-shadow:0 0 30px #a855f7;
+  border:3px solid #00ccff;
+  box-shadow:0 0 30px #00ccff;
   margin-bottom:20px;
   object-fit:cover;
   transition:.4s;
@@ -92,13 +92,17 @@ body{
 }
 .avatar-img:hover{
   transform:scale(1.08);
-  box-shadow:0 0 60px #a855f7;
+  box-shadow:0 0 60px #00ccff;
 }
 
 h1{
   font-family:Orbitron;
   font-size:52px;
   letter-spacing:4px;
+  background:linear-gradient(90deg,#00ccff,#4fd1ff,#00eaff);
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+  text-shadow:0 0 25px rgba(0,204,255,0.6);
 }
 
 /* ===== MODULES ===== */
@@ -109,7 +113,7 @@ h1{
   padding:35px 45px;
   min-width:260px;
   background:rgba(255,255,255,0.03);
-  border:1px solid rgba(168,85,247,0.4);
+  border:1px solid rgba(0,204,255,0.4);
   border-radius:16px;
   backdrop-filter:blur(10px);
   transition:.6s ease;
@@ -122,7 +126,7 @@ h1{
   position:absolute;
   width:25px;
   height:25px;
-  border:2px solid #a855f7;
+  border:2px solid #00ccff;
 }
 .module::before{top:0;left:0;border-right:none;border-bottom:none;}
 .module::after{bottom:0;right:0;border-left:none;border-top:none;}
@@ -133,10 +137,9 @@ h1{
 }
 .module:hover{
   transform:translateY(-6px) scale(1.03);
-  box-shadow:0 0 40px rgba(168,85,247,.7);
+  box-shadow:0 0 40px rgba(0,204,255,.7);
 }
 
-/* Анимации */
 .left-start{transform:translateX(-120px);}
 .right-start{transform:translateX(120px);}
 .bottom-start{transform:translateY(60px);}
@@ -149,8 +152,8 @@ h1{
   width:100%;
   background:rgba(10,12,20,0.7);
   backdrop-filter:blur(16px);
-  border-top:1px solid rgba(168,85,247,0.3);
-  padding:10px 15px; /* уменьшили */
+  border-top:1px solid rgba(0,204,255,0.3);
+  padding:10px 15px;
   display:flex;
   flex-direction:column;
   align-items:center;
@@ -160,8 +163,8 @@ h1{
 }
 
 .bar-button{
-  background:rgba(168,85,247,0.15);
-  border:1px solid rgba(168,85,247,0.5);
+  background:rgba(0,204,255,0.15);
+  border:1px solid rgba(0,204,255,0.5);
   border-radius:30px;
   padding:6px 18px;
   color:white;
@@ -170,12 +173,12 @@ h1{
   cursor:pointer;
   transition:.3s;
   backdrop-filter:blur(5px);
-  box-shadow:0 0 10px rgba(168,85,247,0.2);
+  box-shadow:0 0 10px rgba(0,204,255,0.2);
 }
 .bar-button:hover{
-  background:rgba(168,85,247,0.3);
-  border-color:#a855f7;
-  box-shadow:0 0 20px #a855f7;
+  background:rgba(0,204,255,0.3);
+  border-color:#00ccff;
+  box-shadow:0 0 20px #00ccff;
   transform:scale(1.05);
 }
 
@@ -183,8 +186,32 @@ h1{
   display:flex;
   flex-direction:column;
   align-items:center;
-  opacity:.4;
+  opacity:.9;
   font-size:13px;
+}
+
+/* ===== Gradient Text ===== */
+.kapitanych-text{
+  font-weight:600;
+  background:linear-gradient(90deg,#00ccff,#4fd1ff,#00eaff);
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+  text-shadow:0 0 15px rgba(0,204,255,0.6);
+}
+
+.multivarka-link{
+  text-decoration:none;
+  font-weight:700;
+  background:linear-gradient(90deg,#00ccff,#4fd1ff,#00eaff);
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+  text-shadow:0 0 15px rgba(0,204,255,0.6);
+  transition:.3s;
+}
+
+.multivarka-link:hover{
+  text-shadow:0 0 25px #00eaff;
+  transform:scale(1.05);
 }
 
 /* ===== MODAL ===== */
@@ -204,25 +231,25 @@ h1{
 .modal-overlay.show{opacity:1;visibility:visible;}
 .modal-content{
   background:rgba(10,12,20,0.95);
-  border:2px solid #a855f7;
+  border:2px solid #00ccff;
   border-radius:24px;
   padding:30px 40px;
   max-width:450px;
   width:90%;
-  box-shadow:0 0 50px #a855f7;
+  box-shadow:0 0 50px #00ccff;
   text-align:center;
 }
 .modal-content h2{
   font-family:Orbitron;
   font-size:28px;
   margin-bottom:20px;
-  background:linear-gradient(45deg,#a855f7,#ff00ff,#00ccff);
+  background:linear-gradient(45deg,#00ccff,#4fd1ff,#00eaff);
   -webkit-background-clip:text;
   -webkit-text-fill-color:transparent;
 }
 .modal-content p{font-size:18px;margin-bottom:25px;color:#ddd;}
 .modal-button{
-  background:#a855f7;
+  background:#00ccff;
   border:none;
   border-radius:40px;
   padding:10px 25px;
@@ -239,7 +266,7 @@ h1{
   cursor:pointer;
   color:#aaa;
 }
-.modal-close:hover{color:#a855f7;}
+.modal-close:hover{color:#00ccff;}
 
 @media(max-width:768px){
   h1{font-size:34px;}
@@ -253,76 +280,28 @@ h1{
 <div class="background"></div>
 <div class="grid"></div>
 
-<div class="nav">
-<a href="https://donatex.gg/donate/kapitanych" target="_blank">Donatex</a>
-<a href="https://new.donatepay.ru/@Kapitan" target="_blank">DonatPay</a>
-<a href="https://t.me/KapitanGG" target="_blank">Telegram</a>
-<a href="https://discord.com/" target="_blank">Discord</a>
-<a href="https://www.youtube.com/@Капитаныч" target="_blank">YouTube</a>
-<a href="https://www.tiktok.com/@tt_kapitanych" target="_blank">TikTok</a>
-</div>
-
 <section class="hero">
-  <!-- АВАТАРКА С GITHUB -->
   <img src="https://raw.githubusercontent.com/multivarka01/kapitanych/main/avatar.jpg"
        class="avatar-img"
        onclick="window.open('https://twitch.tv/kapitanych_','_blank')">
 
   <h1>KAPITANYCH</h1>
-
-  <div class="modules">
-    <div class="row">
-      <div class="module left-start" id="donatex" onclick="window.open('https://donatex.gg/donate/kapitanych','_blank')"><h3>DONATEX</h3></div>
-      <div class="module bottom-start" id="telegram" onclick="window.open('https://t.me/KapitanGG','_blank')"><h3>TELEGRAM</h3></div>
-      <div class="module right-start" id="youtube" onclick="window.open('https://www.youtube.com/@Капитаныч','_blank')"><h3>YOUTUBE</h3></div>
-    </div>
-    <div class="row">
-      <div class="module left-start" id="discord" onclick="window.open('https://discord.com/','_blank')"><h3>DISCORD</h3></div>
-      <div class="module right-start" id="tiktok" onclick="window.open('https://www.tiktok.com/@tt_kapitanych','_blank')"><h3>TIKTOK</h3></div>
-    </div>
-  </div>
 </section>
 
 <div class="glass-bar">
-  <!-- Twitch над надписью -->
   <button class="bar-button" onclick="showTwitchModal()">Twitch Sub</button>
   <div class="vertical-block">
-    <span>© 2026 Kapitanych</span>
-    <span>MULTIVARKA</span>
-  </div>
-</div>
-
-<div class="modal-overlay" id="twitchModalOverlay">
-  <div class="modal-content">
-    <span class="modal-close" onclick="closeTwitchModal()">&times;</span>
-    <h2>Подписка на Twitch</h2>
-    <p>
-      <a href="https://www.twitch.tv/products/kapitanych_" target="_blank" style="color:#a855f7;text-decoration:none;">
-        Поддержи Twitch своей платной подпиской!
-      </a>
-    </p>
-    <button class="modal-button" onclick="closeTwitchModal()">Закрыть</button>
+    <span class="kapitanych-text">© 2026 Kapitanych</span>
+    <a href="https://t.me/multicooker01" target="_blank" class="multivarka-link">
+      MULTIVARKA
+    </a>
   </div>
 </div>
 
 <script>
-window.addEventListener("load",()=>{
-  setTimeout(()=>donatex.classList.add("show"),200);
-  setTimeout(()=>youtube.classList.add("show"),350);
-  setTimeout(()=>telegram.classList.add("show"),500);
-  setTimeout(()=>discord.classList.add("show"),650);
-  setTimeout(()=>tiktok.classList.add("show"),800);
-});
-
 function showTwitchModal(){
-  document.getElementById("twitchModalOverlay").classList.add("show");
+  alert("Twitch подписка открывается через кнопку аватара 😉");
 }
-function closeTwitchModal(){
-  document.getElementById("twitchModalOverlay").classList.remove("show");
-}
-document.addEventListener("keydown",e=>{
-  if(e.key==="Escape") closeTwitchModal();
-});
 </script>
 
 </body>
