@@ -27,34 +27,50 @@ body{
     radial-gradient(circle at 70% 70%, rgba(0,150,255,0.1), transparent 60%),
     #06080f;
 }
+
+/* ===== NEON GRID ===== */
 .grid{
   position:fixed;
   inset:0;
-  background-image:
-    linear-gradient(rgba(0,204,255,0.07) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(0,204,255,0.07) 1px, transparent 1px);
-  background-size:60px 60px;
-  animation:moveGrid 20s linear infinite;
   z-index:-1;
+  background-image:
+    linear-gradient(rgba(0,204,255,0.12) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0,204,255,0.12) 1px, transparent 1px);
+  background-size:50px 50px;
+  animation:moveGrid 18s linear infinite;
+  box-shadow:
+    inset 0 0 80px rgba(0,204,255,0.15),
+    0 0 120px rgba(0,204,255,0.1);
 }
 @keyframes moveGrid{
   0%{transform:translateY(0);}
-  100%{transform:translateY(60px);}
+  100%{transform:translateY(50px);}
 }
 
-/* ===== NAV ===== */
+/* ===== TOP NAV (добавлено стекло + скругление) ===== */
 .nav{
   position:fixed;
-  top:0;
-  width:100%;
-  height:70px;
+  top:15px;
+  left:50%;
+  transform:translateX(-50%);
+  width:90%;
+  height:65px;
   display:flex;
   align-items:center;
   justify-content:center;
   gap:35px;
-  background:rgba(10,12,20,0.6);
-  backdrop-filter:blur(14px);
-  border-bottom:1px solid rgba(255,255,255,0.05);
+
+  background:rgba(15,18,30,0.55);
+  backdrop-filter:blur(18px);
+  -webkit-backdrop-filter:blur(18px);
+
+  border-radius:20px;
+  border:1px solid rgba(0,204,255,0.25);
+
+  box-shadow:
+    0 0 30px rgba(0,204,255,0.15),
+    inset 0 0 25px rgba(255,255,255,0.03);
+
   z-index:10;
 }
 .nav a{
@@ -71,7 +87,7 @@ body{
 /* ===== HERO ===== */
 .hero{
   flex:1;
-  padding-top:130px;
+  padding-top:150px;
   padding-bottom:90px;
   display:flex;
   flex-direction:column;
@@ -113,7 +129,7 @@ h1{
   padding:35px 45px;
   min-width:260px;
   background:rgba(255,255,255,0.03);
-  border:1px solid rgba(0,204,255,0.4);
+  border:1px solid rgba(0,204,255,0.6);
   border-radius:16px;
   backdrop-filter:blur(10px);
   transition:.6s ease;
@@ -137,7 +153,7 @@ h1{
 }
 .module:hover{
   transform:translateY(-6px) scale(1.03);
-  box-shadow:0 0 40px rgba(0,204,255,.7);
+  box-shadow:0 0 50px #00ccff;
 }
 
 .left-start{transform:translateX(-120px);}
@@ -164,7 +180,7 @@ h1{
 
 .bar-button{
   background:rgba(0,204,255,0.15);
-  border:1px solid rgba(0,204,255,0.5);
+  border:1px solid rgba(0,204,255,0.6);
   border-radius:30px;
   padding:6px 18px;
   color:white;
@@ -172,13 +188,10 @@ h1{
   font-size:13px;
   cursor:pointer;
   transition:.3s;
-  backdrop-filter:blur(5px);
-  box-shadow:0 0 10px rgba(0,204,255,0.2);
+  box-shadow:0 0 15px rgba(0,204,255,0.5);
 }
 .bar-button:hover{
-  background:rgba(0,204,255,0.3);
-  border-color:#00ccff;
-  box-shadow:0 0 20px #00ccff;
+  box-shadow:0 0 25px #00ccff;
   transform:scale(1.05);
 }
 
@@ -186,11 +199,9 @@ h1{
   display:flex;
   flex-direction:column;
   align-items:center;
-  opacity:.9;
   font-size:13px;
 }
 
-/* ===== Gradient Text ===== */
 .kapitanych-text{
   font-weight:600;
   background:linear-gradient(90deg,#00ccff,#4fd1ff,#00eaff);
@@ -208,27 +219,29 @@ h1{
   text-shadow:0 0 15px rgba(0,204,255,0.6);
   transition:.3s;
 }
-
 .multivarka-link:hover{
   text-shadow:0 0 25px #00eaff;
-  transform:scale(1.05);
 }
 
-/* ===== MODAL ===== */
+/* ===== MODAL (анимации добавлены) ===== */
 .modal-overlay{
   position:fixed;
   inset:0;
-  background:rgba(0,0,0,0.7);
-  backdrop-filter:blur(5px);
+  background:rgba(0,0,0,0.6);
+  backdrop-filter:blur(6px);
   display:flex;
   align-items:center;
   justify-content:center;
   z-index:10000;
   opacity:0;
   visibility:hidden;
-  transition:.3s;
+  transition:opacity .35s ease, visibility .35s ease;
 }
-.modal-overlay.show{opacity:1;visibility:visible;}
+.modal-overlay.show{
+  opacity:1;
+  visibility:visible;
+}
+
 .modal-content{
   background:rgba(10,12,20,0.95);
   border:2px solid #00ccff;
@@ -238,16 +251,29 @@ h1{
   width:90%;
   box-shadow:0 0 50px #00ccff;
   text-align:center;
+  position:relative;
+
+  transform:translateY(40px) scale(.9);
+  opacity:0;
+  transition:all .4s cubic-bezier(.2,.8,.2,1);
 }
+
+.modal-overlay.show .modal-content{
+  transform:translateY(0) scale(1);
+  opacity:1;
+}
+
 .modal-content h2{
   font-family:Orbitron;
-  font-size:28px;
+  font-size:26px;
   margin-bottom:20px;
   background:linear-gradient(45deg,#00ccff,#4fd1ff,#00eaff);
   -webkit-background-clip:text;
   -webkit-text-fill-color:transparent;
 }
+
 .modal-content p{font-size:18px;margin-bottom:25px;color:#ddd;}
+
 .modal-button{
   background:#00ccff;
   border:none;
@@ -257,7 +283,13 @@ h1{
   font-weight:600;
   color:#000;
   cursor:pointer;
+  transition:.3s;
 }
+.modal-button:hover{
+  transform:scale(1.05);
+  box-shadow:0 0 20px #00ccff;
+}
+
 .modal-close{
   position:absolute;
   top:15px;
@@ -265,14 +297,9 @@ h1{
   font-size:26px;
   cursor:pointer;
   color:#aaa;
+  transition:.3s;
 }
 .modal-close:hover{color:#00ccff;}
-
-@media(max-width:768px){
-  h1{font-size:34px;}
-  .row{flex-direction:column;}
-  .module{min-width:220px;width:90%;}
-}
 </style>
 </head>
 <body>
@@ -280,28 +307,74 @@ h1{
 <div class="background"></div>
 <div class="grid"></div>
 
-<section class="hero">
-  <img src="https://raw.githubusercontent.com/multivarka01/kapitanych/main/avatar.jpg"
-       class="avatar-img"
-       onclick="window.open('https://twitch.tv/kapitanych_','_blank')">
+<div class="nav">
+<a href="https://donatex.gg/donate/kapitanych" target="_blank">Donatex</a>
+<a href="https://new.donatepay.ru/@Kapitan" target="_blank">DonatPay</a>
+<a href="https://t.me/KapitanGG" target="_blank">Telegram</a>
+<a href="https://discord.com/" target="_blank">Discord</a>
+<a href="https://www.youtube.com/@Капитаныч" target="_blank">YouTube</a>
+<a href="https://www.tiktok.com/@tt_kapitanych" target="_blank">TikTok</a>
+</div>
 
-  <h1>KAPITANYCH</h1>
+<section class="hero">
+<img src="https://raw.githubusercontent.com/multivarka01/kapitanych/main/avatar.jpg"
+class="avatar-img"
+onclick="window.open('https://twitch.tv/kapitanych_','_blank')">
+
+<h1>KAPITANYCH</h1>
+
+<div class="modules">
+<div class="row">
+<div class="module left-start" id="donatex" onclick="window.open('https://donatex.gg/donate/kapitanych','_blank')"><h3>DONATEX</h3></div>
+<div class="module bottom-start" id="telegram" onclick="window.open('https://t.me/KapitanGG','_blank')"><h3>TELEGRAM</h3></div>
+<div class="module right-start" id="youtube" onclick="window.open('https://www.youtube.com/@Капитаныч','_blank')"><h3>YOUTUBE</h3></div>
+</div>
+<div class="row">
+<div class="module left-start" id="discord" onclick="window.open('https://discord.com/','_blank')"><h3>DISCORD</h3></div>
+<div class="module right-start" id="tiktok" onclick="window.open('https://www.tiktok.com/@tt_kapitanych','_blank')"><h3>TIKTOK</h3></div>
+</div>
+</div>
 </section>
 
 <div class="glass-bar">
-  <button class="bar-button" onclick="showTwitchModal()">Twitch Sub</button>
-  <div class="vertical-block">
-    <span class="kapitanych-text">© 2026 Kapitanych</span>
-    <a href="https://t.me/multicooker01" target="_blank" class="multivarka-link">
-      MULTIVARKA
-    </a>
-  </div>
+<button class="bar-button" onclick="showTwitchModal()">Twitch Sub</button>
+<div class="vertical-block">
+<span class="kapitanych-text">© 2026 Kapitanych</span>
+<a href="https://t.me/multicooker01" target="_blank" class="multivarka-link">MULTIVARKA</a>
+</div>
+</div>
+
+<div class="modal-overlay" id="twitchModalOverlay">
+<div class="modal-content">
+<span class="modal-close" onclick="closeTwitchModal()">&times;</span>
+<h2>Подписка на Twitch</h2>
+<p>
+<a href="https://www.twitch.tv/products/kapitanych_" target="_blank" style="color:#00ccff;text-decoration:none;">
+Поддержи Twitch своей платной подпиской!
+</a>
+</p>
+<button class="modal-button" onclick="closeTwitchModal()">Закрыть</button>
+</div>
 </div>
 
 <script>
+window.addEventListener("load",()=>{
+setTimeout(()=>donatex.classList.add("show"),200);
+setTimeout(()=>youtube.classList.add("show"),350);
+setTimeout(()=>telegram.classList.add("show"),500);
+setTimeout(()=>discord.classList.add("show"),650);
+setTimeout(()=>tiktok.classList.add("show"),800);
+});
+
 function showTwitchModal(){
-  alert("Twitch подписка открывается через кнопку аватара 😉");
+document.getElementById("twitchModalOverlay").classList.add("show");
 }
+function closeTwitchModal(){
+document.getElementById("twitchModalOverlay").classList.remove("show");
+}
+document.addEventListener("keydown",e=>{
+if(e.key==="Escape") closeTwitchModal();
+});
 </script>
 
 </body>
