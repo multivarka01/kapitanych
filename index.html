@@ -1,11 +1,16 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>Kapitanych · Multivarka</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&family=Inter:wght@400;600&display=swap" rel="stylesheet">
 
 <style>
 
@@ -25,12 +30,13 @@ flex-direction:column;
 min-height:100vh;
 }
 
-/* ===== ФОН ===== */
+/* BACKGROUND */
 
 .background{
 position:fixed;
 inset:0;
 z-index:-2;
+
 background:
 radial-gradient(circle at 30% 30%,rgba(0,204,255,0.12),transparent 60%),
 radial-gradient(circle at 70% 70%,rgba(0,150,255,0.1),transparent 60%),
@@ -41,26 +47,36 @@ radial-gradient(circle at 70% 70%,rgba(0,150,255,0.1),transparent 60%),
 position:fixed;
 inset:0;
 z-index:-1;
+
 background-image:
 linear-gradient(rgba(0,204,255,0.12) 1px,transparent 1px),
 linear-gradient(90deg,rgba(0,204,255,0.12) 1px,transparent 1px);
+
 background-size:50px 50px;
+
 animation:moveGrid 18s linear infinite;
-box-shadow:inset 0 0 80px rgba(0,204,255,0.15),0 0 120px rgba(0,204,255,0.1);
+
+box-shadow:
+inset 0 0 80px rgba(0,204,255,0.15),
+0 0 120px rgba(0,204,255,0.1);
 }
 
 @keyframes moveGrid{
+
 0%{transform:translateY(0);}
 100%{transform:translateY(50px);}
+
 }
 
-/* ===== NAVBAR ===== */
+/* NAVBAR */
 
 .nav{
+
 position:fixed;
 top:15px;
 left:50%;
 transform:translateX(-50%);
+
 width:90%;
 height:65px;
 
@@ -69,10 +85,12 @@ align-items:center;
 gap:18px;
 
 background:rgba(30,35,55,0.65);
+
 backdrop-filter:blur(18px);
 -webkit-backdrop-filter:blur(18px);
 
 border-radius:20px;
+
 border:1px solid rgba(0,204,255,0.25);
 
 box-shadow:
@@ -80,30 +98,41 @@ box-shadow:
 inset 0 0 35px rgba(255,255,255,0.05);
 
 padding:0 20px;
+
 z-index:10;
 }
 
 .nav a{
+
 display:inline-block;
 padding:8px 14px;
+
 color:#aaa;
 text-decoration:none;
+
 font-weight:600;
+
 border-radius:30px;
+
 transition:0.2s;
+
 }
 
 .nav a:hover{
+
 color:#00ccff;
 text-shadow:0 0 12px #00ccff;
+
 }
 
-/* логотип */
+/* LOGO */
 
 .logo-text{
+
 font-family:'Orbitron';
 font-weight:700;
 font-size:20px;
+
 letter-spacing:2px;
 
 background:linear-gradient(90deg,#00ccff,#4fd1ff,#00eaff);
@@ -111,216 +140,276 @@ background:linear-gradient(90deg,#00ccff,#4fd1ff,#00eaff);
 -webkit-text-fill-color:transparent;
 
 text-shadow:0 0 20px rgba(0,204,255,0.6);
+
 margin-right:20px;
+
 }
 
-/* кнопка twitch */
+/* TWITCH BUTTON */
 
 .twitch-btn{
+
 margin-left:auto;
 
 background:linear-gradient(90deg,#6a7cff,#8ea2ff);
+
 padding:8px 18px;
+
 border-radius:30px;
 
 color:white;
 font-weight:600;
+
 text-decoration:none;
 
 box-shadow:0 0 15px rgba(120,140,255,0.6);
+
 transition:0.25s;
+
 }
 
 .twitch-btn:hover{
+
 transform:scale(1.05);
 box-shadow:0 0 25px rgba(120,140,255,0.9);
+
 }
 
-/* ===== HERO ===== */
+/* HERO */
 
 .hero{
+
 flex:1;
+
 padding-top:150px;
 padding-bottom:90px;
+
 display:flex;
 flex-direction:column;
 align-items:center;
+
 text-align:center;
+
 }
 
 .avatar-img{
+
 width:120px;
 height:120px;
+
 border-radius:50%;
+
 border:3px solid #00ccff;
+
 box-shadow:0 0 30px #00ccff;
+
 margin-bottom:20px;
+
 object-fit:cover;
+
 transition:0.4s;
+
 cursor:pointer;
+
 }
 
 .avatar-img:hover{
+
 transform:scale(1.08);
 box-shadow:0 0 60px #00ccff;
+
 }
 
 h1{
+
 font-family:'Orbitron';
+
 font-size:52px;
+
 letter-spacing:4px;
 
 background:linear-gradient(90deg,#00ccff,#4fd1ff,#00eaff);
+
 -webkit-background-clip:text;
 -webkit-text-fill-color:transparent;
 
 text-shadow:0 0 25px rgba(0,204,255,0.6);
+
 }
 
-/* ===== MODULES ===== */
+/* MODULES */
 
 .modules{
+
 margin-top:60px;
+
 display:flex;
 flex-direction:column;
+
 gap:30px;
+
 }
 
 .row{
+
 display:flex;
 gap:25px;
+
 justify-content:center;
 flex-wrap:wrap;
+
 }
 
 .module{
+
 position:relative;
+
 padding:35px 45px;
+
 min-width:260px;
+
 border-radius:16px;
+
 backdrop-filter:blur(10px);
-transition:transform 0.6s ease,background 0.3s,color 0.3s,text-shadow 0.3s;
+
+transition:transform 0.6s ease,background 0.3s;
+
 cursor:pointer;
+
 overflow:hidden;
+
 opacity:0;
 
 background:rgba(255,255,255,0.03);
+
 border:1px solid rgba(0,204,255,0.6);
-background-repeat:no-repeat;
+
 }
 
 .module:hover{
+
 transform:translateY(-6px) scale(1.03);
+
 background:
+
 radial-gradient(circle at var(--mouse-x,50%) var(--mouse-y,50%),rgba(0,204,255,0.2) 0%,transparent 60%),
 rgba(255,255,255,0.03);
-}
 
-.module::before,
-.module::after{
-content:"";
-position:absolute;
-width:25px;
-height:25px;
-border:2px solid #00ccff;
-z-index:2;
-}
-
-.module::before{
-top:0;
-left:0;
-border-right:none;
-border-bottom:none;
-}
-
-.module::after{
-bottom:0;
-right:0;
-border-left:none;
-border-top:none;
 }
 
 .module h3{
+
 font-family:'Orbitron';
+
 letter-spacing:3px;
+
 font-size:18px;
-transition:0.3s;
-position:relative;
-z-index:3;
+
 }
 
-.module:hover h3{
-color:#00ccff;
-text-shadow:0 0 12px #00ccff;
-}
-
-/* ===== ANIMATIONS ===== */
+/* ANIMATIONS */
 
 .left-start{transform:translateX(-120px);}
 .right-start{transform:translateX(120px);}
 .bottom-start{transform:translateY(60px);}
 .show{transform:translateX(0) translateY(0);opacity:1;}
 
-/* ===== FOOTER BAR ===== */
+/* FOOTER */
 
 .glass-bar{
+
 position:fixed;
 bottom:0;
+
 width:100%;
+
 background:rgba(10,12,20,0.7);
+
 backdrop-filter:blur(16px);
+
 border-top:1px solid rgba(0,204,255,0.3);
+
 padding:10px 15px;
+
 display:flex;
 flex-direction:column;
+
 align-items:center;
+
 gap:6px;
+
 box-shadow:0 -8px 20px rgba(0,0,0,0.5);
-z-index:20;
+
 }
 
 .bar-button{
+
 background:rgba(0,204,255,0.15);
+
 border:1px solid rgba(0,204,255,0.6);
+
 border-radius:30px;
+
 padding:6px 18px;
+
 color:white;
+
 font-weight:600;
+
 font-size:13px;
+
 cursor:pointer;
+
 transition:0.3s;
+
 box-shadow:0 0 15px rgba(0,204,255,0.5);
+
 }
 
 .bar-button:hover{
+
 box-shadow:0 0 25px #00ccff;
 transform:scale(1.05);
+
 }
 
 .vertical-block{
+
 display:flex;
 flex-direction:column;
+
 align-items:center;
+
 font-size:13px;
+
 }
 
 .kapitanych-text{
+
 font-weight:600;
+
 background:linear-gradient(90deg,#00ccff,#4fd1ff,#00eaff);
+
 -webkit-background-clip:text;
 -webkit-text-fill-color:transparent;
+
 text-shadow:0 0 15px rgba(0,204,255,0.6);
+
 }
 
 .multivarka-link{
+
 text-decoration:none;
+
 font-weight:700;
 
 background:linear-gradient(90deg,#00ccff,#4fd1ff,#00eaff);
+
 -webkit-background-clip:text;
 -webkit-text-fill-color:transparent;
 
 text-shadow:0 0 15px rgba(0,204,255,0.6);
+
 }
 
 </style>
@@ -353,7 +442,8 @@ Twitch
 
 <section class="hero">
 
-<img src="https://raw.githubusercontent.com/multivarka01/kapitanych/main/avatar.jpg"
+<img
+src="https://raw.githubusercontent.com/multivarka01/kapitanych/main/avatar.jpg"
 class="avatar-img"
 onclick="window.open('https://twitch.tv/kapitanych_','_blank')">
 
@@ -406,11 +496,34 @@ Twitch Sub
 </button>
 
 <div class="vertical-block">
+
 <span class="kapitanych-text">© 2026 Kapitanych</span>
-<a href="https://t.me/multicooker01" target="_blank" class="multivarka-link">MULTIVARKA</a>
+
+<a href="https://t.me/multicooker01"
+target="_blank"
+class="multivarka-link">
+
+MULTIVARKA
+
+</a>
+
 </div>
 
 </div>
+
+<script>
+
+window.addEventListener("load",()=>{
+
+setTimeout(()=>document.getElementById("donatex").classList.add("show"),200);
+setTimeout(()=>document.getElementById("youtube").classList.add("show"),350);
+setTimeout(()=>document.getElementById("telegram").classList.add("show"),500);
+setTimeout(()=>document.getElementById("discord").classList.add("show"),650);
+setTimeout(()=>document.getElementById("tiktok").classList.add("show"),800);
+
+});
+
+</script>
 
 </body>
 </html>
