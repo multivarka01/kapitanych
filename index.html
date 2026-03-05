@@ -420,25 +420,104 @@ text-shadow:0 0 15px rgba(0,204,255,0.6);
 <div class="background"></div>
 <div class="grid"></div>
 
-<div class="nav">
-
-<img src="https://raw.githubusercontent.com/multivarka01/kapitanych/main/avatar.jpg"
-style="width:40px;height:40px;border-radius:50%;object-fit:cover;">
-
-<span class="logo-text">Kapitanych</span>
-
-<a href="https://donatex.gg/donate/kapitanych" target="_blank">Donatex</a>
-<a href="https://new.donatepay.ru/@Kapitan" target="_blank">DonatPay</a>
-<a href="https://t.me/KapitanGG" target="_blank">Telegram</a>
-<a href="https://discord.com/" target="_blank">Discord</a>
-<a href="https://www.youtube.com/@Капитаныч" target="_blank">YouTube</a>
-<a href="https://www.tiktok.com/@tt_kapitanych" target="_blank">TikTok</a>
-
-<a href="https://twitch.tv/kapitanych_" target="_blank" class="twitch-btn">
-Twitch
-</a>
-
+<nav class="navbar">
+<div class="nav-left">
+<img src="avatar.png" class="nav-avatar">
+<div class="logo">Kapitanych</div>
 </div>
+
+<div class="nav-center">
+<a href="#">Звонки</a>
+<a href="#">Авторам</a>
+<a href="#">FAQ</a>
+<a href="#">Новости</a>
+</div>
+
+<div class="nav-right">
+<a href="#" class="twitch-btn">Twitch</a>
+</div>
+</nav>
+
+<style>
+.navbar{
+position:fixed;
+top:20px;
+left:50%;
+transform:translateX(-50%);
+width:90%;
+height:64px;
+display:flex;
+align-items:center;
+justify-content:space-between;
+padding:0 20px;
+border-radius:18px;
+background:rgba(40,40,45,0.85);
+backdrop-filter:blur(12px);
+box-shadow:0 0 20px rgba(0,0,0,0.25);
+z-index:1000;
+}
+
+.nav-left{
+display:flex;
+align-items:center;
+gap:12px;
+}
+
+.nav-avatar{
+width:36px;
+height:36px;
+border-radius:50%;
+object-fit:cover;
+}
+
+.logo{
+color:white;
+font-size:20px;
+font-weight:600;
+font-family:system-ui,-apple-system,Segoe UI,Roboto;
+}
+
+.nav-center{
+position:absolute;
+left:50%;
+transform:translateX(-50%);
+display:flex;
+gap:40px;
+}
+
+.nav-center a{
+color:#d7d7d7;
+text-decoration:none;
+font-size:15px;
+font-weight:500;
+transition:0.2s;
+}
+
+.nav-center a:hover{
+color:white;
+}
+
+.nav-right{
+display:flex;
+align-items:center;
+}
+
+.twitch-btn{
+background:#5865F2;
+color:white;
+padding:10px 18px;
+border-radius:12px;
+text-decoration:none;
+font-weight:600;
+box-shadow:0 0 10px rgba(88,101,242,0.5);
+transition:0.2s;
+}
+
+.twitch-btn:hover{
+box-shadow:0 0 16px rgba(88,101,242,0.8);
+transform:translateY(-1px);
+}
+</style>
 
 <section class="hero">
 
