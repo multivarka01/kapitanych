@@ -68,7 +68,7 @@
             min-height: 65px;
             display: flex;
             align-items: center;
-            gap: 10px;                      /* уменьшенный gap */
+            gap: 10px;
             background: rgba(30,35,55,0.65);
             backdrop-filter: blur(18px);
             -webkit-backdrop-filter: blur(18px);
@@ -77,7 +77,7 @@
             box-shadow: 0 0 30px rgba(0,204,255,0.15), inset 0 0 35px rgba(255,255,255,0.05);
             padding: 0 15px;
             z-index: 10;
-            flex-wrap: wrap;                 /* перенос на мобильных */
+            flex-wrap: wrap;
         }
 
         /* левый блок с аватаркой и логотипом */
@@ -102,27 +102,27 @@
             font-weight: 700;
             font-size: 20px;
             letter-spacing: 2px;
-            color: white;                    /* белый текст */
+            color: white;
             text-shadow: 0 0 20px rgba(0,204,255,0.6);
             white-space: nowrap;
         }
 
-        /* центральные ссылки (соцсети) */
+        /* центральные ссылки (соцсети) — УВЕЛИЧЕНЫ */
         .nav-links {
             display: flex;
             align-items: center;
-            gap: 8px;                        /* маленький gap */
+            gap: 12px;                        /* увеличен промежуток */
             flex-wrap: wrap;
             flex: 1 1 auto;
             justify-content: center;
         }
 
         .nav-links a {
-            color: white;                     /* белый текст */
-            font-size: 14px;                  /* уменьшенный размер */
+            color: white;
+            font-size: 16px;                  /* было 14px, увеличил */
             font-weight: 600;
             text-decoration: none;
-            padding: 6px 10px;
+            padding: 8px 14px;                 /* было 6px 10px, увеличил */
             border-radius: 30px;
             transition: 0.2s;
             white-space: nowrap;
@@ -141,11 +141,11 @@
 
         .twitch-btn {
             background: linear-gradient(90deg, #6a7cff, #8ea2ff);
-            padding: 6px 16px;                /* чуть меньше */
+            padding: 8px 18px;                 /* немного увеличил */
             border-radius: 30px;
             color: white;
             font-weight: 600;
-            font-size: 14px;
+            font-size: 16px;                    /* увеличил до 16px */
             text-decoration: none;
             box-shadow: 0 0 15px rgba(120,140,255,0.6);
             transition: 0.25s;
@@ -161,7 +161,7 @@
         /* ----- hero section ----- */
         .hero {
             flex: 1;
-            padding-top: 130px;               /* меньше отступ, чтобы навигация не перекрывала */
+            padding-top: 130px;
             padding-bottom: 90px;
             display: flex;
             flex-direction: column;
@@ -306,15 +306,13 @@
 
         /* адаптация для маленьких экранов */
         @media (max-width: 1000px) {
-            .nav {
-                gap: 8px;
-            }
             .nav-links a {
-                font-size: 13px;
-                padding: 5px 8px;
+                font-size: 15px;               /* чуть меньше на средних экранах, но все еще крупно */
+                padding: 7px 12px;
             }
-            .logo-text {
-                font-size: 18px;
+            .twitch-btn {
+                font-size: 15px;
+                padding: 7px 16px;
             }
         }
         @media (max-width: 750px) {
@@ -335,7 +333,7 @@
                 text-align: center;
             }
             .hero {
-                padding-top: 200px;  /* больше отступа из-за высокой навигации */
+                padding-top: 200px;
             }
         }
     </style>
@@ -344,7 +342,7 @@
     <div class="background"></div>
     <div class="grid"></div>
 
-    <!-- НАВИГАЦИЯ с аватаркой, белыми ссылками и новыми кнопками -->
+    <!-- НАВИГАЦИЯ с увеличенными кнопками -->
     <nav class="nav">
         <div class="nav-left">
             <img src="https://raw.githubusercontent.com/multivarka01/kapitanych/main/avatar.jpg"
