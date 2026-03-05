@@ -5,13 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Kapitanych · Multivarka</title>
 
-    <!-- Preconnect для шрифтов -->
+    <!-- Preconnect for fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&family=Inter:wght@400;600&display=swap" rel="stylesheet">
 
     <style>
-        /* ===== ОСНОВНЫЕ СТИЛИ ===== */
+        /* ----- base reset ----- */
         * {
             margin: 0;
             padding: 0;
@@ -22,13 +22,13 @@
             font-family: 'Inter', system-ui;
             background: #06080f;
             color: white;
-            overflow-y: auto;                 /* убрано overflow:hidden для возможности прокрутки */
+            overflow-y: auto;
             display: flex;
             flex-direction: column;
             min-height: 100vh;
         }
 
-        /* Фоновые слои */
+        /* ----- background effects ----- */
         .background {
             position: fixed;
             inset: 0;
@@ -58,79 +58,110 @@
             100% { transform: translateY(50px); }
         }
 
-        /* ===== НАВИГАЦИЯ (единый стиль) ===== */
+        /* ----- navigation bar (fixed) ----- */
         .nav {
             position: fixed;
             top: 15px;
             left: 50%;
             transform: translateX(-50%);
             width: 90%;
-            height: 65px;
+            min-height: 65px;
             display: flex;
             align-items: center;
-            gap: 18px;
+            gap: 10px;                      /* уменьшенный gap */
             background: rgba(30,35,55,0.65);
             backdrop-filter: blur(18px);
             -webkit-backdrop-filter: blur(18px);
             border-radius: 20px;
             border: 1px solid rgba(0,204,255,0.25);
-            box-shadow:
-                0 0 30px rgba(0,204,255,0.15),
-                inset 0 0 35px rgba(255,255,255,0.05);
-            padding: 0 20px;
+            box-shadow: 0 0 30px rgba(0,204,255,0.15), inset 0 0 35px rgba(255,255,255,0.05);
+            padding: 0 15px;
             z-index: 10;
+            flex-wrap: wrap;                 /* перенос на мобильных */
         }
 
-        .nav a {
-            display: inline-block;
-            padding: 8px 14px;
-            color: #aaa;
-            text-decoration: none;
-            font-weight: 600;
-            border-radius: 30px;
-            transition: 0.2s;
+        /* левый блок с аватаркой и логотипом */
+        .nav-left {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex-shrink: 0;
         }
 
-        .nav a:hover {
-            color: #00ccff;
-            text-shadow: 0 0 12px #00ccff;
+        .nav-avatar {
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid #00ccff;
+            box-shadow: 0 0 10px #00ccff;
         }
 
-        /* Логотип */
         .logo-text {
             font-family: 'Orbitron';
             font-weight: 700;
             font-size: 20px;
             letter-spacing: 2px;
-            background: linear-gradient(90deg, #00ccff, #4fd1ff, #00eaff);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+            color: white;                    /* белый текст */
             text-shadow: 0 0 20px rgba(0,204,255,0.6);
-            margin-right: 20px;
+            white-space: nowrap;
         }
 
-        /* Кнопка Twitch (в навигации) */
-        .nav .twitch-btn {
-            margin-left: auto;                /* прижимаем вправо */
+        /* центральные ссылки (соцсети) */
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 8px;                        /* маленький gap */
+            flex-wrap: wrap;
+            flex: 1 1 auto;
+            justify-content: center;
+        }
+
+        .nav-links a {
+            color: white;                     /* белый текст */
+            font-size: 14px;                  /* уменьшенный размер */
+            font-weight: 600;
+            text-decoration: none;
+            padding: 6px 10px;
+            border-radius: 30px;
+            transition: 0.2s;
+            white-space: nowrap;
+        }
+
+        .nav-links a:hover {
+            color: #00ccff;
+            text-shadow: 0 0 12px #00ccff;
+        }
+
+        /* правая часть — кнопка Twitch */
+        .nav-right {
+            flex-shrink: 0;
+            margin-left: auto;
+        }
+
+        .twitch-btn {
             background: linear-gradient(90deg, #6a7cff, #8ea2ff);
-            padding: 8px 18px;
+            padding: 6px 16px;                /* чуть меньше */
             border-radius: 30px;
             color: white;
             font-weight: 600;
+            font-size: 14px;
             text-decoration: none;
             box-shadow: 0 0 15px rgba(120,140,255,0.6);
             transition: 0.25s;
+            display: inline-block;
+            white-space: nowrap;
         }
 
-        .nav .twitch-btn:hover {
+        .twitch-btn:hover {
             transform: scale(1.05);
             box-shadow: 0 0 25px rgba(120,140,255,0.9);
         }
 
-        /* ===== HERO ===== */
+        /* ----- hero section ----- */
         .hero {
             flex: 1;
-            padding-top: 150px;
+            padding-top: 130px;               /* меньше отступ, чтобы навигация не перекрывала */
             padding-bottom: 90px;
             display: flex;
             flex-direction: column;
@@ -165,7 +196,7 @@
             text-shadow: 0 0 25px rgba(0,204,255,0.6);
         }
 
-        /* Модули (плитки) */
+        /* ----- modules (плитки) ----- */
         .modules {
             margin-top: 60px;
             display: flex;
@@ -205,15 +236,16 @@
             font-family: 'Orbitron';
             letter-spacing: 3px;
             font-size: 18px;
+            color: white;
         }
 
-        /* Анимации появления */
+        /* анимации появления */
         .left-start { transform: translateX(-120px); }
         .right-start { transform: translateX(120px); }
         .bottom-start { transform: translateY(60px); }
         .show { transform: translateX(0) translateY(0); opacity: 1; }
 
-        /* ===== ФУТЕР (стеклянная панель) ===== */
+        /* ----- glass footer ----- */
         .glass-bar {
             position: fixed;
             bottom: 0;
@@ -271,24 +303,71 @@
             -webkit-text-fill-color: transparent;
             text-shadow: 0 0 15px rgba(0,204,255,0.6);
         }
+
+        /* адаптация для маленьких экранов */
+        @media (max-width: 1000px) {
+            .nav {
+                gap: 8px;
+            }
+            .nav-links a {
+                font-size: 13px;
+                padding: 5px 8px;
+            }
+            .logo-text {
+                font-size: 18px;
+            }
+        }
+        @media (max-width: 750px) {
+            .nav {
+                flex-direction: column;
+                align-items: stretch;
+                height: auto;
+                padding: 10px;
+            }
+            .nav-left {
+                justify-content: center;
+            }
+            .nav-links {
+                justify-content: center;
+            }
+            .nav-right {
+                margin-left: 0;
+                text-align: center;
+            }
+            .hero {
+                padding-top: 200px;  /* больше отступа из-за высокой навигации */
+            }
+        }
     </style>
 </head>
 <body>
-
     <div class="background"></div>
     <div class="grid"></div>
 
-    <!-- НАВИГАЦИЯ (исправлено: класс nav, структура по первому стилю) -->
+    <!-- НАВИГАЦИЯ с аватаркой, белыми ссылками и новыми кнопками -->
     <nav class="nav">
-        <span class="logo-text">KAPITANYCH</span>
-        <a href="#">Звонки</a>
-        <a href="#">Авторам</a>
-        <a href="#">FAQ</a>
-        <a href="#">Новости</a>
-        <a href="#" class="twitch-btn">Twitch</a>
+        <div class="nav-left">
+            <img src="https://raw.githubusercontent.com/multivarka01/kapitanych/main/avatar.jpg"
+                 class="nav-avatar"
+                 alt="Kapitanych">
+            <span class="logo-text">KAPITANYCH</span>
+        </div>
+
+        <div class="nav-links">
+            <a href="https://donatex.gg/donate/kapitanych" target="_blank">Donatex</a>
+            <a href="https://new.donatepay.ru/@Kapitan" target="_blank">DonatPay</a>
+            <a href="https://t.me/KapitanGG" target="_blank">Telegram</a>
+            <a href="https://discord.com/" target="_blank">Discord</a>
+            <a href="https://www.youtube.com/@Капитаныч" target="_blank">YouTube</a>
+            <a href="https://www.tiktok.com/@tt_kapitanych" target="_blank">TikTok</a>
+        </div>
+
+        <div class="nav-right">
+            <a href="#" class="twitch-btn">Twitch</a>
+        </div>
     </nav>
 
-    <!-- ОСНОВНОЙ БЛОК -->
+    <!-- HERO секция -->
     <section class="hero">
         <img src="https://raw.githubusercontent.com/multivarka01/kapitanych/main/avatar.jpg"
              class="avatar-img"
@@ -324,7 +403,7 @@
         </div>
     </section>
 
-    <!-- ФУТЕР (стеклянная панель) -->
+    <!-- ФУТЕР -->
     <div class="glass-bar">
         <button class="bar-button"
                 onclick="window.open('https://www.twitch.tv/products/kapitanych_','_blank')">
@@ -336,7 +415,7 @@
         </div>
     </div>
 
-    <!-- СКРИПТ ДЛЯ АНИМАЦИИ ПОЯВЛЕНИЯ МОДУЛЕЙ -->
+    <!-- СКРИПТ ДЛЯ АНИМАЦИЙ -->
     <script>
         window.addEventListener("load", () => {
             setTimeout(() => document.getElementById("donatex").classList.add("show"), 200);
@@ -346,7 +425,7 @@
             setTimeout(() => document.getElementById("tiktok").classList.add("show"), 800);
         });
 
-        // (Опционально) Эффект свечения от мыши для модулей
+        // эффект свечения от мыши на модулях
         document.querySelectorAll('.module').forEach(module => {
             module.addEventListener('mousemove', (e) => {
                 const rect = module.getBoundingClientRect();
