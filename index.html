@@ -80,7 +80,6 @@
             flex-wrap: wrap;
         }
 
-        /* левый блок с аватаркой и логотипом */
         .nav-left {
             display: flex;
             align-items: center;
@@ -107,11 +106,10 @@
             white-space: nowrap;
         }
 
-        /* центральные ссылки (соцсети) — УВЕЛИЧЕНЫ */
         .nav-links {
             display: flex;
             align-items: center;
-            gap: 12px;                        /* увеличен промежуток */
+            gap: 12px;
             flex-wrap: wrap;
             flex: 1 1 auto;
             justify-content: center;
@@ -119,10 +117,10 @@
 
         .nav-links a {
             color: white;
-            font-size: 16px;                  /* было 14px, увеличил */
+            font-size: 16px;
             font-weight: 600;
             text-decoration: none;
-            padding: 8px 14px;                 /* было 6px 10px, увеличил */
+            padding: 8px 14px;
             border-radius: 30px;
             transition: 0.2s;
             white-space: nowrap;
@@ -133,7 +131,6 @@
             text-shadow: 0 0 12px #00ccff;
         }
 
-        /* правая часть — кнопка Twitch */
         .nav-right {
             flex-shrink: 0;
             margin-left: auto;
@@ -141,11 +138,11 @@
 
         .twitch-btn {
             background: linear-gradient(90deg, #6a7cff, #8ea2ff);
-            padding: 8px 18px;                 /* немного увеличил */
+            padding: 8px 18px;
             border-radius: 30px;
             color: white;
             font-weight: 600;
-            font-size: 16px;                    /* увеличил до 16px */
+            font-size: 16px;
             text-decoration: none;
             box-shadow: 0 0 15px rgba(120,140,255,0.6);
             transition: 0.25s;
@@ -239,11 +236,94 @@
             color: white;
         }
 
-        /* анимации появления */
         .left-start { transform: translateX(-120px); }
         .right-start { transform: translateX(120px); }
         .bottom-start { transform: translateY(60px); }
         .show { transform: translateX(0) translateY(0); opacity: 1; }
+
+        /* ----- Модальное окно правил ----- */
+        .modal-overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.85);
+            backdrop-filter: blur(8px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: 0.3s;
+        }
+        .modal-overlay.show {
+            opacity: 1;
+            visibility: visible;
+        }
+        .modal-content {
+            background: #0b0e17;
+            border: 2px solid #00ccff;
+            border-radius: 30px;
+            padding: 30px 35px;
+            max-width: 800px;
+            width: 90%;
+            max-height: 85vh;
+            overflow-y: auto;
+            box-shadow: 0 0 50px #00ccff55;
+            position: relative;
+            color: #eef;
+            font-size: 16px;
+            line-height: 1.5;
+        }
+        .modal-content h2 {
+            font-family: 'Orbitron';
+            text-align: center;
+            margin-bottom: 20px;
+            color: #00ccff;
+            letter-spacing: 3px;
+        }
+        .modal-content ul {
+            margin-left: 20px;
+            list-style-type: none;
+        }
+        .modal-content li {
+            margin-bottom: 12px;
+            border-left: 3px solid #00ccff;
+            padding-left: 15px;
+        }
+        .modal-content a {
+            color: #88ddff;
+            text-decoration: underline;
+        }
+        .modal-close {
+            position: absolute;
+            top: 15px; right: 20px;
+            font-size: 28px;
+            cursor: pointer;
+            color: #aaa;
+            transition: 0.2s;
+        }
+        .modal-close:hover {
+            color: #00ccff;
+        }
+        .modal-footer {
+            display: flex;
+            justify-content: center;
+            margin-top: 25px;
+        }
+        .close-btn {
+            background: transparent;
+            border: 2px solid #00ccff;
+            color: white;
+            padding: 10px 30px;
+            border-radius: 40px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+        .close-btn:hover {
+            background: #00ccff22;
+            box-shadow: 0 0 20px #00ccff;
+        }
 
         /* ----- glass footer ----- */
         .glass-bar {
@@ -304,10 +384,9 @@
             text-shadow: 0 0 15px rgba(0,204,255,0.6);
         }
 
-        /* адаптация для маленьких экранов */
         @media (max-width: 1000px) {
             .nav-links a {
-                font-size: 15px;               /* чуть меньше на средних экранах, но все еще крупно */
+                font-size: 15px;
                 padding: 7px 12px;
             }
             .twitch-btn {
@@ -342,7 +421,7 @@
     <div class="background"></div>
     <div class="grid"></div>
 
-    <!-- НАВИГАЦИЯ с увеличенными кнопками -->
+    <!-- НАВИГАЦИЯ -->
     <nav class="nav">
         <div class="nav-left">
             <img src="https://raw.githubusercontent.com/multivarka01/kapitanych/main/avatar.jpg"
@@ -374,6 +453,7 @@
         <h1>KAPITANYCH</h1>
 
         <div class="modules">
+            <!-- Первый ряд: Donatex, Telegram, YouTube -->
             <div class="row">
                 <div class="module left-start" id="donatex"
                      onclick="window.open('https://donatex.gg/donate/kapitanych','_blank')">
@@ -388,6 +468,8 @@
                     <h3>YOUTUBE</h3>
                 </div>
             </div>
+
+            <!-- Второй ряд: Discord, TikTok (Rules ещё нет) -->
             <div class="row">
                 <div class="module left-start" id="discord"
                      onclick="window.open('https://discord.com/','_blank')">
@@ -396,6 +478,14 @@
                 <div class="module right-start" id="tiktok"
                      onclick="window.open('https://www.tiktok.com/@tt_kapitanych','_blank')">
                     <h3>TIKTOK</h3>
+                </div>
+            </div>
+
+            <!-- Третий ряд: RULES под ними, по центру -->
+            <div class="row">
+                <div class="module bottom-start" id="rules"
+                     onclick="openRulesModal()">
+                    <h3>RULES</h3>
                 </div>
             </div>
         </div>
@@ -413,17 +503,47 @@
         </div>
     </div>
 
-    <!-- СКРИПТ ДЛЯ АНИМАЦИЙ -->
+    <!-- МОДАЛЬНОЕ ОКНО С ПРАВИЛАМИ -->
+    <div class="modal-overlay" id="rulesModal" onclick="if(event.target===this) closeRulesModal()">
+        <div class="modal-content">
+            <span class="modal-close" onclick="closeRulesModal()">&times;</span>
+            <h2>ПРАВИЛА</h2>
+            <ul>
+                <li><strong>Модератор самостоятельно выбирает, что выдать нарушителю за несоблюдение правил:</strong> от удаления сообщения до перманентного бана. Также модератор имеет право отстранить или забанить пользователя по причине, не указанной в правилах:</li>
+                <li>(1, 8, 12 пункты правил к чату Telegram не относятся)</li>
+                <li>• В первую очередь Вам необходимо ознакомиться с правилами Твича, за нарушение которых вы получаете 100% бан без возможности разблокировки (<a href="https://zzikorr.s-ul.eu/eyJohZWe" target="_blank">основной список запреток</a>)</li>
+                <li>• Запрещён спам, флуд одним сообщением</li>
+                <li>• Запрещен пиар, реклама своих проектов и других сторонних ресурсов (своего тг, тт, лайка и т.п.)</li>
+                <li>• Запрещено байтить чат на плюсы, свое время/город, а также просьбы спамить и «распространить» какие-либо слова</li>
+                <li>• Крайне нежелательно использовать зафоршенные тиктокерские шутки (про фимоз, пикми, найк про и т.п.)</li>
+                <li>• Не занимайтесь произвольным и чрезмерным продюсированием стрима без просьбы стримера</li>
+                <li>• Запрещена публикация шокирующего и сексуального контента</li>
+                <li>• За нарушение условий использования Twitch (Terms of Service) выдаётся бан</li>
+                <li>• Запрещено любое проявление агрессии, провокации или разжигание конфликтов на любой почве</li>
+                <li>• Запрещено предоставление личной информации в виде адресов, телефонных номеров и банковских карт (любой страны). Кроме того, за наличие номера телефона и карт в нике автоматом выдается перманентная блокировка до смены ника.</li>
+                <li>• Запрещено оскорблять модераторский состав без причины</li>
+                <li>• Запрещено попрошайничать випки/модерки/платные подписки</li>
+                <li>• Нельзя писать АФК!!! (mute 6оо s)</li>
+            </ul>
+            <div class="modal-footer">
+                <button class="close-btn" onclick="closeRulesModal()">Закрыть</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- СКРИПТЫ -->
     <script>
+        // Анимация появления модулей
         window.addEventListener("load", () => {
             setTimeout(() => document.getElementById("donatex").classList.add("show"), 200);
             setTimeout(() => document.getElementById("youtube").classList.add("show"), 350);
             setTimeout(() => document.getElementById("telegram").classList.add("show"), 500);
             setTimeout(() => document.getElementById("discord").classList.add("show"), 650);
             setTimeout(() => document.getElementById("tiktok").classList.add("show"), 800);
+            setTimeout(() => document.getElementById("rules").classList.add("show"), 950); // Rules появляется позже, под всеми
         });
 
-        // эффект свечения от мыши на модулях
+        // Эффект свечения от мыши на модулях
         document.querySelectorAll('.module').forEach(module => {
             module.addEventListener('mousemove', (e) => {
                 const rect = module.getBoundingClientRect();
@@ -432,6 +552,18 @@
                 module.style.setProperty('--mouse-x', x + '%');
                 module.style.setProperty('--mouse-y', y + '%');
             });
+        });
+
+        // Функции для модального окна правил
+        function openRulesModal() {
+            document.getElementById('rulesModal').classList.add('show');
+        }
+        function closeRulesModal() {
+            document.getElementById('rulesModal').classList.remove('show');
+        }
+        // Закрытие по ESC
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') closeRulesModal();
         });
     </script>
 </body>
