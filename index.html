@@ -121,6 +121,9 @@ text-shadow:0 0 12px #00ccff;
 
 .nav-right{
 margin-left:auto;
+display:flex;
+gap:10px;
+align-items:center;
 }
 
 .twitch-btn{
@@ -132,6 +135,11 @@ font-weight:600;
 text-decoration:none;
 box-shadow:0 0 15px rgba(120,140,255,0.6);
 transition:.25s;
+display:inline-block;
+border:none;
+cursor:pointer;
+font-family:inherit;
+font-size:16px;
 }
 
 .twitch-btn:hover{
@@ -198,6 +206,7 @@ border:1px solid rgba(0,204,255,0.6);
 
 .module:hover{
 transform:translateY(-6px) scale(1.03);
+box-shadow:0 0 20px #00ccff;
 }
 
 .module h3{
@@ -284,6 +293,7 @@ background:linear-gradient(90deg,#00ccff,#4fd1ff,#00eaff);
 
 <div class="nav-right">
 <a href="https://twitch.tv/kapitanych_" class="twitch-btn" target="_blank">Twitch</a>
+<a href="#" class="twitch-btn" onclick="openPcConfig(); return false;">PC Config</a>
 </div>
 
 </nav>
@@ -338,6 +348,12 @@ onclick="window.open('rules.html','_blank')">
 <h3>RULES</h3>
 </div>
 
+<!-- Новая кнопка Периферия с подсветкой -->
+<div class="module bottom-start" id="periphery"
+onclick="openPeriphery(); return false;">
+<h3>ПЕРИФЕРИЯ</h3>
+</div>
+
 </div>
 
 </div>
@@ -360,15 +376,70 @@ Twitch Sub
 
 <script>
 
+function openPcConfig() {
+  var configWindow = window.open('', 'pc_config', 'width=600,height=500,scrollbars=yes,resizable=yes');
+  if (configWindow) {
+    var html = '<!DOCTYPE html><html><head><meta charset="UTF-8"><title>Конфигурация ПК стримера</title>';
+    html += '<style>';
+    html += 'body{background:#06080f;color:white;font-family:"Inter",sans-serif;padding:20px;margin:0;}';
+    html += 'h2{color:#00ccff;font-family:"Orbitron",sans-serif;border-bottom:1px solid #00ccff;padding-bottom:10px;}';
+    html += '.spec{margin:15px 0;padding:10px;background:rgba(0,204,255,0.05);border-left:3px solid #00ccff;border-radius:0 8px 8px 0;}';
+    html += '.spec strong{color:#00ccff;display:inline-block;min-width:200px;}';
+    html += '</style>';
+    html += '</head><body>';
+    html += '<h2>⚙️ Конфигурация ПК Kapitanych</h2>';
+    html += '<div class="spec"><strong>Процессор:</strong> AMD Ryzen 7 5700X</div>';
+    html += '<div class="spec"><strong>Материнская плата:</strong> Gigabyte B550 Aorus Elite V2</div>';
+    html += '<div class="spec"><strong>Оперативная память:</strong> Kingston Fury Renegade 8GB x 4 3600MHz</div>';
+    html += '<div class="spec"><strong>Видеокарта:</strong> Asus GIGABYTE GeForce RTX GAMING OC 3080 10G</div>';
+    html += '<div class="spec"><strong>SSD:</strong> M.2 NVMe 2280 GXF Gen 4x4 7450MB/s 1 ТБ</div>';
+    html += '<div class="spec"><strong>Жесткий диск:</strong> Toshiba 500 GB x 2</div>';
+    html += '<div class="spec"><strong>Блок питания:</strong> 1000W</div>';
+    html += '<div class="spec"><strong>Водяное охлаждение:</strong> IWONGOU AR12PRO ARGB 240</div>';
+    html += '</body></html>';
+    configWindow.document.write(html);
+    configWindow.document.close();
+  } else {
+    alert('Пожалуйста, разрешите всплывающие окна для этого сайта, чтобы увидеть конфигурацию.');
+  }
+}
+
+function openPeriphery() {
+  var periphWindow = window.open('', 'periphery', 'width=600,height=500,scrollbars=yes,resizable=yes');
+  if (periphWindow) {
+    var html = '<!DOCTYPE html><html><head><meta charset="UTF-8"><title>Периферия стримера</title>';
+    html += '<style>';
+    html += 'body{background:#06080f;color:white;font-family:"Inter",sans-serif;padding:20px;margin:0;}';
+    html += 'h2{color:#00ccff;font-family:"Orbitron",sans-serif;border-bottom:1px solid #00ccff;padding-bottom:10px;}';
+    html += '.spec{margin:15px 0;padding:10px;background:rgba(0,204,255,0.05);border-left:3px solid #00ccff;border-radius:0 8px 8px 0;}';
+    html += '.spec strong{color:#00ccff;display:inline-block;min-width:200px;}';
+    html += '</style>';
+    html += '</head><body>';
+    html += '<h2>🎮 Периферия Kapitanych</h2>';
+    html += '<div class="spec"><strong>Наушники:</strong> MARSHALL MAJOR V</div>';
+    html += '<div class="spec"><strong>Наушники 2:</strong> KZ ZVX</div>';
+    html += '<div class="spec"><strong>Микрофон:</strong> Fifine Ampligame A8</div>';
+    html += '<div class="spec"><strong>Мышь:</strong> AJAZZ AJ159 Apex</div>';
+    html += '<div class="spec"><strong>Клавиатура:</strong> LEAVEN K550 механика</div>';
+    html += '<div class="spec"><strong>Монитор:</strong> Xiaomi G27 165Гц</div>';
+    html += '<div class="spec"><strong>Монитор 2 (чат):</strong> Xiaomi G27 165Гц</div>';
+    html += '</body></html>';
+    periphWindow.document.write(html);
+    periphWindow.document.close();
+  } else {
+    alert('Пожалуйста, разрешите всплывающие окна для этого сайта, чтобы увидеть периферию.');
+  }
+}
+
 window.addEventListener("load", () => {
-
-setTimeout(()=>document.getElementById("donatex").classList.add("show"),200);
-setTimeout(()=>document.getElementById("youtube").classList.add("show"),350);
-setTimeout(()=>document.getElementById("telegram").classList.add("show"),500);
-setTimeout(()=>document.getElementById("discord").classList.add("show"),650);
-setTimeout(()=>document.getElementById("tiktok").classList.add("show"),800);
-setTimeout(()=>document.getElementById("rules").classList.add("show"),950);
-
+  setTimeout(()=>document.getElementById("donatex").classList.add("show"),200);
+  setTimeout(()=>document.getElementById("youtube").classList.add("show"),350);
+  setTimeout(()=>document.getElementById("telegram").classList.add("show"),500);
+  setTimeout(()=>document.getElementById("discord").classList.add("show"),650);
+  setTimeout(()=>document.getElementById("tiktok").classList.add("show"),800);
+  setTimeout(()=>document.getElementById("rules").classList.add("show"),950);
+  // Добавляем анимацию для нового модуля
+  setTimeout(()=>document.getElementById("periphery").classList.add("show"),1100);
 });
 
 </script>
