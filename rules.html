@@ -1,347 +1,570 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Kapitanych · Multivarka</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kapitanych · Multivarka</title>
 
-<!-- Шрифты Apple используются системные — без внешних загрузок -->
+    <!-- Preconnect for fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&family=Inter:wght@400;600&display=swap" rel="stylesheet">
 
-<style>
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
+    <style>
+        /* ----- base reset ----- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-body {
-  /* Основной стек шрифтов Apple: SF Pro, системные fallback */
-  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Display", "Helvetica Neue", Helvetica, Arial, sans-serif;
-  background: #06080f;
-  color: white;
-  overflow-y: auto;
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;
-}
+        body {
+            font-family: 'Inter', system-ui;
+            background: #06080f;
+            color: white;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
 
-.background {
-  position: fixed;
-  inset: 0;
-  z-index: -2;
-  background:
-    radial-gradient(circle at 30% 30%, rgba(0, 204, 255, 0.12), transparent 60%),
-    radial-gradient(circle at 70% 70%, rgba(0, 150, 255, 0.1), transparent 60%),
-    #06080f;
-}
+        /* ----- background effects ----- */
+        .background {
+            position: fixed;
+            inset: 0;
+            z-index: -2;
+            background:
+                radial-gradient(circle at 30% 30%, rgba(0,204,255,0.12), transparent 60%),
+                radial-gradient(circle at 70% 70%, rgba(0,150,255,0.1), transparent 60%),
+                #06080f;
+        }
 
-.grid {
-  position: fixed;
-  inset: 0;
-  z-index: -1;
-  background-image:
-    linear-gradient(rgba(0, 204, 255, 0.12) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(0, 204, 255, 0.12) 1px, transparent 1px);
-  background-size: 50px 50px;
-  animation: moveGrid 18s linear infinite;
-}
+        .grid {
+            position: fixed;
+            inset: 0;
+            z-index: -1;
+            background-image:
+                linear-gradient(rgba(0,204,255,0.12) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0,204,255,0.12) 1px, transparent 1px);
+            background-size: 50px 50px;
+            animation: moveGrid 18s linear infinite;
+            box-shadow:
+                inset 0 0 80px rgba(0,204,255,0.15),
+                0 0 120px rgba(0,204,255,0.1);
+        }
 
-@keyframes moveGrid {
-  0% { transform: translateY(0); }
-  100% { transform: translateY(50px); }
-}
+        @keyframes moveGrid {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(50px); }
+        }
 
-.nav {
-  position: fixed;
-  top: 15px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 90%;
-  min-height: 65px;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  background: rgba(30, 35, 55, 0.65);
-  backdrop-filter: blur(18px);
-  border-radius: 20px;
-  border: 1px solid rgba(0, 204, 255, 0.25);
-  padding: 0 15px;
-  z-index: 10;
-  flex-wrap: wrap;
-}
+        /* ----- navigation bar (fixed) ----- */
+        .nav {
+            position: fixed;
+            top: 15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 90%;
+            min-height: 65px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: rgba(30,35,55,0.65);
+            backdrop-filter: blur(18px);
+            -webkit-backdrop-filter: blur(18px);
+            border-radius: 20px;
+            border: 1px solid rgba(0,204,255,0.25);
+            box-shadow: 0 0 30px rgba(0,204,255,0.15), inset 0 0 35px rgba(255,255,255,0.05);
+            padding: 0 15px;
+            z-index: 10;
+            flex-wrap: wrap;
+        }
 
-.nav-left {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
+        .nav-left {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex-shrink: 0;
+        }
 
-.nav-avatar {
-  width: 38px;
-  height: 38px;
-  border-radius: 50%;
-  object-fit: cover;
-  border: 2px solid #00ccff;
-  box-shadow: 0 0 10px #00ccff;
-}
+        .nav-avatar {
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid #00ccff;
+            box-shadow: 0 0 10px #00ccff;
+        }
 
-.logo-text {
-  /* Apple-шрифт для лого — жирное начертание системного */
-  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Helvetica Neue", Helvetica, Arial, sans-serif;
-  font-weight: 700;
-  font-size: 20px;
-  letter-spacing: 2px;
-  text-shadow: 0 0 20px rgba(0, 204, 255, 0.6);
-}
+        .logo-text {
+            font-family: 'Orbitron';
+            font-weight: 700;
+            font-size: 20px;
+            letter-spacing: 2px;
+            color: white;
+            text-shadow: 0 0 20px rgba(0,204,255,0.6);
+            white-space: nowrap;
+        }
 
-.nav-links {
-  display: flex;
-  gap: 12px;
-  flex-wrap: wrap;
-  flex: 1;
-  justify-content: center;
-}
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap;
+            flex: 1 1 auto;
+            justify-content: center;
+        }
 
-.nav-links a {
-  color: white;
-  font-size: 16px;
-  font-weight: 600;
-  text-decoration: none;
-  padding: 8px 14px;
-  border-radius: 30px;
-  transition: .2s;
-  font-family: inherit;
-}
+        .nav-links a {
+            color: white;
+            font-size: 16px;
+            font-weight: 600;
+            text-decoration: none;
+            padding: 8px 14px;
+            border-radius: 30px;
+            transition: 0.2s;
+            white-space: nowrap;
+        }
 
-.nav-links a:hover {
-  color: #00ccff;
-  text-shadow: 0 0 12px #00ccff;
-}
+        .nav-links a:hover {
+            color: #00ccff;
+            text-shadow: 0 0 12px #00ccff;
+        }
 
-.nav-right {
-  margin-left: auto;
-  display: flex;
-  gap: 10px;
-  align-items: center;
-}
+        .nav-right {
+            flex-shrink: 0;
+            margin-left: auto;
+        }
 
-.twitch-btn {
-  background: linear-gradient(90deg, #6a7cff, #8ea2ff);
-  padding: 8px 18px;
-  border-radius: 30px;
-  color: white;
-  font-weight: 600;
-  text-decoration: none;
-  box-shadow: 0 0 15px rgba(120, 140, 255, 0.6);
-  transition: .25s;
-  display: inline-block;
-  border: none;
-  cursor: pointer;
-  font-family: inherit;
-  font-size: 16px;
-}
+        .twitch-btn {
+            background: linear-gradient(90deg, #6a7cff, #8ea2ff);
+            padding: 8px 18px;
+            border-radius: 30px;
+            color: white;
+            font-weight: 600;
+            font-size: 16px;
+            text-decoration: none;
+            box-shadow: 0 0 15px rgba(120,140,255,0.6);
+            transition: 0.25s;
+            display: inline-block;
+            white-space: nowrap;
+        }
 
-.twitch-btn:hover {
-  transform: scale(1.05);
-}
+        .twitch-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 25px rgba(120,140,255,0.9);
+        }
 
-.hero {
-  flex: 1;
-  padding-top: 130px;
-  padding-bottom: 90px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-}
+        /* ----- hero section ----- */
+        .hero {
+            flex: 1;
+            padding-top: 130px;
+            padding-bottom: 90px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
 
-.avatar-img {
-  width: 120px;
-  height: 120px;
-  border-radius: 50%;
-  border: 3px solid #00ccff;
-  box-shadow: 0 0 30px #00ccff;
-  margin-bottom: 20px;
-  object-fit: cover;
-  cursor: pointer;
-}
+        .avatar-img {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            border: 3px solid #00ccff;
+            box-shadow: 0 0 30px #00ccff;
+            margin-bottom: 20px;
+            object-fit: cover;
+            transition: 0.4s;
+            cursor: pointer;
+        }
 
-h1 {
-  /* Заголовок — SF Pro Display (Apple) */
-  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Helvetica Neue", Helvetica, Arial, sans-serif;
-  font-weight: 700;
-  font-size: 52px;
-  letter-spacing: 4px;
-  background: linear-gradient(90deg, #00ccff, #4fd1ff, #00eaff);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
+        .avatar-img:hover {
+            transform: scale(1.08);
+            box-shadow: 0 0 60px #00ccff;
+        }
 
-.modules {
-  margin-top: 60px;
-  display: flex;
-  flex-direction: column;
-  gap: 30px;
-}
+        h1 {
+            font-family: 'Orbitron';
+            font-size: 52px;
+            letter-spacing: 4px;
+            background: linear-gradient(90deg, #00ccff, #4fd1ff, #00eaff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 25px rgba(0,204,255,0.6);
+        }
 
-.row {
-  display: flex;
-  gap: 25px;
-  justify-content: center;
-  flex-wrap: wrap;
-}
+        /* ----- modules (плитки) ----- */
+        .modules {
+            margin-top: 60px;
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+        }
 
-.module {
-  position: relative;
-  padding: 35px 45px;
-  min-width: 260px;
-  border-radius: 16px;
-  backdrop-filter: blur(10px);
-  transition: transform .6s ease, opacity 0.6s ease, box-shadow 0.2s;
-  cursor: pointer;
-  overflow: hidden;
-  opacity: 0;
-  background: rgba(255, 255, 255, 0.03);
-  border: 1px solid rgba(0, 204, 255, 0.6);
-}
+        .row {
+            display: flex;
+            gap: 25px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
 
-.module:hover {
-  transform: translateY(-6px) scale(1.03);
-  box-shadow: 0 0 20px #00ccff;
-}
+        .module {
+            position: relative;
+            padding: 35px 45px;
+            min-width: 260px;
+            border-radius: 16px;
+            backdrop-filter: blur(10px);
+            transition: transform 0.6s ease, background 0.3s;
+            cursor: pointer;
+            overflow: hidden;
+            opacity: 0;
+            background: rgba(255,255,255,0.03);
+            border: 1px solid rgba(0,204,255,0.6);
+        }
 
-.module h3 {
-  /* Заголовки модулей — Apple SF Pro Display, полужирный */
-  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Helvetica Neue", Helvetica, Arial, sans-serif;
-  font-weight: 600;
-  letter-spacing: 2px;
-  font-size: 18px;
-}
+        .module:hover {
+            transform: translateY(-6px) scale(1.03);
+            background:
+                radial-gradient(circle at var(--mouse-x,50%) var(--mouse-y,50%), rgba(0,204,255,0.2) 0%, transparent 60%),
+                rgba(255,255,255,0.03);
+        }
 
-.left-start { transform: translateX(-120px); }
-.right-start { transform: translateX(120px); }
-.bottom-start { transform: translateY(60px); }
-.show { transform: translateX(0) translateY(0); opacity: 1; }
+        .module h3 {
+            font-family: 'Orbitron';
+            letter-spacing: 3px;
+            font-size: 18px;
+            color: white;
+        }
 
-.glass-bar {
-  position: fixed;
-  bottom: 0;
-  width: 100%;
-  background: rgba(10, 12, 20, 0.7);
-  backdrop-filter: blur(16px);
-  border-top: 1px solid rgba(0, 204, 255, 0.3);
-  padding: 10px 15px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 6px;
-}
+        .left-start { transform: translateX(-120px); }
+        .right-start { transform: translateX(120px); }
+        .bottom-start { transform: translateY(60px); }
+        .show { transform: translateX(0) translateY(0); opacity: 1; }
 
-.bar-button {
-  background: rgba(0, 204, 255, 0.15);
-  border: 1px solid rgba(0, 204, 255, 0.6);
-  border-radius: 30px;
-  padding: 6px 18px;
-  color: white;
-  font-weight: 600;
-  font-size: 13px;
-  cursor: pointer;
-  font-family: inherit;
-}
+        /* ----- Модальное окно правил ----- */
+        .modal-overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.85);
+            backdrop-filter: blur(8px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: 0.3s;
+        }
+        .modal-overlay.show {
+            opacity: 1;
+            visibility: visible;
+        }
+        .modal-content {
+            background: #0b0e17;
+            border: 2px solid #00ccff;
+            border-radius: 30px;
+            padding: 30px 35px;
+            max-width: 800px;
+            width: 90%;
+            max-height: 85vh;
+            overflow-y: auto;
+            box-shadow: 0 0 50px #00ccff55;
+            position: relative;
+            color: #eef;
+            font-size: 16px;
+            line-height: 1.5;
+        }
+        .modal-content h2 {
+            font-family: 'Orbitron';
+            text-align: center;
+            margin-bottom: 20px;
+            color: #00ccff;
+            letter-spacing: 3px;
+        }
+        .modal-content ul {
+            margin-left: 20px;
+            list-style-type: none;
+        }
+        .modal-content li {
+            margin-bottom: 12px;
+            border-left: 3px solid #00ccff;
+            padding-left: 15px;
+        }
+        .modal-content a {
+            color: #88ddff;
+            text-decoration: underline;
+        }
+        .modal-close {
+            position: absolute;
+            top: 15px; right: 20px;
+            font-size: 28px;
+            cursor: pointer;
+            color: #aaa;
+            transition: 0.2s;
+        }
+        .modal-close:hover {
+            color: #00ccff;
+        }
+        .modal-footer {
+            display: flex;
+            justify-content: center;
+            margin-top: 25px;
+        }
+        .close-btn {
+            background: transparent;
+            border: 2px solid #00ccff;
+            color: white;
+            padding: 10px 30px;
+            border-radius: 40px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+        .close-btn:hover {
+            background: #00ccff22;
+            box-shadow: 0 0 20px #00ccff;
+        }
 
-.vertical-block {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  font-size: 13px;
-}
+        /* ----- glass footer ----- */
+        .glass-bar {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            background: rgba(10,12,20,0.7);
+            backdrop-filter: blur(16px);
+            border-top: 1px solid rgba(0,204,255,0.3);
+            padding: 10px 15px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 6px;
+            box-shadow: 0 -8px 20px rgba(0,0,0,0.5);
+            z-index: 5;
+        }
 
-.kapitanych-text {
-  font-weight: 600;
-  background: linear-gradient(90deg, #00ccff, #4fd1ff, #00eaff);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
+        .bar-button {
+            background: rgba(0,204,255,0.15);
+            border: 1px solid rgba(0,204,255,0.6);
+            border-radius: 30px;
+            padding: 6px 18px;
+            color: white;
+            font-weight: 600;
+            font-size: 13px;
+            cursor: pointer;
+            transition: 0.3s;
+            box-shadow: 0 0 15px rgba(0,204,255,0.5);
+        }
 
-.multivarka-link {
-  text-decoration: none;
-  font-weight: 700;
-  background: linear-gradient(90deg, #00ccff, #4fd1ff, #00eaff);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  font-family: inherit;
-}
-</style>
+        .bar-button:hover {
+            box-shadow: 0 0 25px #00ccff;
+            transform: scale(1.05);
+        }
+
+        .vertical-block {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            font-size: 13px;
+        }
+
+        .kapitanych-text {
+            font-weight: 600;
+            background: linear-gradient(90deg, #00ccff, #4fd1ff, #00eaff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 15px rgba(0,204,255,0.6);
+        }
+
+        .multivarka-link {
+            text-decoration: none;
+            font-weight: 700;
+            background: linear-gradient(90deg, #00ccff, #4fd1ff, #00eaff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 15px rgba(0,204,255,0.6);
+        }
+
+        @media (max-width: 1000px) {
+            .nav-links a {
+                font-size: 15px;
+                padding: 7px 12px;
+            }
+            .twitch-btn {
+                font-size: 15px;
+                padding: 7px 16px;
+            }
+        }
+        @media (max-width: 750px) {
+            .nav {
+                flex-direction: column;
+                align-items: stretch;
+                height: auto;
+                padding: 10px;
+            }
+            .nav-left {
+                justify-content: center;
+            }
+            .nav-links {
+                justify-content: center;
+            }
+            .nav-right {
+                margin-left: 0;
+                text-align: center;
+            }
+            .hero {
+                padding-top: 200px;
+            }
+        }
+    </style>
 </head>
 <body>
+    <div class="background"></div>
+    <div class="grid"></div>
 
-<div class="background"></div>
-<div class="grid"></div>
+    <!-- НАВИГАЦИЯ -->
+    <nav class="nav">
+        <div class="nav-left">
+            <img src="https://raw.githubusercontent.com/multivarka01/kapitanych/main/avatar.jpg"
+                 class="nav-avatar"
+                 alt="Kapitanych">
+            <span class="logo-text">KAPITANYCH</span>
+        </div>
 
-<nav class="nav">
-<div class="nav-left">
-<img src="https://raw.githubusercontent.com/multivarka01/kapitanych/main/avatar.jpg" class="nav-avatar" alt="avatar">
-<span class="logo-text">KAPITANYCH</span>
-</div>
-<div class="nav-links">
-<a href="https://donatex.gg/donate/kapitanych" target="_blank">Donatex</a>
-<a href="https://new.donatepay.ru/@Kapitan" target="_blank">DonatPay</a>
-<a href="https://t.me/KapitanGG" target="_blank">Telegram</a>
-<a href="https://discord.com/" target="_blank">Discord</a>
-<a href="https://www.youtube.com/@Капитаныч" target="_blank">YouTube</a>
-<a href="https://www.tiktok.com/@tt_kapitanych" target="_blank">TikTok</a>
-</div>
-<div class="nav-right">
-<a href="https://twitch.tv/kapitanych_" class="twitch-btn" target="_blank">Twitch</a>
-<a href="gear.html" class="twitch-btn" target="_blank">PC Config</a>
-</div>
-</nav>
+        <div class="nav-links">
+            <a href="https://donatex.gg/donate/kapitanych" target="_blank">Donatex</a>
+            <a href="https://new.donatepay.ru/@Kapitan" target="_blank">DonatPay</a>
+            <a href="https://t.me/KapitanGG" target="_blank">Telegram</a>
+            <a href="https://discord.com/" target="_blank">Discord</a>
+            <a href="https://www.youtube.com/@Капитаныч" target="_blank">YouTube</a>
+            <a href="https://www.tiktok.com/@tt_kapitanych" target="_blank">TikTok</a>
+        </div>
 
-<section class="hero">
-<img src="https://raw.githubusercontent.com/multivarka01/kapitanych/main/avatar.jpg"
-class="avatar-img"
-onclick="window.open('https://twitch.tv/kapitanych_','_blank')"
-alt="kapitanych avatar">
-<h1>KAPITANYCH</h1>
+        <div class="nav-right">
+            <a href="#" class="twitch-btn">Twitch</a>
+        </div>
+    </nav>
 
-<div class="modules">
-<div class="row">
-<div class="module left-start" id="donatex" onclick="window.open('https://donatex.gg/donate/kapitanych','_blank')"><h3>DONATEX</h3></div>
-<div class="module bottom-start" id="telegram" onclick="window.open('https://t.me/KapitanGG','_blank')"><h3>TELEGRAM</h3></div>
-<div class="module right-start" id="youtube" onclick="window.open('https://www.youtube.com/@Капитаныч','_blank')"><h3>YOUTUBE</h3></div>
-</div>
-<div class="row">
-<div class="module left-start" id="discord" onclick="window.open('https://discord.com/','_blank')"><h3>DISCORD</h3></div>
-<div class="module right-start" id="tiktok" onclick="window.open('https://www.tiktok.com/@tt_kapitanych','_blank')"><h3>TIKTOK</h3></div>
-</div>
-<div class="row">
-<div class="module bottom-start" id="rules" onclick="window.open('rules.html','_blank')"><h3>RULES</h3></div>
-</div>
-</div>
-</section>
+    <!-- HERO секция -->
+    <section class="hero">
+        <img src="https://raw.githubusercontent.com/multivarka01/kapitanych/main/avatar.jpg"
+             class="avatar-img"
+             onclick="window.open('https://twitch.tv/kapitanych_','_blank')"
+             alt="Kapitanych avatar">
+        <h1>KAPITANYCH</h1>
 
-<div class="glass-bar">
-<button class="bar-button" onclick="window.open('https://www.twitch.tv/products/kapitanych_','_blank')">Twitch Sub</button>
-<div class="vertical-block">
-<span class="kapitanych-text">© 2026 Kapitanych</span>
-<a href="https://t.me/multicooker01" target="_blank" class="multivarka-link">MULTIVARKA</a>
-</div>
-</div>
+        <div class="modules">
+            <!-- Первый ряд: Donatex, Telegram, YouTube -->
+            <div class="row">
+                <div class="module left-start" id="donatex"
+                     onclick="window.open('https://donatex.gg/donate/kapitanych','_blank')">
+                    <h3>DONATEX</h3>
+                </div>
+                <div class="module bottom-start" id="telegram"
+                     onclick="window.open('https://t.me/KapitanGG','_blank')">
+                    <h3>TELEGRAM</h3>
+                </div>
+                <div class="module right-start" id="youtube"
+                     onclick="window.open('https://www.youtube.com/@Капитаныч','_blank')">
+                    <h3>YOUTUBE</h3>
+                </div>
+            </div>
 
-<script>
-window.addEventListener("load", () => {
-  // Плавное появление модулей (исправлено: удалена ссылка на несуществующий periphery)
-  setTimeout(() => document.getElementById("donatex").classList.add("show"), 200);
-  setTimeout(() => document.getElementById("youtube").classList.add("show"), 350);
-  setTimeout(() => document.getElementById("telegram").classList.add("show"), 500);
-  setTimeout(() => document.getElementById("discord").classList.add("show"), 650);
-  setTimeout(() => document.getElementById("tiktok").classList.add("show"), 800);
-  setTimeout(() => document.getElementById("rules").classList.add("show"), 950);
-});
-</script>
+            <!-- Второй ряд: Discord, TikTok (Rules ещё нет) -->
+            <div class="row">
+                <div class="module left-start" id="discord"
+                     onclick="window.open('https://discord.com/','_blank')">
+                    <h3>DISCORD</h3>
+                </div>
+                <div class="module right-start" id="tiktok"
+                     onclick="window.open('https://www.tiktok.com/@tt_kapitanych','_blank')">
+                    <h3>TIKTOK</h3>
+                </div>
+            </div>
 
+            <!-- Третий ряд: RULES под ними, по центру -->
+            <div class="row">
+                <div class="module bottom-start" id="rules"
+                     onclick="openRulesModal()">
+                    <h3>RULES</h3>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ФУТЕР -->
+    <div class="glass-bar">
+        <button class="bar-button"
+                onclick="window.open('https://www.twitch.tv/products/kapitanych_','_blank')">
+            Twitch Sub
+        </button>
+        <div class="vertical-block">
+            <span class="kapitanych-text">© 2026 Kapitanych</span>
+            <a href="https://t.me/multicooker01" target="_blank" class="multivarka-link">MULTIVARKA</a>
+        </div>
+    </div>
+
+    <!-- МОДАЛЬНОЕ ОКНО С ПРАВИЛАМИ -->
+    <div class="modal-overlay" id="rulesModal" onclick="if(event.target===this) closeRulesModal()">
+        <div class="modal-content">
+            <span class="modal-close" onclick="closeRulesModal()">&times;</span>
+            <h2>ПРАВИЛА</h2>
+            <ul>
+                <li><strong>Модератор самостоятельно выбирает, что выдать нарушителю за несоблюдение правил:</strong> от удаления сообщения до перманентного бана. Также модератор имеет право отстранить или забанить пользователя по причине, не указанной в правилах:</li>
+                <li>(1, 8, 12 пункты правил к чату Telegram не относятся)</li>
+                <li>• В первую очередь Вам необходимо ознакомиться с правилами Твича, за нарушение которых вы получаете 100% бан без возможности разблокировки (<a href="https://zzikorr.s-ul.eu/eyJohZWe" target="_blank">основной список запреток</a>)</li>
+                <li>• Запрещён спам, флуд одним сообщением</li>
+                <li>• Запрещен пиар, реклама своих проектов и других сторонних ресурсов (своего тг, тт, лайка и т.п.)</li>
+                <li>• Запрещено байтить чат на плюсы, свое время/город, а также просьбы спамить и «распространить» какие-либо слова</li>
+                <li>• Крайне нежелательно использовать зафоршенные тиктокерские шутки (про фимоз, пикми, найк про и т.п.)</li>
+                <li>• Не занимайтесь произвольным и чрезмерным продюсированием стрима без просьбы стримера</li>
+                <li>• Запрещена публикация шокирующего и сексуального контента</li>
+                <li>• За нарушение условий использования Twitch (Terms of Service) выдаётся бан</li>
+                <li>• Запрещено любое проявление агрессии, провокации или разжигание конфликтов на любой почве</li>
+                <li>• Запрещено предоставление личной информации в виде адресов, телефонных номеров и банковских карт (любой страны). Кроме того, за наличие номера телефона и карт в нике автоматом выдается перманентная блокировка до смены ника.</li>
+                <li>• Запрещено оскорблять модераторский состав без причины</li>
+                <li>• Запрещено попрошайничать випки/модерки/платные подписки</li>
+                <li>• Нельзя писать АФК!!! (mute 6оо s)</li>
+            </ul>
+            <div class="modal-footer">
+                <button class="close-btn" onclick="closeRulesModal()">Закрыть</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- СКРИПТЫ -->
+    <script>
+        // Анимация появления модулей
+        window.addEventListener("load", () => {
+            setTimeout(() => document.getElementById("donatex").classList.add("show"), 200);
+            setTimeout(() => document.getElementById("youtube").classList.add("show"), 350);
+            setTimeout(() => document.getElementById("telegram").classList.add("show"), 500);
+            setTimeout(() => document.getElementById("discord").classList.add("show"), 650);
+            setTimeout(() => document.getElementById("tiktok").classList.add("show"), 800);
+            setTimeout(() => document.getElementById("rules").classList.add("show"), 950); // Rules появляется позже, под всеми
+        });
+
+        // Эффект свечения от мыши на модулях
+        document.querySelectorAll('.module').forEach(module => {
+            module.addEventListener('mousemove', (e) => {
+                const rect = module.getBoundingClientRect();
+                const x = ((e.clientX - rect.left) / rect.width) * 100;
+                const y = ((e.clientY - rect.top) / rect.height) * 100;
+                module.style.setProperty('--mouse-x', x + '%');
+                module.style.setProperty('--mouse-y', y + '%');
+            });
+        });
+
+        // Функции для модального окна правил
+        function openRulesModal() {
+            document.getElementById('rulesModal').classList.add('show');
+        }
+        function closeRulesModal() {
+            document.getElementById('rulesModal').classList.remove('show');
+        }
+        // Закрытие по ESC
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') closeRulesModal();
+        });
+    </script>
 </body>
 </html>
