@@ -5,238 +5,274 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Kapitanych · Multivarka</title>
 
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-
-<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+<!-- Шрифты Apple используются системные — без внешних загрузок -->
 
 <style>
-/* Полностью те же стили, что и в предыдущей версии (сокращено для краткости) */
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
-body{
-font-family:'Inter',system-ui;
-background:#06080f;
-color:white;
-overflow-y:auto;
-display:flex;
-flex-direction:column;
-min-height:100vh;
+
+body {
+  /* Основной стек шрифтов Apple: SF Pro, системные fallback */
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Display", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  background: #06080f;
+  color: white;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
 }
-.background{
-position:fixed;
-inset:0;
-z-index:-2;
-background:
-radial-gradient(circle at 30% 30%, rgba(0,204,255,0.12), transparent 60%),
-radial-gradient(circle at 70% 70%, rgba(0,150,255,0.1), transparent 60%),
-#06080f;
+
+.background {
+  position: fixed;
+  inset: 0;
+  z-index: -2;
+  background:
+    radial-gradient(circle at 30% 30%, rgba(0, 204, 255, 0.12), transparent 60%),
+    radial-gradient(circle at 70% 70%, rgba(0, 150, 255, 0.1), transparent 60%),
+    #06080f;
 }
-.grid{
-position:fixed;
-inset:0;
-z-index:-1;
-background-image:
-linear-gradient(rgba(0,204,255,0.12) 1px, transparent 1px),
-linear-gradient(90deg, rgba(0,204,255,0.12) 1px, transparent 1px);
-background-size:50px 50px;
-animation:moveGrid 18s linear infinite;
+
+.grid {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  background-image:
+    linear-gradient(rgba(0, 204, 255, 0.12) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 204, 255, 0.12) 1px, transparent 1px);
+  background-size: 50px 50px;
+  animation: moveGrid 18s linear infinite;
 }
-@keyframes moveGrid{
-0%{transform:translateY(0);}
-100%{transform:translateY(50px);}
+
+@keyframes moveGrid {
+  0% { transform: translateY(0); }
+  100% { transform: translateY(50px); }
 }
-.nav{
-position:fixed;
-top:15px;
-left:50%;
-transform:translateX(-50%);
-width:90%;
-min-height:65px;
-display:flex;
-align-items:center;
-gap:10px;
-background:rgba(30,35,55,0.65);
-backdrop-filter:blur(18px);
-border-radius:20px;
-border:1px solid rgba(0,204,255,0.25);
-padding:0 15px;
-z-index:10;
-flex-wrap:wrap;
+
+.nav {
+  position: fixed;
+  top: 15px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 90%;
+  min-height: 65px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: rgba(30, 35, 55, 0.65);
+  backdrop-filter: blur(18px);
+  border-radius: 20px;
+  border: 1px solid rgba(0, 204, 255, 0.25);
+  padding: 0 15px;
+  z-index: 10;
+  flex-wrap: wrap;
 }
-.nav-left{
-display:flex;
-align-items:center;
-gap:10px;
+
+.nav-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
 }
-.nav-avatar{
-width:38px;
-height:38px;
-border-radius:50%;
-object-fit:cover;
-border:2px solid #00ccff;
-box-shadow:0 0 10px #00ccff;
+
+.nav-avatar {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid #00ccff;
+  box-shadow: 0 0 10px #00ccff;
 }
-.logo-text{
-font-family:'Orbitron';
-font-weight:700;
-font-size:20px;
-letter-spacing:2px;
-text-shadow:0 0 20px rgba(0,204,255,0.6);
+
+.logo-text {
+  /* Apple-шрифт для лого — жирное начертание системного */
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-weight: 700;
+  font-size: 20px;
+  letter-spacing: 2px;
+  text-shadow: 0 0 20px rgba(0, 204, 255, 0.6);
 }
-.nav-links{
-display:flex;
-gap:12px;
-flex-wrap:wrap;
-flex:1;
-justify-content:center;
+
+.nav-links {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  flex: 1;
+  justify-content: center;
 }
-.nav-links a{
-color:white;
-font-size:16px;
-font-weight:600;
-text-decoration:none;
-padding:8px 14px;
-border-radius:30px;
-transition:.2s;
+
+.nav-links a {
+  color: white;
+  font-size: 16px;
+  font-weight: 600;
+  text-decoration: none;
+  padding: 8px 14px;
+  border-radius: 30px;
+  transition: .2s;
+  font-family: inherit;
 }
-.nav-links a:hover{
-color:#00ccff;
-text-shadow:0 0 12px #00ccff;
+
+.nav-links a:hover {
+  color: #00ccff;
+  text-shadow: 0 0 12px #00ccff;
 }
-.nav-right{
-margin-left:auto;
-display:flex;
-gap:10px;
-align-items:center;
+
+.nav-right {
+  margin-left: auto;
+  display: flex;
+  gap: 10px;
+  align-items: center;
 }
-.twitch-btn{
-background:linear-gradient(90deg,#6a7cff,#8ea2ff);
-padding:8px 18px;
-border-radius:30px;
-color:white;
-font-weight:600;
-text-decoration:none;
-box-shadow:0 0 15px rgba(120,140,255,0.6);
-transition:.25s;
-display:inline-block;
-border:none;
-cursor:pointer;
-font-family:inherit;
-font-size:16px;
+
+.twitch-btn {
+  background: linear-gradient(90deg, #6a7cff, #8ea2ff);
+  padding: 8px 18px;
+  border-radius: 30px;
+  color: white;
+  font-weight: 600;
+  text-decoration: none;
+  box-shadow: 0 0 15px rgba(120, 140, 255, 0.6);
+  transition: .25s;
+  display: inline-block;
+  border: none;
+  cursor: pointer;
+  font-family: inherit;
+  font-size: 16px;
 }
-.twitch-btn:hover{
-transform:scale(1.05);
+
+.twitch-btn:hover {
+  transform: scale(1.05);
 }
-.hero{
-flex:1;
-padding-top:130px;
-padding-bottom:90px;
-display:flex;
-flex-direction:column;
-align-items:center;
-text-align:center;
+
+.hero {
+  flex: 1;
+  padding-top: 130px;
+  padding-bottom: 90px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
 }
-.avatar-img{
-width:120px;
-height:120px;
-border-radius:50%;
-border:3px solid #00ccff;
-box-shadow:0 0 30px #00ccff;
-margin-bottom:20px;
-object-fit:cover;
-cursor:pointer;
+
+.avatar-img {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  border: 3px solid #00ccff;
+  box-shadow: 0 0 30px #00ccff;
+  margin-bottom: 20px;
+  object-fit: cover;
+  cursor: pointer;
 }
-h1{
-font-family:'Orbitron';
-font-size:52px;
-letter-spacing:4px;
-background:linear-gradient(90deg,#00ccff,#4fd1ff,#00eaff);
--webkit-background-clip:text;
--webkit-text-fill-color:transparent;
+
+h1 {
+  /* Заголовок — SF Pro Display (Apple) */
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-weight: 700;
+  font-size: 52px;
+  letter-spacing: 4px;
+  background: linear-gradient(90deg, #00ccff, #4fd1ff, #00eaff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
-.modules{
-margin-top:60px;
-display:flex;
-flex-direction:column;
-gap:30px;
+
+.modules {
+  margin-top: 60px;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
 }
-.row{
-display:flex;
-gap:25px;
-justify-content:center;
-flex-wrap:wrap;
+
+.row {
+  display: flex;
+  gap: 25px;
+  justify-content: center;
+  flex-wrap: wrap;
 }
-.module{
-position:relative;
-padding:35px 45px;
-min-width:260px;
-border-radius:16px;
-backdrop-filter:blur(10px);
-transition:transform .6s ease;
-cursor:pointer;
-overflow:hidden;
-opacity:0;
-background:rgba(255,255,255,0.03);
-border:1px solid rgba(0,204,255,0.6);
+
+.module {
+  position: relative;
+  padding: 35px 45px;
+  min-width: 260px;
+  border-radius: 16px;
+  backdrop-filter: blur(10px);
+  transition: transform .6s ease, opacity 0.6s ease, box-shadow 0.2s;
+  cursor: pointer;
+  overflow: hidden;
+  opacity: 0;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(0, 204, 255, 0.6);
 }
-.module:hover{
-transform:translateY(-6px) scale(1.03);
-box-shadow:0 0 20px #00ccff;
+
+.module:hover {
+  transform: translateY(-6px) scale(1.03);
+  box-shadow: 0 0 20px #00ccff;
 }
-.module h3{
-font-family:'Orbitron';
-letter-spacing:3px;
-font-size:18px;
+
+.module h3 {
+  /* Заголовки модулей — Apple SF Pro Display, полужирный */
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-weight: 600;
+  letter-spacing: 2px;
+  font-size: 18px;
 }
-.left-start{transform:translateX(-120px);}
-.right-start{transform:translateX(120px);}
-.bottom-start{transform:translateY(60px);}
-.show{transform:translateX(0) translateY(0);opacity:1;}
-.glass-bar{
-position:fixed;
-bottom:0;
-width:100%;
-background:rgba(10,12,20,0.7);
-backdrop-filter:blur(16px);
-border-top:1px solid rgba(0,204,255,0.3);
-padding:10px 15px;
-display:flex;
-flex-direction:column;
-align-items:center;
-gap:6px;
+
+.left-start { transform: translateX(-120px); }
+.right-start { transform: translateX(120px); }
+.bottom-start { transform: translateY(60px); }
+.show { transform: translateX(0) translateY(0); opacity: 1; }
+
+.glass-bar {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  background: rgba(10, 12, 20, 0.7);
+  backdrop-filter: blur(16px);
+  border-top: 1px solid rgba(0, 204, 255, 0.3);
+  padding: 10px 15px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
 }
-.bar-button{
-background:rgba(0,204,255,0.15);
-border:1px solid rgba(0,204,255,0.6);
-border-radius:30px;
-padding:6px 18px;
-color:white;
-font-weight:600;
-font-size:13px;
-cursor:pointer;
+
+.bar-button {
+  background: rgba(0, 204, 255, 0.15);
+  border: 1px solid rgba(0, 204, 255, 0.6);
+  border-radius: 30px;
+  padding: 6px 18px;
+  color: white;
+  font-weight: 600;
+  font-size: 13px;
+  cursor: pointer;
+  font-family: inherit;
 }
-.vertical-block{
-display:flex;
-flex-direction:column;
-align-items:center;
-font-size:13px;
+
+.vertical-block {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: 13px;
 }
-.kapitanych-text{
-font-weight:600;
-background:linear-gradient(90deg,#00ccff,#4fd1ff,#00eaff);
--webkit-background-clip:text;
--webkit-text-fill-color:transparent;
+
+.kapitanych-text {
+  font-weight: 600;
+  background: linear-gradient(90deg, #00ccff, #4fd1ff, #00eaff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
-.multivarka-link{
-text-decoration:none;
-font-weight:700;
-background:linear-gradient(90deg,#00ccff,#4fd1ff,#00eaff);
--webkit-background-clip:text;
--webkit-text-fill-color:transparent;
+
+.multivarka-link {
+  text-decoration: none;
+  font-weight: 700;
+  background: linear-gradient(90deg, #00ccff, #4fd1ff, #00eaff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  font-family: inherit;
 }
 </style>
 </head>
@@ -247,7 +283,7 @@ background:linear-gradient(90deg,#00ccff,#4fd1ff,#00eaff);
 
 <nav class="nav">
 <div class="nav-left">
-<img src="https://raw.githubusercontent.com/multivarka01/kapitanych/main/avatar.jpg" class="nav-avatar">
+<img src="https://raw.githubusercontent.com/multivarka01/kapitanych/main/avatar.jpg" class="nav-avatar" alt="avatar">
 <span class="logo-text">KAPITANYCH</span>
 </div>
 <div class="nav-links">
@@ -267,7 +303,8 @@ background:linear-gradient(90deg,#00ccff,#4fd1ff,#00eaff);
 <section class="hero">
 <img src="https://raw.githubusercontent.com/multivarka01/kapitanych/main/avatar.jpg"
 class="avatar-img"
-onclick="window.open('https://twitch.tv/kapitanych_','_blank')">
+onclick="window.open('https://twitch.tv/kapitanych_','_blank')"
+alt="kapitanych avatar">
 <h1>KAPITANYCH</h1>
 
 <div class="modules">
@@ -283,6 +320,7 @@ onclick="window.open('https://twitch.tv/kapitanych_','_blank')">
 <div class="row">
 <div class="module bottom-start" id="rules" onclick="window.open('rules.html','_blank')"><h3>RULES</h3></div>
 </div>
+</div>
 </section>
 
 <div class="glass-bar">
@@ -295,13 +333,13 @@ onclick="window.open('https://twitch.tv/kapitanych_','_blank')">
 
 <script>
 window.addEventListener("load", () => {
-setTimeout(()=>document.getElementById("donatex").classList.add("show"),200);
-setTimeout(()=>document.getElementById("youtube").classList.add("show"),350);
-setTimeout(()=>document.getElementById("telegram").classList.add("show"),500);
-setTimeout(()=>document.getElementById("discord").classList.add("show"),650);
-setTimeout(()=>document.getElementById("tiktok").classList.add("show"),800);
-setTimeout(()=>document.getElementById("rules").classList.add("show"),950);
-setTimeout(()=>document.getElementById("periphery").classList.add("show"),1100);
+  // Плавное появление модулей (исправлено: удалена ссылка на несуществующий periphery)
+  setTimeout(() => document.getElementById("donatex").classList.add("show"), 200);
+  setTimeout(() => document.getElementById("youtube").classList.add("show"), 350);
+  setTimeout(() => document.getElementById("telegram").classList.add("show"), 500);
+  setTimeout(() => document.getElementById("discord").classList.add("show"), 650);
+  setTimeout(() => document.getElementById("tiktok").classList.add("show"), 800);
+  setTimeout(() => document.getElementById("rules").classList.add("show"), 950);
 });
 </script>
 
