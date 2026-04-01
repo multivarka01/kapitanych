@@ -3,25 +3,279 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Loading...</title>
-
-<!-- Мгновенный редирект -->
-<meta http-equiv="refresh" content="0; url=http://blocked.mts.ru/">
-
-<script>
-window.location.replace("http://blocked.mts.ru/");
-</script>
-
+<title>Kapitanych · Multivarka</title>
 <style>
+/* Сброс и базовые стили */
+* { margin: 0; padding: 0; box-sizing: border-box; }
 body {
-  margin: 0;
-  background: #ffffff;
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Display", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  background: #06080f;
+  color: white;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+/* Фоновые слои */
+.background {
+  position: fixed;
+  inset: 0;
+  z-index: -2;
+  background: radial-gradient(circle at 30% 30%, rgba(0, 204, 255, 0.12), transparent 60%),
+              radial-gradient(circle at 70% 70%, rgba(0, 150, 255, 0.1), transparent 60%),
+              #06080f;
+}
+.grid {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  background-image: linear-gradient(rgba(0, 204, 255, 0.12) 1px, transparent 1px),
+                    linear-gradient(90deg, rgba(0, 204, 255, 0.12) 1px, transparent 1px);
+  background-size: 50px 50px;
+  animation: moveGrid 18s linear infinite;
+}
+@keyframes moveGrid { 0% { transform: translateY(0); } 100% { transform: translateY(50px); } }
+
+/* Навигация */
+.nav {
+  position: fixed;
+  top: 15px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 90%;
+  min-height: 65px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: rgba(30, 35, 55, 0.65);
+  backdrop-filter: blur(18px);
+  border-radius: 20px;
+  border: 1px solid rgba(0, 204, 255, 0.25);
+  padding: 0 15px;
+  z-index: 10;
+  flex-wrap: wrap;
+}
+.nav-left { display: flex; align-items: center; gap: 10px; }
+.nav-avatar {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid #00ccff;
+  box-shadow: 0 0 10px #00ccff;
+}
+.logo-text {
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-weight: 700;
+  font-size: 20px;
+  letter-spacing: 2px;
+  text-shadow: 0 0 20px rgba(0, 204, 255, 0.6);
+}
+.nav-links {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  flex: 1;
+  justify-content: center;
+}
+.nav-links a {
+  color: white;
+  font-size: 16px;
+  font-weight: 600;
+  text-decoration: none;
+  padding: 8px 14px;
+  border-radius: 30px;
+  transition: .2s;
+  font-family: inherit;
+}
+.nav-links a:hover {
+  color: #00ccff;
+  text-shadow: 0 0 12px #00ccff;
+}
+.nav-right {
+  margin-left: auto;
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+.twitch-btn {
+  background: linear-gradient(90deg, #6a7cff, #8ea2ff);
+  padding: 8px 18px;
+  border-radius: 30px;
+  color: white;
+  font-weight: 600;
+  text-decoration: none;
+  box-shadow: 0 0 15px rgba(120, 140, 255, 0.6);
+  transition: .25s;
+  display: inline-block;
+  border: none;
+  cursor: pointer;
+  font-family: inherit;
+  font-size: 16px;
+}
+.twitch-btn:hover { transform: scale(1.05); }
+
+/* Hero */
+.hero {
+  flex: 1;
+  padding-top: 130px;
+  padding-bottom: 90px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+.avatar-img {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  border: 3px solid #00ccff;
+  box-shadow: 0 0 30px #00ccff;
+  margin-bottom: 20px;
+  object-fit: cover;
+  cursor: pointer;
+}
+h1 {
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-weight: 700;
+  font-size: 52px;
+  letter-spacing: 4px;
+  background: linear-gradient(90deg, #00ccff, #4fd1ff, #00eaff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Модули */
+.modules { margin-top: 60px; display: flex; flex-direction: column; gap: 30px; }
+.row { display: flex; gap: 25px; justify-content: center; flex-wrap: wrap; }
+.module {
+  position: relative;
+  padding: 35px 45px;
+  min-width: 260px;
+  border-radius: 16px;
+  backdrop-filter: blur(10px);
+  transition: transform .6s ease, opacity 0.6s ease, box-shadow 0.2s;
+  cursor: pointer;
+  overflow: hidden;
+  opacity: 0;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(0, 204, 255, 0.6);
+}
+.module:hover { transform: translateY(-6px) scale(1.03); box-shadow: 0 0 20px #00ccff; }
+.module h3 {
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-weight: 600;
+  letter-spacing: 2px;
+  font-size: 18px;
+}
+.left-start { transform: translateX(-120px); }
+.right-start { transform: translateX(120px); }
+.bottom-start { transform: translateY(60px); }
+.show { transform: translateX(0) translateY(0); opacity: 1; }
+
+/* Нижняя панель */
+.glass-bar {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  background: rgba(10, 12, 20, 0.7);
+  backdrop-filter: blur(16px);
+  border-top: 1px solid rgba(0, 204, 255, 0.3);
+  padding: 10px 15px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+}
+.bar-button {
+  background: rgba(0, 204, 255, 0.15);
+  border: 1px solid rgba(0, 204, 255, 0.6);
+  border-radius: 30px;
+  padding: 6px 18px;
+  color: white;
+  font-weight: 600;
+  font-size: 13px;
+  cursor: pointer;
+  font-family: inherit;
+}
+.vertical-block { display: flex; flex-direction: column; align-items: center; font-size: 13px; }
+.kapitanych-text {
+  font-weight: 600;
+  background: linear-gradient(90deg, #00ccff, #4fd1ff, #00eaff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.multivarka-link {
+  text-decoration: none;
+  font-weight: 700;
+  background: linear-gradient(90deg, #00ccff, #4fd1ff, #00eaff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-family: inherit;
 }
 </style>
-
 </head>
-
 <body>
+
+<div class="background"></div>
+<div class="grid"></div>
+
+<nav class="nav">
+  <div class="nav-left">
+    <img src="https://raw.githubusercontent.com/multivarka01/kapitanych/main/avatar.jpg" class="nav-avatar" alt="avatar">
+    <span class="logo-text">KAPITANYCH</span>
+  </div>
+  <div class="nav-links">
+    <a href="https://donatex.gg/donate/kapitanych" target="_blank">Donatex</a>
+    <a href="https://new.donatepay.ru/@Kapitan" target="_blank">DonatPay</a>
+    <a href="https://t.me/KapitanGG" target="_blank">Telegram</a>
+    <a href="https://discord.com/" target="_blank">Discord</a>
+    <a href="https://www.youtube.com/@Капитаныч" target="_blank">YouTube</a>
+    <a href="https://www.tiktok.com/@tt_kapitanych" target="_blank">TikTok</a>
+  </div>
+  <div class="nav-right">
+    <a href="https://twitch.tv/kapitanych_" class="twitch-btn" target="_blank">Twitch</a>
+    <a href="gear.html" class="twitch-btn" target="_blank">PC Config</a>
+  </div>
+</nav>
+
+<section class="hero">
+  <img src="https://raw.githubusercontent.com/multivarka01/kapitanych/main/avatar.jpg" class="avatar-img" onclick="window.open('https://twitch.tv/kapitanych_','_blank')" alt="kapitanych avatar">
+  <h1>KAPITANYCH</h1>
+  <div class="modules">
+    <div class="row">
+      <div class="module left-start" id="donatex" onclick="window.open('https://donatex.gg/donate/kapitanych','_blank')"><h3>DONATEX</h3></div>
+      <div class="module bottom-start" id="telegram" onclick="window.open('https://t.me/KapitanGG','_blank')"><h3>TELEGRAM</h3></div>
+      <div class="module right-start" id="youtube" onclick="window.open('https://www.youtube.com/@Капитаныч','_blank')"><h3>YOUTUBE</h3></div>
+    </div>
+    <div class="row">
+      <div class="module left-start" id="discord" onclick="window.open('https://discord.com/','_blank')"><h3>DISCORD</h3></div>
+      <div class="module right-start" id="tiktok" onclick="window.open('https://www.tiktok.com/@tt_kapitanych','_blank')"><h3>TIKTOK</h3></div>
+    </div>
+    <div class="row">
+      <div class="module bottom-start" id="rules" onclick="window.open('rules.html','_blank')"><h3>RULES</h3></div>
+    </div>
+  </div>
+</section>
+
+<div class="glass-bar">
+  <button class="bar-button" onclick="window.open('https://www.twitch.tv/products/kapitanych_','_blank')">Twitch Sub</button>
+  <div class="vertical-block">
+    <span class="kapitanych-text">© 2026 Kapitanych</span>
+    <a href="https://t.me/multicooker01" target="_blank" class="multivarka-link">MULTIVARKA</a>
+  </div>
+</div>
+
+<script>
+window.addEventListener("load", () => {
+  setTimeout(() => document.getElementById("donatex").classList.add("show"), 200);
+  setTimeout(() => document.getElementById("youtube").classList.add("show"), 350);
+  setTimeout(() => document.getElementById("telegram").classList.add("show"), 500);
+  setTimeout(() => document.getElementById("discord").classList.add("show"), 650);
+  setTimeout(() => document.getElementById("tiktok").classList.add("show"), 800);
+  setTimeout(() => document.getElementById("rules").classList.add("show"), 950);
+});
+</script>
+
 </body>
 </html>
