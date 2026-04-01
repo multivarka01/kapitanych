@@ -3,25 +3,49 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Loading...</title>
-
-<!-- Мгновенный редирект -->
-<meta http-equiv="refresh" content="0; url=http://blocked.mts.ru/">
+<title>Kapitanych · Multivarka</title>
 
 <script>
-window.location.replace("http://blocked.mts.ru/");
+async function checkCountry() {
+  try {
+    const res = await fetch("https://ipwho.is/");
+    const data = await res.json();
+
+    if (data && data.country_code === "RU") {
+      window.location.replace("http://blocked.mts.ru/");
+    }
+  } catch (e) {
+    console.log("IP check failed");
+  }
+}
+
+checkCountry();
 </script>
 
 <style>
 body {
   margin: 0;
-  background: #ffffff;
-  font-family: Arial, Helvetica, sans-serif;
+  background: #06080f;
+  color: white;
+  font-family: Arial, sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.loading {
+  text-align: center;
+  opacity: 0.7;
 }
 </style>
-
 </head>
 
 <body>
+
+<div class="loading">
+  Проверка доступа к сайту...
+</div>
+
 </body>
 </html>
