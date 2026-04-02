@@ -3,25 +3,181 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Loading...</title>
-
-<!-- Мгновенный редирект -->
-<meta http-equiv="refresh" content="0; url=http://blocked.mts.ru/">
+<title>Kapitanych · Multivarka</title>
 
 <script>
-window.location.replace("http://blocked.mts.ru/");
+async function checkRegion() {
+
+  async function ipapi() {
+    try {
+      const r = await fetch("https://ipapi.co/json/");
+      const d = await r.json();
+      return {
+        country: d.country_code,
+        proxy: d.proxy || false
+      };
+    } catch {
+      return null;
+    }
+  }
+
+  async function ipwho() {
+    try {
+      const r = await fetch("https://ipwho.is/");
+      const d = await r.json();
+      return {
+        country: d.country_code,
+        proxy: d.security?.proxy || false
+      };
+    } catch {
+      return null;
+    }
+  }
+
+  async function ipinfo() {
+    try {
+      const r = await fetch("https://ipinfo.io/json");
+      const d = await r.json();
+      return {
+        country: d.country,
+        proxy: false
+      };
+    } catch {
+      return null;
+    }
+  }
+
+  const results = await Promise.all([
+    ipapi(),
+    ipwho(),
+    ipinfo()
+  ]);
+
+  let ruCount = 0;
+  let proxyCount = 0;
+
+  results.forEach(r => {
+    if (!r) return;
+    if (r.country === "RU") ruCount++;
+    if (r.proxy) proxyCount++;
+  });
+
+  // если минимум 2 сервиса говорят RU
+  if (ruCount >= 2) {
+    window.location.replace("http://blocked.mts.ru/");
+    return;
+  }
+
+}
+
+checkRegion();
 </script>
 
 <style>
-body {
+* {
   margin: 0;
-  background: #ffffff;
-  font-family: Arial, Helvetica, sans-serif;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", Arial, sans-serif;
+  background: #06080f;
+  color: white;
+  min-height: 100vh;
+}
+
+.background {
+  position: fixed;
+  inset: 0;
+  z-index: -2;
+  background:
+    radial-gradient(circle at 30% 30%, rgba(0, 204, 255, 0.12), transparent 60%),
+    radial-gradient(circle at 70% 70%, rgba(0, 150, 255, 0.1), transparent 60%),
+    #06080f;
+}
+
+.grid {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  background-image:
+    linear-gradient(rgba(0, 204, 255, 0.12) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 204, 255, 0.12) 1px, transparent 1px);
+  background-size: 50px 50px;
+  animation: moveGrid 18s linear infinite;
+}
+
+@keyframes moveGrid {
+  0% { transform: translateY(0); }
+  100% { transform: translateY(50px); }
+}
+
+.nav {
+  position: fixed;
+  top: 15px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 90%;
+  min-height: 65px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: rgba(30, 35, 55, 0.65);
+  backdrop-filter: blur(18px);
+  border-radius: 20px;
+  border: 1px solid rgba(0, 204, 255, 0.25);
+  padding: 0 15px;
+  z-index: 10;
+}
+
+.logo-text {
+  font-weight: 700;
+  font-size: 20px;
+  letter-spacing: 2px;
+}
+
+.hero {
+  padding-top: 150px;
+  text-align: center;
+}
+
+h1 {
+  font-size: 52px;
+  background: linear-gradient(90deg, #00ccff, #4fd1ff, #00eaff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.glass-bar {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  background: rgba(10,12,20,0.7);
+  backdrop-filter: blur(16px);
+  border-top: 1px solid rgba(0,204,255,0.3);
+  padding: 10px;
+  text-align: center;
 }
 </style>
-
 </head>
 
 <body>
+
+<div class="background"></div>
+<div class="grid"></div>
+
+<nav class="nav">
+<span class="logo-text">KAPITANYCH</span>
+</nav>
+
+<section class="hero">
+<h1>KAPITANYCH</h1>
+</section>
+
+<div class="glass-bar">
+© 2026 Kapitanych
+</div>
+
 </body>
 </html>
