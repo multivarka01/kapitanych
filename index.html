@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <title>Kapitanych · Multivarka</title>
   <style>
-    /* ---------- ШРИФТ HandjetCircleDouble-Semibold ---------- */
     @font-face {
       font-family: 'HandjetCircleDouble-Semibold';
       src: url('HandjetCircleDouble-Semibold.woff2') format('woff2'),
@@ -45,7 +44,7 @@
       min-height: 100vh;
     }
 
-    /* ---------- НАВБАР (кнопки сжаты, без фона) ---------- */
+    /* ---------- НАВБАР ---------- */
     .main-header {
       position: sticky;
       top: 0;
@@ -142,7 +141,6 @@
       align-items: center;
     }
 
-    /* КРАСНЫЙ ГРАДИЕНТ ДЛЯ ЗАГОЛОВКА */
     h1 {
       font-size: 3.5rem;
       font-weight: 700;
@@ -155,7 +153,7 @@
       font-family: inherit;
     }
 
-    /* ---------- БОЛЬШИЕ КВАДРАТНЫЕ КНОПКИ (без скруглений и без рамок) ---------- */
+    /* ---------- БОЛЬШИЕ КНОПКИ (без фона, без рамок, без зелёного ховера) ---------- */
     .buttons-grid {
       margin-top: 40px;
       display: flex;
@@ -174,65 +172,47 @@
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      gap: 16px;
-      background: rgba(20, 22, 27, 0.8);
-      backdrop-filter: blur(4px);
-      border: none;                /* убрали рамку */
-      border-radius: 0;            /* убрали скругление углов */
-      padding: 18px 44px;
-      min-width: 260px;
+      gap: 20px;
+      background: transparent;     /* убран фон */
+      border: none;
+      border-radius: 0;
+      padding: 30px 50px;
+      min-width: 320px;
       font-weight: 700;
-      font-size: 1.4rem;
+      font-size: 1.8rem;
       letter-spacing: 1px;
       text-align: center;
       color: var(--text-primary);
       cursor: pointer;
-      transition: all 0.25s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+      transition: transform 0.2s ease;
       font-family: inherit;
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-      position: relative;
-      overflow: hidden;
     }
-    /* Кнопки с картинками: ещё больше картинка */
+    /* Специально для Donatex: убираем правый отступ (чуть отрез) */
+    .modern-btn.donatex-btn {
+      padding: 30px 20px 30px 50px;
+    }
+    /* Кнопки с картинками */
     .modern-btn.img-btn {
-      padding: 24px 44px;
+      padding: 30px 50px;
     }
     .modern-btn.img-btn img {
-      height: 80px;
+      height: 100px;
       width: auto;
       display: block;
-      filter: brightness(0.95) contrast(1.05);
-      transition: transform 0.2s, filter 0.2s;
+      transition: transform 0.2s ease;
+    }
+    /* Только увеличение картинки и кнопки при ховере, без зелёного */
+    .modern-btn:hover {
+      transform: scale(1.03);
     }
     .modern-btn.img-btn:hover img {
-      transform: scale(1.08);
-      filter: brightness(1.1) contrast(1.1);
-    }
-    /* Эффект наведения для всех кнопок */
-    .modern-btn::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: -100%;
-      width: 100%;
-      height: 100%;
-      background: linear-gradient(90deg, transparent, rgba(120, 157, 42, 0.2), transparent);
-      transition: left 0.5s ease;
-    }
-    .modern-btn:hover::before {
-      left: 100%;
-    }
-    .modern-btn:hover {
-      transform: translateY(-4px) scale(1.02);
-      background: rgba(30, 34, 40, 0.9);
-      box-shadow: 0 12px 24px -8px rgba(120, 157, 42, 0.4);
+      transform: scale(1.05);
     }
     .modern-btn .btn-icon {
-      font-size: 1.8rem;
-      filter: drop-shadow(0 0 2px rgba(0,0,0,0.5));
+      font-size: 2.2rem;
     }
 
-    /* ---------- ФУТЕР (кнопки без рамок и суженные) ---------- */
+    /* ---------- ФУТЕР (без изменений) ---------- */
     .footer {
       background: linear-gradient(to top, rgba(34,34,34,1) 0%, rgba(34,34,34,0.6) 60%, rgba(34,34,34,0) 100%);
       color: #b6c6e3;
@@ -379,10 +359,14 @@
       .footer-credit-name { font-size: 20px; }
       .footer-btn { font-size: 12px; padding: 3px 10px; }
       .footer-mascot { display: none; }
-      .modern-btn.img-btn img { height: 50px; }
-      .modern-btn.img-btn { padding: 16px 24px; min-width: 180px; }
-      .modern-btn { padding: 12px 24px; min-width: 160px; font-size: 1.1rem; }
-      .modern-btn .btn-icon { font-size: 1.4rem; }
+      .modern-btn {
+        padding: 20px 30px;
+        min-width: 240px;
+        font-size: 1.3rem;
+      }
+      .modern-btn.img-btn img { height: 60px; }
+      .modern-btn .btn-icon { font-size: 1.6rem; }
+      .modern-btn.donatex-btn { padding: 20px 15px 20px 30px; }
     }
 
     /* ---------- МОДАЛЬНОЕ ОКНО ДЛЯ ПРАВИЛ TWITCH ---------- */
@@ -502,31 +486,31 @@
   <h1>KAPITANYCH</h1>
   <div class="buttons-grid">
     <div class="row-buttons">
-      <!-- DONATEX – квадратная кнопка с картинкой -->
-      <div class="modern-btn img-btn" onclick="window.open('https://donatex.gg/donate/kapitanych','_blank')">
+      <!-- DONATEX – увеличенная кнопка, с обрезанным правым отступом -->
+      <div class="modern-btn img-btn donatex-btn" onclick="window.open('https://donatex.gg/donate/kapitanych','_blank')">
         <img src="https://raw.githubusercontent.com/multivarka01/kapitanych/main/Donatex.png" alt="Donatex">
       </div>
-      <!-- TELEGRAM – квадратная текстовая кнопка -->
+      <!-- TELEGRAM -->
       <div class="modern-btn" onclick="window.open('https://t.me/KapitanGG','_blank')">
         <span class="btn-icon">📱</span> TELEGRAM
       </div>
-      <!-- YOUTUBE – квадратная текстовая кнопка -->
+      <!-- YOUTUBE -->
       <div class="modern-btn" onclick="window.open('https://www.youtube.com/@Капитаныч','_blank')">
         <span class="btn-icon">▶️</span> YOUTUBE
       </div>
     </div>
     <div class="row-buttons">
-      <!-- DISCORD – квадратная кнопка с картинкой -->
+      <!-- DISCORD -->
       <div class="modern-btn img-btn" onclick="window.open('https://discord.com/','_blank')">
         <img src="https://raw.githubusercontent.com/multivarka01/kapitanych/main/Discord.png" alt="Discord">
       </div>
-      <!-- TIKTOK – квадратная кнопка с картинкой -->
+      <!-- TIKTOK -->
       <div class="modern-btn img-btn" onclick="window.open('https://www.tiktok.com/@tt_kapitanych','_blank')">
         <img src="https://raw.githubusercontent.com/multivarka01/kapitanych/main/TikTok.png" alt="TikTok">
       </div>
     </div>
     <div class="row-buttons">
-      <!-- RULES – квадратная текстовая кнопка -->
+      <!-- RULES -->
       <div class="modern-btn" onclick="window.open('rules.html','_blank')">
         <span class="btn-icon">📜</span> RULES
       </div>
@@ -600,7 +584,6 @@
 </div>
 
 <script>
-  // Модальное окно для правил Twitch
   const modal = document.getElementById('twitch-rules-modal');
   const openBtn = document.getElementById('show-twitch-rules-btn');
   const closeBtn = document.querySelector('.twitch-rules-close');
@@ -625,7 +608,6 @@
 </script>
 
 <script>
-  // Плавное появление центральных кнопок
   (function() {
     const btns = document.querySelectorAll('.modern-btn');
     if (btns.length) {
