@@ -155,7 +155,7 @@
       font-family: inherit;
     }
 
-    /* ---------- УВЕЛИЧЕННЫЕ ЦЕНТРАЛЬНЫЕ КНОПКИ ---------- */
+    /* ---------- БОЛЬШИЕ КВАДРАТНЫЕ КНОПКИ (без скруглений и без рамок) ---------- */
     .buttons-grid {
       margin-top: 40px;
       display: flex;
@@ -177,10 +177,10 @@
       gap: 16px;
       background: rgba(20, 22, 27, 0.8);
       backdrop-filter: blur(4px);
-      border: 1px solid rgba(120, 157, 42, 0.4);
-      border-radius: 60px;
+      border: none;                /* убрали рамку */
+      border-radius: 0;            /* убрали скругление углов */
       padding: 18px 44px;
-      min-width: 240px;
+      min-width: 260px;
       font-weight: 700;
       font-size: 1.4rem;
       letter-spacing: 1px;
@@ -193,22 +193,22 @@
       position: relative;
       overflow: hidden;
     }
-    /* Кнопки с картинками: полноценный размер, картинка крупная */
+    /* Кнопки с картинками: ещё больше картинка */
     .modern-btn.img-btn {
-      padding: 18px 44px;
-      min-width: 240px;
+      padding: 24px 44px;
     }
     .modern-btn.img-btn img {
-      height: 60px;
+      height: 80px;
       width: auto;
       display: block;
       filter: brightness(0.95) contrast(1.05);
       transition: transform 0.2s, filter 0.2s;
     }
     .modern-btn.img-btn:hover img {
-      transform: scale(1.05);
+      transform: scale(1.08);
       filter: brightness(1.1) contrast(1.1);
     }
+    /* Эффект наведения для всех кнопок */
     .modern-btn::before {
       content: '';
       position: absolute;
@@ -224,12 +224,11 @@
     }
     .modern-btn:hover {
       transform: translateY(-4px) scale(1.02);
-      border-color: var(--accent);
-      box-shadow: 0 12px 24px -8px rgba(120, 157, 42, 0.4);
       background: rgba(30, 34, 40, 0.9);
+      box-shadow: 0 12px 24px -8px rgba(120, 157, 42, 0.4);
     }
     .modern-btn .btn-icon {
-      font-size: 1.6rem;
+      font-size: 1.8rem;
       filter: drop-shadow(0 0 2px rgba(0,0,0,0.5));
     }
 
@@ -380,9 +379,10 @@
       .footer-credit-name { font-size: 20px; }
       .footer-btn { font-size: 12px; padding: 3px 10px; }
       .footer-mascot { display: none; }
-      .modern-btn.img-btn img { height: 40px; }
-      .modern-btn.img-btn { padding: 12px 24px; min-width: 160px; }
+      .modern-btn.img-btn img { height: 50px; }
+      .modern-btn.img-btn { padding: 16px 24px; min-width: 180px; }
       .modern-btn { padding: 12px 24px; min-width: 160px; font-size: 1.1rem; }
+      .modern-btn .btn-icon { font-size: 1.4rem; }
     }
 
     /* ---------- МОДАЛЬНОЕ ОКНО ДЛЯ ПРАВИЛ TWITCH ---------- */
@@ -502,31 +502,31 @@
   <h1>KAPITANYCH</h1>
   <div class="buttons-grid">
     <div class="row-buttons">
-      <!-- DONATEX – картинка, полноценная кнопка -->
+      <!-- DONATEX – квадратная кнопка с картинкой -->
       <div class="modern-btn img-btn" onclick="window.open('https://donatex.gg/donate/kapitanych','_blank')">
         <img src="https://raw.githubusercontent.com/multivarka01/kapitanych/main/Donatex.png" alt="Donatex">
       </div>
-      <!-- TELEGRAM – текст -->
+      <!-- TELEGRAM – квадратная текстовая кнопка -->
       <div class="modern-btn" onclick="window.open('https://t.me/KapitanGG','_blank')">
         <span class="btn-icon">📱</span> TELEGRAM
       </div>
-      <!-- YOUTUBE – текст -->
+      <!-- YOUTUBE – квадратная текстовая кнопка -->
       <div class="modern-btn" onclick="window.open('https://www.youtube.com/@Капитаныч','_blank')">
         <span class="btn-icon">▶️</span> YOUTUBE
       </div>
     </div>
     <div class="row-buttons">
-      <!-- DISCORD – картинка, полноценная кнопка -->
+      <!-- DISCORD – квадратная кнопка с картинкой -->
       <div class="modern-btn img-btn" onclick="window.open('https://discord.com/','_blank')">
         <img src="https://raw.githubusercontent.com/multivarka01/kapitanych/main/Discord.png" alt="Discord">
       </div>
-      <!-- TIKTOK – картинка, полноценная кнопка -->
+      <!-- TIKTOK – квадратная кнопка с картинкой -->
       <div class="modern-btn img-btn" onclick="window.open('https://www.tiktok.com/@tt_kapitanych','_blank')">
         <img src="https://raw.githubusercontent.com/multivarka01/kapitanych/main/TikTok.png" alt="TikTok">
       </div>
     </div>
     <div class="row-buttons">
-      <!-- RULES – текст -->
+      <!-- RULES – квадратная текстовая кнопка -->
       <div class="modern-btn" onclick="window.open('rules.html','_blank')">
         <span class="btn-icon">📜</span> RULES
       </div>
