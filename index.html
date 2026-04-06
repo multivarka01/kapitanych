@@ -193,20 +193,21 @@
       position: relative;
       overflow: hidden;
     }
-    /* Для кнопок-картинок убираем лишние отступы и фон */
+    /* Кнопки с картинками: полноценный размер, картинка крупная */
     .modern-btn.img-btn {
-      padding: 12px 24px;
-      background: rgba(20, 22, 27, 0.6);
+      padding: 18px 44px;
+      min-width: 240px;
     }
     .modern-btn.img-btn img {
-      height: 40px;
+      height: 60px;
       width: auto;
       display: block;
-      filter: brightness(0.9) contrast(1.1);
-      transition: filter 0.2s;
+      filter: brightness(0.95) contrast(1.05);
+      transition: transform 0.2s, filter 0.2s;
     }
     .modern-btn.img-btn:hover img {
-      filter: brightness(1.1) contrast(1.2);
+      transform: scale(1.05);
+      filter: brightness(1.1) contrast(1.1);
     }
     .modern-btn::before {
       content: '';
@@ -379,8 +380,9 @@
       .footer-credit-name { font-size: 20px; }
       .footer-btn { font-size: 12px; padding: 3px 10px; }
       .footer-mascot { display: none; }
-      .modern-btn.img-btn img { height: 30px; }
-      .modern-btn.img-btn { padding: 10px 20px; }
+      .modern-btn.img-btn img { height: 40px; }
+      .modern-btn.img-btn { padding: 12px 24px; min-width: 160px; }
+      .modern-btn { padding: 12px 24px; min-width: 160px; font-size: 1.1rem; }
     }
 
     /* ---------- МОДАЛЬНОЕ ОКНО ДЛЯ ПРАВИЛ TWITCH ---------- */
@@ -500,7 +502,7 @@
   <h1>KAPITANYCH</h1>
   <div class="buttons-grid">
     <div class="row-buttons">
-      <!-- DONATEX – картинка -->
+      <!-- DONATEX – картинка, полноценная кнопка -->
       <div class="modern-btn img-btn" onclick="window.open('https://donatex.gg/donate/kapitanych','_blank')">
         <img src="https://raw.githubusercontent.com/multivarka01/kapitanych/main/Donatex.png" alt="Donatex">
       </div>
@@ -514,11 +516,11 @@
       </div>
     </div>
     <div class="row-buttons">
-      <!-- DISCORD – картинка -->
+      <!-- DISCORD – картинка, полноценная кнопка -->
       <div class="modern-btn img-btn" onclick="window.open('https://discord.com/','_blank')">
         <img src="https://raw.githubusercontent.com/multivarka01/kapitanych/main/Discord.png" alt="Discord">
       </div>
-      <!-- TIKTOK – картинка -->
+      <!-- TIKTOK – картинка, полноценная кнопка -->
       <div class="modern-btn img-btn" onclick="window.open('https://www.tiktok.com/@tt_kapitanych','_blank')">
         <img src="https://raw.githubusercontent.com/multivarka01/kapitanych/main/TikTok.png" alt="TikTok">
       </div>
@@ -532,7 +534,7 @@
   </div>
 </section>
 
-<!-- ФУТЕР (кнопки без рамок и суженные) -->
+<!-- ФУТЕР -->
 <footer class="footer visible">
   <img src="https://eblo.id/static/image/footer_designer_mascot.svg" alt="designer mascot" class="footer-mascot left">
   <img src="https://eblo.id/static/image/footer_dev_mascot.svg" alt="dev mascot" class="footer-mascot right">
