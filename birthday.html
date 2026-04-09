@@ -21,6 +21,7 @@
             min-height: 100vh;
             padding: 2rem 1.5rem;
             color: #ffffff;
+            overflow-x: hidden;
         }
 
         .container {
@@ -145,31 +146,6 @@
             color: #aaa;
         }
 
-        .music-section {
-            background: #2a2a2a;
-            border-radius: 60px;
-            padding: 1rem 1.5rem;
-            text-align: center;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            margin-bottom: 1.5rem;
-            display: none; /* скрыт по умолчанию, показываем только при активации песни */
-        }
-        .music-title {
-            font-size: 1.2rem;
-            font-weight: 600;
-            margin-bottom: 0.6rem;
-            color: #b6c6e3;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 12px;
-        }
-        audio {
-            width: 100%;
-            border-radius: 40px;
-            background: #1e1e1e;
-        }
-
         .back-link {
             display: inline-block;
             margin-top: 0.5rem;
@@ -198,18 +174,87 @@
             color: #ff6a6a;
         }
 
+        /* Модальное окно */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(8px);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+        .modal-content {
+            background: #2a2a2a;
+            border-radius: 48px;
+            padding: 2rem;
+            max-width: 500px;
+            width: 90%;
+            text-align: center;
+            border: 2px solid #ff3a3a;
+            box-shadow: 0 0 30px rgba(255, 58, 58, 0.5);
+            animation: fadeInUp 0.3s ease;
+        }
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        .modal-content h2 {
+            font-size: 2.2rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #ff3a3a, #ff9a3a);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 1.5rem;
+        }
+        .modal-close {
+            float: right;
+            font-size: 1.8rem;
+            font-weight: bold;
+            cursor: pointer;
+            color: #b6c6e3;
+            transition: 0.2s;
+        }
+        .modal-close:hover {
+            color: #ff3a3a;
+        }
+        .modal-audio {
+            width: 100%;
+            margin: 1rem 0;
+            border-radius: 40px;
+            background: #1e1e1e;
+        }
         @media (max-width: 550px) {
-            body { padding: 1rem; }
-            .congrat-card { padding: 1rem; }
-            .avatar { width: 55px; height: 55px; font-size: 1.8rem; }
-            .nickname { font-size: 1.3rem; }
-            .message-bubble { font-size: 0.85rem; }
-            .hero h1 { font-size: 2rem; }
-            .toggle-btn { font-size: 0.9rem; padding: 0.4rem 1rem; }
+            .modal-content { padding: 1.5rem; }
+            .modal-content h2 { font-size: 1.6rem; }
+        }
+
+        /* Canvas для конфетти */
+        #confettiCanvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 999;
         }
     </style>
 </head>
 <body>
+<canvas id="confettiCanvas"></canvas>
+
 <div class="container">
     <div class="hero">
         <h1>⚡ ПОЗДРАВЛЕНИЯ ⚡</h1>
@@ -224,20 +269,23 @@
         <button class="toggle-btn" data-person="sergeevna">Sergeevna</button>
     </div>
 
-    <div id="musicSection" class="music-section">
-        <div class="music-title">
-            <i class="fas fa-headphones"></i> праздничный трек <i class="fas fa-music"></i>
-        </div>
-        <audio id="birthdayAudio" controls loop>
-            <source src="birthday.mp3" type="audio/mpeg">
-            Ваш браузер не поддерживает аудиоплеер. <a href="song.mp3">Скачать песню</a>
-        </audio>
-    </div>
-
     <a href="index.html" class="back-link"><i class="fas fa-arrow-left"></i> Вернуться на главную</a>
     <footer>
         <i class="fas fa-heart"></i> С любовью от сообщества Kapitanych <i class="fas fa-heart"></i>
     </footer>
+</div>
+
+<!-- Модальное окно -->
+<div id="musicModal" class="modal">
+    <div class="modal-content">
+        <span class="modal-close">&times;</span>
+        <h2>🎉 С ДНЁМ РОЖДЕНИЯ! 🎉</h2>
+        <audio id="modalAudio" class="modal-audio" controls loop>
+            <source src="birthday.mp3" type="audio/mpeg">
+            Ваш браузер не поддерживает аудио.
+        </audio>
+        <p style="margin-top: 1rem; color: #b6c6e3;">✨ Пусть этот день будет волшебным! ✨</p>
+    </div>
 </div>
 
 <script>
@@ -263,12 +311,120 @@
         ]
     };
 
+    // DOM элементы
     const container = document.getElementById('congrats-container');
     const songBtn = document.getElementById('songBtn');
-    const musicSection = document.getElementById('musicSection');
-    const audio = document.getElementById('birthdayAudio');
+    const modal = document.getElementById('musicModal');
+    const modalAudio = document.getElementById('modalAudio');
+    const modalClose = document.querySelector('.modal-close');
     let currentPerson = 'kapitanych';
 
+    // --- Конфетти (простая анимация на canvas) ---
+    const canvas = document.getElementById('confettiCanvas');
+    let ctx = canvas.getContext('2d');
+    let particles = [];
+    let animationId = null;
+    let confettiActive = false;
+
+    function resizeCanvas() {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+    }
+    window.addEventListener('resize', resizeCanvas);
+
+    function createParticle(x, y) {
+        return {
+            x: x,
+            y: y,
+            size: Math.random() * 8 + 4,
+            speedX: (Math.random() - 0.5) * 8,
+            speedY: Math.random() * 10 + 5,
+            color: `hsl(${Math.random() * 360}, 80%, 60%)`,
+            rotation: Math.random() * 360,
+            spin: (Math.random() - 0.5) * 10,
+            life: 1,
+            fade: 0.02 + Math.random() * 0.03
+        };
+    }
+
+    function startConfetti() {
+        if (animationId) cancelAnimationFrame(animationId);
+        particles = [];
+        confettiActive = true;
+        resizeCanvas();
+
+        // Создаём 200 частиц, разбросанных по верхней половине экрана
+        for (let i = 0; i < 200; i++) {
+            particles.push(createParticle(
+                Math.random() * canvas.width,
+                Math.random() * canvas.height * 0.5
+            ));
+        }
+
+        function draw() {
+            if (!confettiActive) return;
+            if (!ctx) return;
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            let allDead = true;
+            for (let i = 0; i < particles.length; i++) {
+                const p = particles[i];
+                if (p.life <= 0) continue;
+                allDead = false;
+                p.x += p.speedX;
+                p.y += p.speedY;
+                p.speedY += 0.2; // гравитация
+                p.life -= p.fade;
+                p.rotation += p.spin;
+                ctx.save();
+                ctx.translate(p.x, p.y);
+                ctx.rotate(p.rotation * Math.PI / 180);
+                ctx.fillStyle = p.color;
+                ctx.fillRect(-p.size/2, -p.size/2, p.size, p.size);
+                ctx.restore();
+            }
+            if (allDead) {
+                cancelAnimationFrame(animationId);
+                animationId = null;
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                confettiActive = false;
+                return;
+            }
+            animationId = requestAnimationFrame(draw);
+        }
+        draw();
+        // Автоматически остановить конфетти через 5 секунд
+        setTimeout(() => {
+            if (confettiActive) {
+                confettiActive = false;
+                if (animationId) cancelAnimationFrame(animationId);
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+            }
+        }, 5000);
+    }
+
+    // --- Модальное окно с музыкой ---
+    function openModal() {
+        modal.style.display = 'flex';
+        modalAudio.play().catch(e => console.log('Автовоспроизведение заблокировано'));
+        startConfetti();
+    }
+    function closeModal() {
+        modal.style.display = 'none';
+        modalAudio.pause();
+        modalAudio.currentTime = 0;
+        // Останавливаем конфетти
+        if (confettiActive) {
+            confettiActive = false;
+            if (animationId) cancelAnimationFrame(animationId);
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+        }
+    }
+    modalClose.addEventListener('click', closeModal);
+    window.addEventListener('click', (e) => {
+        if (e.target === modal) closeModal();
+    });
+
+    // --- Рендер карточек ---
     function render(personKey) {
         const data = persons[personKey];
         if (!data) return;
@@ -291,41 +447,25 @@
         });
     }
 
-    function stopAndHideMusic() {
-        audio.pause();
-        audio.currentTime = 0;
-        musicSection.style.display = 'none';
-    }
-
-    function showAndPlayMusic() {
-        musicSection.style.display = 'block';
-        audio.play().catch(e => console.log('Автовоспроизведение заблокировано, нажмите play'));
-    }
-
-    // Управление активностью кнопки "Песня" в зависимости от выбранной персоны
+    // --- Управление активностью кнопки "Песня" ---
     function updateSongButton() {
         if (currentPerson === 'sergeevna') {
             songBtn.disabled = false;
         } else {
             songBtn.disabled = true;
-            stopAndHideMusic();
+            // Если модалка открыта, закрываем её при переключении
+            if (modal.style.display === 'flex') closeModal();
         }
     }
 
     // Обработка клика по кнопке "Песня"
     songBtn.addEventListener('click', () => {
         if (!songBtn.disabled) {
-            // Если плеер уже виден и музыка играет/остановлена, просто показываем
-            if (musicSection.style.display === 'block') {
-                // Если уже показан, можно просто ничего не делать или перезапустить
-                audio.play();
-            } else {
-                showAndPlayMusic();
-            }
+            openModal();
         }
     });
 
-    // Переключение между Kapitanych и Sergeevna
+    // --- Переключение между Kapitanych и Sergeevna ---
     const btns = document.querySelectorAll('.toggle-btn[data-person]');
     function setActive(person) {
         btns.forEach(btn => {
@@ -351,6 +491,7 @@
 
     // Инициализация
     setActive('kapitanych');
+    resizeCanvas();
 </script>
 </body>
 </html>
