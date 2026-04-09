@@ -19,9 +19,7 @@
       --bg: #202020;
       --card-bg: #2a2a2a;
       --accent: #789d2a;
-      --accent-light: #8fb33e;
       --text-primary: #ffffff;
-      --text-secondary: #b6c6e3;
       --border-light: rgba(255, 255, 255, 0.1);
       --shadow: 0 12px 36px rgba(0, 0, 0, 0.45);
       --transition: all 0.2s ease;
@@ -73,13 +71,13 @@
       height: 60px;
       border-radius: 50%;
       object-fit: cover;
-      border: 2px solid var(--accent);
+      border: 2px solid #789d2a;
       transition: var(--transition);
       cursor: pointer;
     }
     .nav-avatar:hover {
       transform: scale(1.05);
-      border-color: var(--accent-light);
+      border-color: #8fb33e;
     }
 
     .nav-center {
@@ -153,7 +151,7 @@
       font-family: inherit;
     }
 
-    /* ---------- БОЛЬШИЕ КНОПКИ (без фона, без рамок, без зелёного ховера) ---------- */
+    /* ---------- КНОПКИ (все текстовые, без картинок) ---------- */
     .buttons-grid {
       margin-top: 40px;
       display: flex;
@@ -172,47 +170,46 @@
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      gap: 20px;
-      background: transparent;     /* убран фон */
-      border: none;
-      border-radius: 0;
-      padding: 30px 50px;
-      min-width: 320px;
+      background: rgba(30, 34, 40, 0.8);
+      backdrop-filter: blur(4px);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      border-radius: 20px;
+      padding: 20px 40px;
+      min-width: 260px;
       font-weight: 700;
-      font-size: 1.8rem;
+      font-size: 1.5rem;
       letter-spacing: 1px;
       text-align: center;
       color: var(--text-primary);
       cursor: pointer;
-      transition: transform 0.2s ease;
+      transition: transform 0.2s, background 0.2s, box-shadow 0.2s;
       font-family: inherit;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+      text-decoration: none;
     }
-    /* Специально для Donatex: убираем правый отступ (чуть отрез) */
-    .modern-btn.donatex-btn {
-      padding: 30px 20px 30px 50px;
-    }
-    /* Кнопки с картинками */
-    .modern-btn.img-btn {
-      padding: 30px 50px;
-    }
-    .modern-btn.img-btn img {
-      height: 100px;
-      width: auto;
-      display: block;
-      transition: transform 0.2s ease;
-    }
-    /* Только увеличение картинки и кнопки при ховере, без зелёного */
     .modern-btn:hover {
-      transform: scale(1.03);
+      transform: scale(1.02);
+      background: rgba(50, 55, 65, 0.9);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
     }
-    .modern-btn.img-btn:hover img {
+    /* Праздничная кнопка */
+    .birthday-btn {
+      background: linear-gradient(135deg, #ff9a3a, #ff3a3a);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      box-shadow: 0 0 20px rgba(255, 58, 58, 0.5);
+      animation: pulse 2s infinite;
+    }
+    .birthday-btn:hover {
+      background: linear-gradient(135deg, #ffb05a, #ff5a5a);
       transform: scale(1.05);
     }
-    .modern-btn .btn-icon {
-      font-size: 2.2rem;
+    @keyframes pulse {
+      0% { box-shadow: 0 0 0 0 rgba(255, 58, 58, 0.7); }
+      70% { box-shadow: 0 0 0 15px rgba(255, 58, 58, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(255, 58, 58, 0); }
     }
 
-    /* ---------- ФУТЕР (без изменений) ---------- */
+    /* ---------- ФУТЕР (копия с eblo.id) ---------- */
     .footer {
       background: linear-gradient(to top, rgba(34,34,34,1) 0%, rgba(34,34,34,0.6) 60%, rgba(34,34,34,0) 100%);
       color: #b6c6e3;
@@ -359,17 +356,10 @@
       .footer-credit-name { font-size: 20px; }
       .footer-btn { font-size: 12px; padding: 3px 10px; }
       .footer-mascot { display: none; }
-      .modern-btn {
-        padding: 20px 30px;
-        min-width: 240px;
-        font-size: 1.3rem;
-      }
-      .modern-btn.img-btn img { height: 60px; }
-      .modern-btn .btn-icon { font-size: 1.6rem; }
-      .modern-btn.donatex-btn { padding: 20px 15px 20px 30px; }
+      .modern-btn { padding: 14px 28px; min-width: 200px; font-size: 1.2rem; }
     }
 
-    /* ---------- МОДАЛЬНОЕ ОКНО ДЛЯ ПРАВИЛ TWITCH ---------- */
+    /* Модальное окно правил Twitch (сохранено) */
     .twitch-rules-modal {
       align-items: center;
       backdrop-filter: blur(8px);
@@ -413,8 +403,6 @@
       font-weight: 700;
       margin: 0;
       font-family: inherit;
-      background: none;
-      -webkit-text-fill-color: white;
     }
     .twitch-rules-close {
       align-items: center;
@@ -439,16 +427,9 @@
       text-align: left;
       font-family: inherit;
     }
-    .twitch-rules-body ul {
-      margin: 0.75rem 0;
-      padding-left: 1.5rem;
-    }
-    .twitch-rules-body li {
-      margin: 0.6rem 0;
-    }
-    .twitch-rules-body a {
-      color: #ff6a6a;
-    }
+    .twitch-rules-body ul { margin: 0.75rem 0; padding-left: 1.5rem; }
+    .twitch-rules-body li { margin: 0.6rem 0; }
+    .twitch-rules-body a { color: #ff6a6a; }
     @media (max-width:768px) {
       .twitch-rules-header h1 { font-size: 1.25rem; }
       .twitch-rules-body { font-size: 0.875rem; padding: 1.5rem; }
@@ -486,34 +467,17 @@
   <h1>KAPITANYCH</h1>
   <div class="buttons-grid">
     <div class="row-buttons">
-      <!-- DONATEX – увеличенная кнопка, с обрезанным правым отступом -->
-      <div class="modern-btn img-btn donatex-btn" onclick="window.open('https://donatex.gg/donate/kapitanych','_blank')">
-        <img src="https://raw.githubusercontent.com/multivarka01/kapitanych/main/Donatex.png" alt="Donatex">
-      </div>
-      <!-- TELEGRAM -->
-      <div class="modern-btn" onclick="window.open('https://t.me/KapitanGG','_blank')">
-        <span class="btn-icon">📱</span> TELEGRAM
-      </div>
-      <!-- YOUTUBE -->
-      <div class="modern-btn" onclick="window.open('https://www.youtube.com/@Капитаныч','_blank')">
-        <span class="btn-icon">▶️</span> YOUTUBE
-      </div>
+      <a href="https://donatex.gg/donate/kapitanych" target="_blank" class="modern-btn">DONATEX</a>
+      <a href="https://t.me/KapitanGG" target="_blank" class="modern-btn">TELEGRAM</a>
+      <a href="https://www.youtube.com/@Капитаныч" target="_blank" class="modern-btn">YOUTUBE</a>
     </div>
     <div class="row-buttons">
-      <!-- DISCORD -->
-      <div class="modern-btn img-btn" onclick="window.open('https://discord.com/','_blank')">
-        <img src="https://raw.githubusercontent.com/multivarka01/kapitanych/main/Discord.png" alt="Discord">
-      </div>
-      <!-- TIKTOK -->
-      <div class="modern-btn img-btn" onclick="window.open('https://www.tiktok.com/@tt_kapitanych','_blank')">
-        <img src="https://raw.githubusercontent.com/multivarka01/kapitanych/main/TikTok.png" alt="TikTok">
-      </div>
+      <a href="https://discord.com/" target="_blank" class="modern-btn">DISCORD</a>
+      <a href="https://www.tiktok.com/@tt_kapitanych" target="_blank" class="modern-btn">TIKTOK</a>
     </div>
     <div class="row-buttons">
-      <!-- RULES -->
-      <div class="modern-btn" onclick="window.open('rules.html','_blank')">
-        <span class="btn-icon">📜</span> RULES
-      </div>
+      <!-- Кнопка День рождения вместо RULES, открывает отдельную страницу -->
+      <a href="birthday.html" target="_blank" class="modern-btn birthday-btn">🎂 ДЕНЬ РОЖДЕНИЯ 🎂</a>
     </div>
   </div>
 </section>
@@ -529,32 +493,32 @@
       <div class="footer-credit-col">
         <div class="footer-credit-label">ПОДДЕРЖКА</div>
         <div class="footer-credit-name">
-          <a href="https://twitch.tv/kapitanych_" target="_blank" rel="noopener noreferrer">Kapitanych</a>
+          <a href="https://twitch.tv/kapitanych_" target="_blank">Kapitanych</a>
         </div>
       </div>
       <div class="footer-credit-col">
         <div class="footer-credit-label">РАЗРАБОТКА</div>
         <div class="footer-credit-name">
-          <a href="https://t.me/multicooker01" target="_blank" rel="noopener noreferrer">Multivarka</a>
+          <a href="https://t.me/multicooker01" target="_blank">Multivarka</a>
         </div>
       </div>
       <div class="footer-credit-col">
         <div class="footer-credit-label">ДИЗАЙН</div>
         <div class="footer-credit-name">
-          <a href="https://eblo.id" target="_blank" rel="noopener noreferrer">eblo.id</a>
+          <a href="https://eblo.id" target="_blank">eblo.id</a>
         </div>
       </div>
     </div>
     <div class="terms-container">
       <div class="footer-buttons">
         <button class="footer-btn" id="show-twitch-rules-btn">Правила Twitch</button>
-        <a href="https://www.twitch.tv/products/kapitanych_" target="_blank" rel="noopener noreferrer" class="footer-btn">Поддержка</a>
+        <a href="https://www.twitch.tv/products/kapitanych_" target="_blank" class="footer-btn">Поддержка</a>
       </div>
     </div>
   </div>
 </footer>
 
-<!-- МОДАЛЬНОЕ ОКНО С ПРАВИЛАМИ TWITCH -->
+<!-- Модальное окно правил Twitch -->
 <div id="twitch-rules-modal" class="twitch-rules-modal">
   <div class="twitch-rules-content">
     <div class="twitch-rules-header">
@@ -578,36 +542,25 @@
         <li>Запрещено попрошайничать випки/модерки/платные подписки</li>
         <li>Нельзя писать АФК!!! (mute 6оо s)</li>
       </ul>
-      <p style="margin-top:16px; color:#b6c6e3;">Нарушение правил влечёт за собой наказание по усмотрению модератора.</p>
+      <p style="margin-top:16px;">Нарушение правил влечёт за собой наказание по усмотрению модератора.</p>
     </div>
   </div>
 </div>
 
 <script>
-  const modal = document.getElementById('twitch-rules-modal');
-  const openBtn = document.getElementById('show-twitch-rules-btn');
-  const closeBtn = document.querySelector('.twitch-rules-close');
-
-  function openModal() {
-    modal.style.display = 'flex';
-    document.body.style.overflow = 'hidden';
-  }
-  function closeModal() {
-    modal.style.display = 'none';
-    document.body.style.overflow = 'auto';
-  }
-
-  if (openBtn) openBtn.addEventListener('click', openModal);
-  if (closeBtn) closeBtn.addEventListener('click', closeModal);
-  window.addEventListener('click', function(e) {
-    if (e.target === modal) closeModal();
-  });
-  document.addEventListener('keydown', function(e) {
-    if (e.key === 'Escape' && modal.style.display === 'flex') closeModal();
-  });
+  const rulesModal = document.getElementById('twitch-rules-modal');
+  const openRulesBtn = document.getElementById('show-twitch-rules-btn');
+  const closeRulesBtn = document.querySelector('.twitch-rules-close');
+  function openRules() { rulesModal.style.display = 'flex'; document.body.style.overflow = 'hidden'; }
+  function closeRules() { rulesModal.style.display = 'none'; document.body.style.overflow = 'auto'; }
+  if (openRulesBtn) openRulesBtn.addEventListener('click', openRules);
+  if (closeRulesBtn) closeRulesBtn.addEventListener('click', closeRules);
+  window.addEventListener('click', e => { if (e.target === rulesModal) closeRules(); });
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeRules(); });
 </script>
 
 <script>
+  // Плавное появление кнопок
   (function() {
     const btns = document.querySelectorAll('.modern-btn');
     if (btns.length) {
