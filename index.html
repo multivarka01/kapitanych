@@ -166,6 +166,18 @@
       color: white;
     }
 
+    /* Кнопка переключения языка */
+    .lang-switch {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid var(--border-light);
+      color: var(--text-muted);
+      margin-left: 4px;
+    }
+    .lang-switch:hover {
+      background: rgba(255,255,255,0.12);
+      color: white;
+    }
+
     .hero {
       padding: 60px 20px 40px;
       text-align: center;
@@ -694,66 +706,67 @@
   <div class="nav-container">
     <div class="nav-left">
       <img src="https://raw.githubusercontent.com/multivarka01/kapitanych/main/avatar.jpg"
-           class="nav-avatar" alt="Логотип Kapitanych" onclick="window.open('https://twitch.tv/kapitanych_','_blank')">
+           class="nav-avatar" alt="Kapitanych Logo" onclick="window.open('https://twitch.tv/kapitanych_','_blank')">
     </div>
 
     <nav class="nav-center">
       <div class="nav-links">
-        <a href="https://donatex.gg/donate/kapitanych" target="_blank" rel="noopener noreferrer">Donatex</a>
-        <a href="https://new.donatepay.ru/@Kapitan" target="_blank" rel="noopener noreferrer">DonatPay</a>
-        <a href="https://t.me/KapitanGG" target="_blank" rel="noopener noreferrer">Telegram</a>
-        <a href="https://discord.com/" target="_blank" rel="noopener noreferrer">Discord</a>
-        <a href="https://www.youtube.com/@Капитаныч" target="_blank" rel="noopener noreferrer">YouTube</a>
-        <a href="https://www.tiktok.com/@tt_kapitanych" target="_blank" rel="noopener noreferrer">TikTok</a>
+        <a href="https://donatex.gg/donate/kapitanych" target="_blank" rel="noopener noreferrer" data-i18n="donatex">Donatex</a>
+        <a href="https://new.donatepay.ru/@Kapitan" target="_blank" rel="noopener noreferrer" data-i18n="donatepay">DonatPay</a>
+        <a href="https://t.me/KapitanGG" target="_blank" rel="noopener noreferrer" data-i18n="telegram">Telegram</a>
+        <a href="https://discord.com/" target="_blank" rel="noopener noreferrer" data-i18n="discord">Discord</a>
+        <a href="https://www.youtube.com/@Капитаныч" target="_blank" rel="noopener noreferrer" data-i18n="youtube">YouTube</a>
+        <a href="https://www.tiktok.com/@tt_kapitanych" target="_blank" rel="noopener noreferrer" data-i18n="tiktok">TikTok</a>
       </div>
     </nav>
 
     <div class="nav-buttons">
-      <a href="https://twitch.tv/kapitanych_" class="btn-sm btn-twitch" target="_blank" rel="noopener noreferrer">Twitch</a>
-      <button class="btn-sm btn-config" id="show-config-btn" type="button">PC Config</button>
+      <button class="btn-sm lang-switch" id="lang-toggle" type="button">EN</button>
+      <a href="https://twitch.tv/kapitanych_" class="btn-sm btn-twitch" target="_blank" rel="noopener noreferrer" data-i18n="twitch">Twitch</a>
+      <button class="btn-sm btn-config" id="show-config-btn" type="button" data-i18n="pc_config">PC Config</button>
     </div>
   </div>
 </header>
 
 <section class="hero" id="home">
   <h1>KAPITANYCH</h1>
-  <p class="hero-subtitle">Welcome! Here you'll find all the channel links, donations, and important rules. Jump into the stream and become part of the community.</p>
+  <p class="hero-subtitle" data-i18n="hero_subtitle">Добро пожаловать! Здесь собраны все ссылки на каналы, донат и важные правила. Залетай на стрим и становись частью сообщества.</p>
 
   <div class="hero-badges">
-    <span class="hero-badge">🎮 Games</span>
-    <span class="hero-badge">💬 Chatting with the chat</span>
-    <span class="hero-badge">🔥 Regular broadcasts</span>
+    <span class="hero-badge" data-i18n="badge_games">🎮 Игры</span>
+    <span class="hero-badge" data-i18n="badge_chat">💬 Общение с чатом</span>
+    <span class="hero-badge" data-i18n="badge_streams">🔥 Регулярные эфиры</span>
   </div>
 
   <div class="buttons-grid">
     <div class="row-buttons">
-      <a href="https://donatex.gg/donate/kapitanych" target="_blank" rel="noopener noreferrer" class="modern-btn">DONATEX</a>
-      <a href="https://t.me/KapitanGG" target="_blank" rel="noopener noreferrer" class="modern-btn">TELEGRAM</a>
-      <a href="https://www.youtube.com/@Капитаныч" target="_blank" rel="noopener noreferrer" class="modern-btn">YOUTUBE</a>
+      <a href="https://donatex.gg/donate/kapitanych" target="_blank" rel="noopener noreferrer" class="modern-btn" data-i18n="donatex_btn">DONATEX</a>
+      <a href="https://t.me/KapitanGG" target="_blank" rel="noopener noreferrer" class="modern-btn" data-i18n="telegram_btn">TELEGRAM</a>
+      <a href="https://www.youtube.com/@Капитаныч" target="_blank" rel="noopener noreferrer" class="modern-btn" data-i18n="youtube_btn">YOUTUBE</a>
     </div>
     <div class="row-buttons">
-      <a href="https://discord.com/" target="_blank" rel="noopener noreferrer" class="modern-btn">DISCORD</a>
-      <a href="https://www.tiktok.com/@tt_kapitanych" target="_blank" rel="noopener noreferrer" class="modern-btn">TIKTOK</a>
+      <a href="https://discord.com/" target="_blank" rel="noopener noreferrer" class="modern-btn" data-i18n="discord_btn">DISCORD</a>
+      <a href="https://www.tiktok.com/@tt_kapitanych" target="_blank" rel="noopener noreferrer" class="modern-btn" data-i18n="tiktok_btn">TIKTOK</a>
     </div>
   </div>
 </section>
 
 <section class="content-section">
   <article class="info-card">
-    <h2>💡 What's going on here</h2>
+    <h2 data-i18n="what_happens_title">💡 Что тут происходит</h2>
     <ul>
-      <li>Shooters, co-ops, challenges.</li>
-      <li>Reactions and live communication with chat.</li>
-      <li>Periodic raffles and events.</li>
+      <li data-i18n="what_happens_1">Шутеры, коопы, челленджи.</li>
+      <li data-i18n="what_happens_2">Реакции и лайв-общение с чатом.</li>
+      <li data-i18n="what_happens_3">Периодические розыгрыши и ивенты.</li>
     </ul>
   </article>
 
   <article class="info-card">
-    <h2>🔴 Broadcast status</h2>
-    <p>Follow the announcements on Telegram.</p>
+    <h2 data-i18n="stream_status_title">🔴 Статус эфира</h2>
+    <p data-i18n="stream_status_text">Следи за анонсами в Telegram.</p>
     <div class="stream-status">
       <span class="status-dot"></span>
-      <span>Notifications arrive on the day of the stream.</span>
+      <span data-i18n="stream_status_badge">Уведомления приходят в день стрима</span>
     </div>
   </article>
 </section>
@@ -762,11 +775,11 @@
   <div class="cta-status-row">
     <div class="stream-status">
       <span class="status-dot"></span>
-      <span>Live broadcast now or soon</span>
+      <span data-i18n="live_now_soon">Прямой эфир сейчас или скоро</span>
     </div>
-    <p>Don't miss out - subscribe and turn on notifications</p>
+    <p data-i18n="dont_miss">Не пропусти — подпишись и включи уведомления</p>
   </div>
-  <a href="https://twitch.tv/kapitanych_" target="_blank" rel="noopener noreferrer">Открыть Twitch</a>
+  <a href="https://twitch.tv/kapitanych_" target="_blank" rel="noopener noreferrer" data-i18n="open_twitch">Открыть Twitch</a>
 </section>
 
 <footer class="footer visible">
@@ -779,21 +792,21 @@
   <div class="footer-content">
     <div class="footer-credits-grid">
       <div class="footer-credit-col">
-        <div class="footer-credit-label">SUPPORT</div>
+        <div class="footer-credit-label" data-i18n="support_label">ПОДДЕРЖКА</div>
         <div class="footer-credit-name">
           <a href="https://twitch.tv/kapitanych_" target="_blank" rel="noopener noreferrer">Kapitanych</a>
         </div>
       </div>
 
       <div class="footer-credit-col">
-        <div class="footer-credit-label">DEVELOPMENT</div>
+        <div class="footer-credit-label" data-i18n="dev_label">РАЗРАБОТКА</div>
         <div class="footer-credit-name">
           <a href="https://t.me/multicooker01" target="_blank" rel="noopener noreferrer">Multivarka</a>
         </div>
       </div>
 
       <div class="footer-credit-col">
-        <div class="footer-credit-label">DESIGN</div>
+        <div class="footer-credit-label" data-i18n="design_label">ДИЗАЙН</div>
         <div class="footer-credit-name">
           <a href="https://eblo.id" target="_blank" rel="noopener noreferrer">eblo.id</a>
         </div>
@@ -802,57 +815,59 @@
 
     <div class="terms-container">
       <div class="footer-buttons">
-        <button class="footer-btn" id="show-twitch-rules-btn" type="button">Twitch Rules</button>
-        <a href="https://www.twitch.tv/products/kapitanych_" target="_blank" rel="noopener noreferrer" class="footer-btn">Support</a>
+        <button class="footer-btn" id="show-twitch-rules-btn" type="button" data-i18n="twitch_rules_btn">Правила Twitch</button>
+        <a href="https://www.twitch.tv/products/kapitanych_" target="_blank" rel="noopener noreferrer" class="footer-btn" data-i18n="support_btn">Поддержка</a>
       </div>
-      <p class="footer-copy">© <span id="current-year"></span> Kapitanych. All rights reserved.</p>
+      <p class="footer-copy">© <span id="current-year"></span> Kapitanych. <span data-i18n="rights">Все права защищены.</span></p>
     </div>
   </div>
 </footer>
 
+<!-- Модальное окно правил Twitch -->
 <div id="twitch-rules-modal" class="modal">
   <div class="modal-content">
     <div class="modal-header">
-      <h1>Правила чата Twitch</h1>
+      <h1 data-i18n="rules_modal_title">Правила чата Twitch</h1>
       <button class="modal-close" type="button" data-close="twitch-rules-modal">×</button>
     </div>
     <div class="modal-body">
-      <p>Модератор самостоятельно выбирает меру наказания: от удаления сообщения до перманентного бана. Также модератор может принять решение по ситуации, не указанной ниже.</p>
+      <p data-i18n="rules_intro">Модератор самостоятельно выбирает меру наказания: от удаления сообщения до перманентного бана. Также модератор может принять решение по ситуации, не указанной ниже.</p>
       <ul>
-        <li>Сначала ознакомьтесь с правилами Twitch: за тяжёлые нарушения даётся бан без разблокировки.</li>
-        <li>Запрещены спам, флуд и повторяющиеся сообщения.</li>
-        <li>Запрещена реклама своих проектов и сторонних ресурсов.</li>
-        <li>Запрещены провокации, разжигание конфликтов, агрессия и оскорбления.</li>
-        <li>Запрещена публикация шок-контента и сексуального контента.</li>
-        <li>Запрещено выкладывать личные данные (адреса, телефоны, карты и т.д.).</li>
-        <li>Нельзя выпрашивать VIP/модерку/подписки.</li>
+        <li data-i18n="rule_1">Сначала ознакомьтесь с правилами Twitch: за тяжёлые нарушения даётся бан без разблокировки.</li>
+        <li data-i18n="rule_2">Запрещены спам, флуд и повторяющиеся сообщения.</li>
+        <li data-i18n="rule_3">Запрещена реклама своих проектов и сторонних ресурсов.</li>
+        <li data-i18n="rule_4">Запрещены провокации, разжигание конфликтов, агрессия и оскорбления.</li>
+        <li data-i18n="rule_5">Запрещена публикация шок-контента и сексуального контента.</li>
+        <li data-i18n="rule_6">Запрещено выкладывать личные данные (адреса, телефоны, карты и т.д.).</li>
+        <li data-i18n="rule_7">Нельзя выпрашивать VIP/модерку/подписки.</li>
       </ul>
-      <p style="margin-top: 16px;">Нарушение правил влечёт наказание по усмотрению модерации.</p>
+      <p style="margin-top: 16px;" data-i18n="rules_footer">Нарушение правил влечёт наказание по усмотрению модерации.</p>
     </div>
   </div>
 </div>
 
+<!-- Модальное окно конфигурации ПК -->
 <div id="config-modal" class="modal">
   <div class="modal-content">
     <div class="modal-header">
-      <h1>Конфигурация ПК Kapitanych</h1>
+      <h1 data-i18n="config_modal_title">Конфигурация ПК Kapitanych</h1>
       <button class="modal-close" type="button" data-close="config-modal">×</button>
     </div>
     <div class="modal-body">
       <div class="config-grid">
-        <span class="config-label">Процессор:</span><span>AMD Ryzen 7 5700X</span>
-        <span class="config-label">Материнская плата:</span><span>Gigabyte B550 Aorus Elite V2</span>
-        <span class="config-label">Оперативная память:</span><span>Kingston Fury Renegade 8GB x4 3600</span>
-        <span class="config-label">Видеокарта:</span><span>Gigabyte GeForce RTX 3080 Gaming OC 10G</span>
-        <span class="config-label">SSD:</span><span>M.2 NVME 2280 GXF Gen4x4 7450MB/s 1TB</span>
-        <span class="config-label">Жесткий диск:</span><span>Toshiba 500GB x2</span>
-        <span class="config-label">Блок питания:</span><span>1000W</span>
-        <span class="config-label">Водяное охлаждение:</span><span>IWONGOU AR12PRO ARGB 240</span>
-        <span class="config-label">Наушники:</span><span>MARSHALL MAJOR V / KZ ZVX</span>
-        <span class="config-label">Микрофон:</span><span>Fifine Ampligame A8</span>
-        <span class="config-label">Мышь:</span><span>AJAZZ AJ159 Apex</span>
-        <span class="config-label">Клавиатура:</span><span>LEAVEN K550 механика</span>
-        <span class="config-label">Монитор:</span><span>Xiaomi G27 165Гц (x2)</span>
+        <span class="config-label" data-i18n="cpu_label">Процессор:</span><span>AMD Ryzen 7 5700X</span>
+        <span class="config-label" data-i18n="mb_label">Материнская плата:</span><span>Gigabyte B550 Aorus Elite V2</span>
+        <span class="config-label" data-i18n="ram_label">Оперативная память:</span><span>Kingston Fury Renegade 8GB x4 3600</span>
+        <span class="config-label" data-i18n="gpu_label">Видеокарта:</span><span>Gigabyte GeForce RTX 3080 Gaming OC 10G</span>
+        <span class="config-label" data-i18n="ssd_label">SSD:</span><span>M.2 NVME 2280 GXF Gen4x4 7450MB/s 1TB</span>
+        <span class="config-label" data-i18n="hdd_label">Жесткий диск:</span><span>Toshiba 500GB x2</span>
+        <span class="config-label" data-i18n="psu_label">Блок питания:</span><span>1000W</span>
+        <span class="config-label" data-i18n="cooler_label">Водяное охлаждение:</span><span>IWONGOU AR12PRO ARGB 240</span>
+        <span class="config-label" data-i18n="headset_label">Наушники:</span><span>MARSHALL MAJOR V / KZ ZVX</span>
+        <span class="config-label" data-i18n="mic_label">Микрофон:</span><span>Fifine Ampligame A8</span>
+        <span class="config-label" data-i18n="mouse_label">Мышь:</span><span>AJAZZ AJ159 Apex</span>
+        <span class="config-label" data-i18n="keyboard_label">Клавиатура:</span><span>LEAVEN K550 механика</span>
+        <span class="config-label" data-i18n="monitor_label">Монитор:</span><span>Xiaomi G27 165Гц (x2)</span>
       </div>
     </div>
   </div>
@@ -860,6 +875,170 @@
 
 <script>
   (function() {
+    // ---------- Переводы ----------
+    const translations = {
+      ru: {
+        donatex: 'Donatex',
+        donatepay: 'DonatPay',
+        telegram: 'Telegram',
+        discord: 'Discord',
+        youtube: 'YouTube',
+        tiktok: 'TikTok',
+        twitch: 'Twitch',
+        pc_config: 'PC Config',
+        hero_subtitle: 'Добро пожаловать! Здесь собраны все ссылки на каналы, донат и важные правила. Залетай на стрим и становись частью сообщества.',
+        badge_games: '🎮 Игры',
+        badge_chat: '💬 Общение с чатом',
+        badge_streams: '🔥 Регулярные эфиры',
+        donatex_btn: 'DONATEX',
+        telegram_btn: 'TELEGRAM',
+        youtube_btn: 'YOUTUBE',
+        discord_btn: 'DISCORD',
+        tiktok_btn: 'TIKTOK',
+        what_happens_title: '💡 Что тут происходит',
+        what_happens_1: 'Шутеры, коопы, челленджи.',
+        what_happens_2: 'Реакции и лайв-общение с чатом.',
+        what_happens_3: 'Периодические розыгрыши и ивенты.',
+        stream_status_title: '🔴 Статус эфира',
+        stream_status_text: 'Следи за анонсами в Telegram.',
+        stream_status_badge: 'Уведомления приходят в день стрима',
+        live_now_soon: 'Прямой эфир сейчас или скоро',
+        dont_miss: 'Не пропусти — подпишись и включи уведомления',
+        open_twitch: 'Открыть Twitch',
+        support_label: 'ПОДДЕРЖКА',
+        dev_label: 'РАЗРАБОТКА',
+        design_label: 'ДИЗАЙН',
+        twitch_rules_btn: 'Правила Twitch',
+        support_btn: 'Поддержка',
+        rights: 'Все права защищены.',
+        rules_modal_title: 'Правила чата Twitch',
+        rules_intro: 'Модератор самостоятельно выбирает меру наказания: от удаления сообщения до перманентного бана. Также модератор может принять решение по ситуации, не указанной ниже.',
+        rule_1: 'Сначала ознакомьтесь с правилами Twitch: за тяжёлые нарушения даётся бан без разблокировки.',
+        rule_2: 'Запрещены спам, флуд и повторяющиеся сообщения.',
+        rule_3: 'Запрещена реклама своих проектов и сторонних ресурсов.',
+        rule_4: 'Запрещены провокации, разжигание конфликтов, агрессия и оскорбления.',
+        rule_5: 'Запрещена публикация шок-контента и сексуального контента.',
+        rule_6: 'Запрещено выкладывать личные данные (адреса, телефоны, карты и т.д.).',
+        rule_7: 'Нельзя выпрашивать VIP/модерку/подписки.',
+        rules_footer: 'Нарушение правил влечёт наказание по усмотрению модерации.',
+        config_modal_title: 'Конфигурация ПК Kapitanych',
+        cpu_label: 'Процессор:',
+        mb_label: 'Материнская плата:',
+        ram_label: 'Оперативная память:',
+        gpu_label: 'Видеокарта:',
+        ssd_label: 'SSD:',
+        hdd_label: 'Жесткий диск:',
+        psu_label: 'Блок питания:',
+        cooler_label: 'Водяное охлаждение:',
+        headset_label: 'Наушники:',
+        mic_label: 'Микрофон:',
+        mouse_label: 'Мышь:',
+        keyboard_label: 'Клавиатура:',
+        monitor_label: 'Монитор:'
+      },
+      en: {
+        donatex: 'Donatex',
+        donatepay: 'DonatPay',
+        telegram: 'Telegram',
+        discord: 'Discord',
+        youtube: 'YouTube',
+        tiktok: 'TikTok',
+        twitch: 'Twitch',
+        pc_config: 'PC Config',
+        hero_subtitle: 'Welcome! All links to channels, donations, and important rules are collected here. Join the stream and become part of the community.',
+        badge_games: '🎮 Games',
+        badge_chat: '💬 Chat interaction',
+        badge_streams: '🔥 Regular streams',
+        donatex_btn: 'DONATEX',
+        telegram_btn: 'TELEGRAM',
+        youtube_btn: 'YOUTUBE',
+        discord_btn: 'DISCORD',
+        tiktok_btn: 'TIKTOK',
+        what_happens_title: '💡 What\'s happening',
+        what_happens_1: 'Shooters, co-op, challenges.',
+        what_happens_2: 'Reactions and live chat.',
+        what_happens_3: 'Periodic giveaways and events.',
+        stream_status_title: '🔴 Stream status',
+        stream_status_text: 'Follow announcements on Telegram.',
+        stream_status_badge: 'Notifications arrive on stream day',
+        live_now_soon: 'Live now or soon',
+        dont_miss: 'Don\'t miss — subscribe and turn on notifications',
+        open_twitch: 'Open Twitch',
+        support_label: 'SUPPORT',
+        dev_label: 'DEVELOPMENT',
+        design_label: 'DESIGN',
+        twitch_rules_btn: 'Twitch Rules',
+        support_btn: 'Support',
+        rights: 'All rights reserved.',
+        rules_modal_title: 'Twitch Chat Rules',
+        rules_intro: 'The moderator independently chooses the punishment: from message deletion to permanent ban. The moderator may also decide on situations not listed below.',
+        rule_1: 'First, read Twitch rules: severe violations result in a ban without appeal.',
+        rule_2: 'Spam, flood, and repetitive messages are prohibited.',
+        rule_3: 'Advertising your own projects or third-party resources is prohibited.',
+        rule_4: 'Provocations, inciting conflicts, aggression, and insults are prohibited.',
+        rule_5: 'Shock content and sexual content are prohibited.',
+        rule_6: 'Posting personal data (addresses, phone numbers, cards, etc.) is prohibited.',
+        rule_7: 'Begging for VIP/mod/subscriptions is not allowed.',
+        rules_footer: 'Violation of the rules entails punishment at the discretion of the moderation.',
+        config_modal_title: 'Kapitanych PC Configuration',
+        cpu_label: 'CPU:',
+        mb_label: 'Motherboard:',
+        ram_label: 'RAM:',
+        gpu_label: 'GPU:',
+        ssd_label: 'SSD:',
+        hdd_label: 'HDD:',
+        psu_label: 'PSU:',
+        cooler_label: 'Liquid Cooling:',
+        headset_label: 'Headphones:',
+        mic_label: 'Microphone:',
+        mouse_label: 'Mouse:',
+        keyboard_label: 'Keyboard:',
+        monitor_label: 'Monitor:'
+      }
+    };
+
+    let currentLang = 'ru'; // по умолчанию русский
+
+    // Применение языка
+    function applyLanguage(lang) {
+      const elements = document.querySelectorAll('[data-i18n]');
+      elements.forEach(el => {
+        const key = el.getAttribute('data-i18n');
+        if (translations[lang] && translations[lang][key]) {
+          el.textContent = translations[lang][key];
+        }
+      });
+      // Обновляем текст кнопки переключения
+      const langToggle = document.getElementById('lang-toggle');
+      if (langToggle) {
+        langToggle.textContent = lang === 'ru' ? 'EN' : 'RU';
+      }
+      // Сохраняем выбор
+      localStorage.setItem('preferredLang', lang);
+      currentLang = lang;
+    }
+
+    // Переключение языка
+    function toggleLanguage() {
+      const newLang = currentLang === 'ru' ? 'en' : 'ru';
+      applyLanguage(newLang);
+    }
+
+    // Инициализация
+    const savedLang = localStorage.getItem('preferredLang');
+    if (savedLang && (savedLang === 'ru' || savedLang === 'en')) {
+      currentLang = savedLang;
+    } else {
+      currentLang = 'ru';
+    }
+    applyLanguage(currentLang);
+
+    const langToggleBtn = document.getElementById('lang-toggle');
+    if (langToggleBtn) {
+      langToggleBtn.addEventListener('click', toggleLanguage);
+    }
+
+    // ---------- Модальные окна ----------
     const modals = document.querySelectorAll('.modal');
     
     function openModal(modalId) {
@@ -894,6 +1073,7 @@
     if (configBtn) {
       configBtn.addEventListener('click', () => openModal('config-modal'));
     }
+    
     document.querySelectorAll('.modal-close').forEach(btn => {
       btn.addEventListener('click', function() {
         const modalId = this.getAttribute('data-close');
@@ -922,9 +1102,11 @@
       }
     });
     
+    // Год в футере
     const yearEl = document.getElementById('current-year');
     if (yearEl) yearEl.textContent = new Date().getFullYear();
     
+    // Анимация кнопок
     const btns = document.querySelectorAll('.modern-btn');
     btns.forEach((btn, idx) => {
       btn.style.opacity = '0';
