@@ -49,7 +49,6 @@
       min-height: 100vh;
     }
 
-    /* ---------- NAV ---------- */
     .main-header {
       position: sticky;
       top: 0;
@@ -144,7 +143,22 @@
       color: white;
     }
 
-    /* ---------- HERO ---------- */
+    .btn-twitch {
+      background: linear-gradient(135deg, #9146ff, #5a2d9e);
+      color: white;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+    .btn-twitch:hover {
+      background: linear-gradient(135deg, #a66eff, #6e3fb0);
+      color: white;
+    }
+
+    .btn-config {
+      position: relative;
+      cursor: help;
+    }
+
     .hero {
       padding: 60px 20px 40px;
       text-align: center;
@@ -192,7 +206,6 @@
       font-size: 0.95rem;
     }
 
-    /* ---------- BUTTONS ---------- */
     .buttons-grid {
       margin-top: 26px;
       display: flex;
@@ -237,12 +250,11 @@
       box-shadow: 0 12px 24px rgba(0, 0, 0, 0.45);
     }
 
-    /* ---------- CONTENT ---------- */
     .content-section {
       width: min(1120px, 92vw);
       margin: 8px auto 40px;
       display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
+      grid-template-columns: repeat(2, minmax(0, 1fr));
       gap: 14px;
     }
 
@@ -313,6 +325,17 @@
       flex-wrap: wrap;
     }
 
+    .cta-status-row {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .cta-status-row .stream-status {
+      margin-top: 0;
+    }
+
     .content-cta p {
       color: #dedede;
       font-size: 1.05rem;
@@ -326,13 +349,13 @@
       padding: 10px 18px;
       font-size: 1rem;
       transition: transform 0.2s ease;
+      white-space: nowrap;
     }
 
     .content-cta a:hover {
       transform: translateY(-1px);
     }
 
-    /* ---------- FOOTER ---------- */
     .footer {
       background: linear-gradient(to top, rgba(34,34,34,1) 0%, rgba(34,34,34,0.6) 60%, rgba(34,34,34,0) 100%);
       color: #b6c6e3;
@@ -489,7 +512,6 @@
       100% { transform: translateY(0) rotate(-1deg); }
     }
 
-    /* ---------- MODAL ---------- */
     .twitch-rules-modal {
       align-items: center;
       backdrop-filter: blur(8px);
@@ -578,7 +600,6 @@
       color: #ff6a6a;
     }
 
-    /* ---------- MOBILE ---------- */
     @media (max-width: 900px) {
       .content-section {
         grid-template-columns: 1fr;
@@ -592,6 +613,7 @@
       .buttons-grid { gap: 16px; }
       .row-buttons { gap: 14px; }
       .content-cta { padding: 14px; }
+      .cta-status-row { gap: 12px; }
 
       .footer {
         font-size: 0.9em;
@@ -642,7 +664,6 @@
 </head>
 <body>
 
-<!-- НАВБАР -->
 <header class="main-header">
   <div class="nav-container">
     <div class="nav-left">
@@ -650,7 +671,7 @@
            class="nav-avatar" alt="Логотип Kapitanych" onclick="window.open('https://twitch.tv/kapitanych_','_blank')">
     </div>
 
-    <nav class="nav-center" aria-label="Основные ссылки">
+    <nav class="nav-center">
       <div class="nav-links">
         <a href="https://donatex.gg/donate/kapitanych" target="_blank" rel="noopener noreferrer">Donatex</a>
         <a href="https://new.donatepay.ru/@Kapitan" target="_blank" rel="noopener noreferrer">DonatPay</a>
@@ -662,18 +683,17 @@
     </nav>
 
     <div class="nav-buttons">
-      <a href="https://twitch.tv/kapitanych_" class="btn-sm" target="_blank" rel="noopener noreferrer">Twitch</a>
-      <a href="gear.html" class="btn-sm" target="_blank" rel="noopener noreferrer">PC Config</a>
+      <a href="https://twitch.tv/kapitanych_" class="btn-sm btn-twitch" target="_blank" rel="noopener noreferrer">Twitch</a>
+      <a href="#" class="btn-sm btn-config" title="Процессор: AMD Ryzen 7 5700X&#10;Материнская плата: Gigabyte B550 Aorus Elite V2&#10;ОЗУ: Kingston Fury Renegade 8GB x4 3600&#10;Видеокарта: Gigabyte GeForce RTX 3080 Gaming OC 10G&#10;SSD: M.2 NVME 2280 GXF Gen4x4 7450MB/s 1TB&#10;HDD: Toshiba 500GB x2&#10;Блок питания: 1000W&#10;Охлаждение: IWONGOU AR12PRO ARGB 240&#10;Наушники: MARSHALL MAJOR V / KZ ZVX&#10;Микрофон: Fifine Ampligame A8&#10;Мышь: AJAZZ AJ159 Apex&#10;Клавиатура: LEAVEN K550 механика&#10;Монитор: Xiaomi G27 165Гц (x2)">PC Config</a>
     </div>
   </div>
 </header>
 
-<!-- HERO -->
 <section class="hero" id="home">
   <h1>KAPITANYCH</h1>
   <p class="hero-subtitle">Добро пожаловать! Здесь собраны все ссылки на каналы, донат и важные правила. Залетай на стрим и становись частью сообщества.</p>
 
-  <div class="hero-badges" aria-label="Краткая информация">
+  <div class="hero-badges">
     <span class="hero-badge">🎮 Игры</span>
     <span class="hero-badge">💬 Общение с чатом</span>
     <span class="hero-badge">🔥 Регулярные эфиры</span>
@@ -692,8 +712,8 @@
   </div>
 </section>
 
-<!-- ДОП. КОНТЕНТ -->
-<article class="info-card">
+<section class="content-section">
+  <article class="info-card">
     <h2>💡 Что тут происходит</h2>
     <ul>
       <li>Шутеры, коопы, челленджи.</li>
@@ -705,19 +725,24 @@
   <article class="info-card">
     <h2>🔴 Статус эфира</h2>
     <p>Следи за анонсами в Telegram.</p>
-    <div class="stream-status" aria-live="polite">
-      <span class="status-dot" aria-hidden="true"></span>
+    <div class="stream-status">
+      <span class="status-dot"></span>
       <span>Уведомления приходят в день стрима</span>
     </div>
   </article>
 </section>
 
-<section class="content-cta" aria-label="Призыв к действию">
-  <p>Не хочешь пропускать старт эфира? Подпишись на Twitch и включи уведомления.</p>
+<section class="content-cta">
+  <div class="cta-status-row">
+    <div class="stream-status">
+      <span class="status-dot"></span>
+      <span>Прямой эфир сейчас или скоро</span>
+    </div>
+    <p>Не пропусти — подпишись и включи уведомления</p>
+  </div>
   <a href="https://twitch.tv/kapitanych_" target="_blank" rel="noopener noreferrer">Открыть Twitch</a>
 </section>
 
-<!-- ФУТЕР -->
 <footer class="footer visible">
   <img src="https://eblo.id/static/image/footer_designer_mascot.svg" alt="designer mascot" class="footer-mascot left">
   <img src="https://eblo.id/static/image/footer_dev_mascot.svg" alt="dev mascot" class="footer-mascot right">
@@ -759,12 +784,11 @@
   </div>
 </footer>
 
-<!-- МОДАЛЬНОЕ ОКНО -->
-<div id="twitch-rules-modal" class="twitch-rules-modal" role="dialog" aria-modal="true" aria-labelledby="rules-title">
+<div id="twitch-rules-modal" class="twitch-rules-modal">
   <div class="twitch-rules-content">
     <div class="twitch-rules-header">
-      <h1 id="rules-title">Правила чата Twitch</h1>
-      <button class="twitch-rules-close" type="button" aria-label="Закрыть">×</button>
+      <h1>Правила чата Twitch</h1>
+      <button class="twitch-rules-close" type="button">×</button>
     </div>
 
     <div class="twitch-rules-body">
