@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <title>Kapitanych · Multivarka</title>
   <style>
-    /* весь ваш CSS без изменений */
     @font-face {
       font-family: 'HandjetCircleDouble-Semibold';
       src: url('HandjetCircleDouble-Semibold.woff2') format('woff2'),
@@ -167,7 +166,6 @@
       color: white;
     }
 
-    /* Кнопка переключения языка */
     .lang-switch {
       background: rgba(255,255,255,0.05);
       border: 1px solid var(--border-light);
@@ -619,7 +617,7 @@
     }
 
     .modal-body a {
-      color: #ff6a6a;
+      color: #ff6a6a; /* обычные ссылки в модалках красные */
     }
 
     .config-grid {
@@ -634,24 +632,25 @@
       color: #ff9f9f;
     }
 
-    /* стиль для зелёной пульсирующей кнопки */
+    /* Зелёная кнопка с белым текстом */
     .gold-link-btn {
       display: inline-block;
       background: linear-gradient(135deg, #2ecc71, #27ae60);
-      color: white; /* белый текст */
+      color: #ffffff !important;          /* белый текст, перебивает красный */
       padding: 0.75rem 1.8rem;
       border-radius: 12px;
       text-decoration: none;
       font-weight: 700;
-      font-size: 1.1rem;
+      font-size: 1.4rem;                 /* увеличенный шрифт */
       letter-spacing: 0.5px;
       margin-top: 1.2rem;
       transition: transform 0.2s, background 0.2s;
       border: 1px solid rgba(255,255,255,0.2);
       box-shadow: 0 4px 10px rgba(0,0,0,0.3);
       animation: greenPulse 2s infinite;
-      font-family: 'HandjetCircleDouble-Semibold', 'Handjet', monospace; /* такой же шрифт, как на всём сайте */
+      font-family: 'HandjetCircleDouble-Semibold', 'Handjet', monospace;
     }
+
     .gold-link-btn:hover {
       transform: translateY(-2px);
       background: linear-gradient(135deg, #3ddc84, #2ecc71);
@@ -664,7 +663,7 @@
       100% { box-shadow: 0 0 0 0 rgba(46, 204, 113, 0); }
     }
 
-    /* увеличенное модальное окно для раздачи голды */
+    /* Увеличенное окно раздачи голды */
     #gold-giveaway-modal .modal-content {
       max-width: 64rem;
       width: min(64rem, 90vw);
@@ -741,7 +740,7 @@
         grid-template-columns: 1fr;
         gap: 4px;
       }
-      
+
       #gold-giveaway-modal .modal-content {
         max-width: 90vw;
       }
@@ -928,7 +927,7 @@
   </div>
 </div>
 
-<!-- Модальное окно "РАЗДАЧА ГОЛДЫ" (только по ссылке) -->
+<!-- Модальное окно "РАЗДАЧА ГОЛДЫ" (открывается по #gold) -->
 <div id="gold-giveaway-modal" class="modal">
   <div class="modal-content">
     <div class="modal-header">
@@ -1109,14 +1108,12 @@
     // ---------- Модальные окна с поддержкой URL (hash) ----------
     const modals = document.querySelectorAll('.modal');
 
-    // Связь ID модального окна и используемого хеша
     const modalIdToHash = {
       'twitch-rules-modal': '#twitch-rules',
       'config-modal': '#config',
       'gold-giveaway-modal': '#gold'
     };
 
-    // Обратное сопоставление для быстрого поиска
     const hashToModalId = {
       '#twitch-rules': 'twitch-rules-modal',
       '#config': 'config-modal',
@@ -1192,7 +1189,6 @@
       configBtn.addEventListener('click', () => openModal('config-modal'));
     }
 
-    // Закрытие по крестику
     document.querySelectorAll('.modal-close').forEach(btn => {
       btn.addEventListener('click', function() {
         const modalId = this.getAttribute('data-close');
@@ -1207,7 +1203,6 @@
       });
     });
 
-    // Закрытие по клику на фон
     modals.forEach(modal => {
       modal.addEventListener('click', function(event) {
         if (event.target === modal) {
@@ -1216,18 +1211,15 @@
       });
     });
 
-    // Закрытие по Escape
     document.addEventListener('keydown', function(event) {
       if (event.key === 'Escape') {
         closeAllModals();
       }
     });
 
-    // Год в футере
     const yearEl = document.getElementById('current-year');
     if (yearEl) yearEl.textContent = new Date().getFullYear();
 
-    // Анимация кнопок
     const btns = document.querySelectorAll('.modern-btn');
     btns.forEach((btn, idx) => {
       btn.style.opacity = '0';
