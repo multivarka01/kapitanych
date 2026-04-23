@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <title>Kapitanych · Multivarka</title>
   <style>
-    /* ... весь ваш CSS без изменений ... */
+    /* весь ваш CSS без изменений */
     @font-face {
       font-family: 'HandjetCircleDouble-Semibold';
       src: url('HandjetCircleDouble-Semibold.woff2') format('woff2'),
@@ -634,6 +634,27 @@
       color: #ff9f9f;
     }
 
+    /* стиль для кнопки в модалке с раздачей */
+    .gold-link-btn {
+      display: inline-block;
+      background: linear-gradient(135deg, #ff3a3a, #8b0000);
+      color: white;
+      padding: 0.75rem 1.8rem;
+      border-radius: 12px;
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 1.1rem;
+      letter-spacing: 0.5px;
+      margin-top: 1.2rem;
+      transition: transform 0.2s, background 0.2s;
+      border: 1px solid rgba(255,255,255,0.2);
+      box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+    }
+    .gold-link-btn:hover {
+      transform: translateY(-2px);
+      background: linear-gradient(135deg, #ff5a5a, #a00000);
+    }
+
     @media (max-width: 900px) {
       .content-section {
         grid-template-columns: 1fr;
@@ -874,6 +895,24 @@
   </div>
 </div>
 
+<!-- Модальное окно "РАЗДАЧА ГОЛДЫ" (только по ссылке) -->
+<div id="gold-giveaway-modal" class="modal">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h1>РАЗДАЧА ГОЛДЫ</h1>
+      <button class="modal-close" type="button" data-close="gold-giveaway-modal">×</button>
+    </div>
+    <div class="modal-body">
+      <p>Чтобы участвовать в раздаче голды, необходимо:</p>
+      <ul>
+        <li>Сменить свой ник на Твиче, добавив упоминание канала <strong>Kapitanych</strong> (например, «Kapitanych_ВашНик»).</li>
+        <li>Запрещено создавать новые аккаунты для выполнения задания. Участвуют только основные аккаунты.</li>
+      </ul>
+      <a href="https://www.twitch.tv/settings" target="_blank" rel="noopener noreferrer" class="gold-link-btn">Сменить ник</a>
+    </div>
+  </div>
+</div>
+
 <script>
   (function() {
     // ---------- Переводы ----------
@@ -1040,13 +1079,15 @@
     // Связь ID модального окна и используемого хеша
     const modalIdToHash = {
       'twitch-rules-modal': '#twitch-rules',
-      'config-modal': '#config'
+      'config-modal': '#config',
+      'gold-giveaway-modal': '#gold'          // ← новый хеш
     };
 
     // Обратное сопоставление для быстрого поиска
     const hashToModalId = {
       '#twitch-rules': 'twitch-rules-modal',
-      '#config': 'config-modal'
+      '#config': 'config-modal',
+      '#gold': 'gold-giveaway-modal'           // ← новый
     };
 
     function openModal(modalId) {
@@ -1056,10 +1097,8 @@
       modal.style.display = 'flex';
       document.body.style.overflow = 'hidden';
 
-      // Устанавливаем хеш, если он ещё не соответствует
       const expectedHash = modalIdToHash[modalId];
       if (expectedHash && window.location.hash !== expectedHash) {
-        // Используем pushState, чтобы добавить запись в историю (работает как обычный переход)
         history.pushState(null, null, expectedHash);
       }
     }
@@ -1071,10 +1110,8 @@
       modal.style.display = 'none';
       document.body.style.overflow = 'auto';
 
-      // Убираем хеш, если он сейчас указывает на это окно
       const expectedHash = modalIdToHash[modalId];
       if (expectedHash && window.location.hash === expectedHash) {
-        // Очищаем хеш без перезагрузки и без добавления записи в историю
         history.replaceState(null, null, ' ');
       }
     }
@@ -1085,20 +1122,17 @@
       });
       document.body.style.overflow = 'auto';
 
-      // Очищаем хеш, если он относится к любому из наших модальных окон
       const currentHash = window.location.hash;
       if (hashToModalId[currentHash]) {
         history.replaceState(null, null, ' ');
       }
     }
 
-    // Обработчик изменения хеша (прямая ссылка, кнопки "назад"/"вперёд")
     function handleHashChange() {
       const currentHash = window.location.hash;
       const targetModalId = hashToModalId[currentHash];
 
       if (targetModalId) {
-        // Открываем нужное окно, закрываем остальные
         modals.forEach(modal => {
           if (modal.id === targetModalId) {
             modal.style.display = 'flex';
@@ -1108,17 +1142,14 @@
         });
         document.body.style.overflow = 'hidden';
       } else {
-        // Хеш не соответствует ни одному окну — закрываем все
         closeAllModals();
       }
     }
 
-    // Проверяем хеш при загрузке страницы
     window.addEventListener('DOMContentLoaded', handleHashChange);
-    // Слушаем изменения хеша (ручной ввод, кнопки назад/вперёд)
     window.addEventListener('hashchange', handleHashChange);
 
-    // Кнопки интерфейса (оставлены как есть, теперь они также обновляют URL)
+    // Кнопки интерфейса (только те, что были ранее)
     const rulesBtn = document.getElementById('show-twitch-rules-btn');
     if (rulesBtn) {
       rulesBtn.addEventListener('click', () => openModal('twitch-rules-modal'));
@@ -1128,6 +1159,9 @@
     if (configBtn) {
       configBtn.addEventListener('click', () => openModal('config-modal'));
     }
+
+    // Кнопки «Сменить ник» в новой модалке нет необходимости открывать что-то дополнительно,
+    // это обычная ссылка.
 
     // Закрытие по крестику
     document.querySelectorAll('.modal-close').forEach(btn => {
