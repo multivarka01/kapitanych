@@ -634,10 +634,10 @@
       color: #ff9f9f;
     }
 
-    /* стиль для кнопки в модалке с раздачей */
+    /* стиль для зелёной пульсирующей кнопки */
     .gold-link-btn {
       display: inline-block;
-      background: linear-gradient(135deg, #ff3a3a, #8b0000);
+      background: linear-gradient(135deg, #2ecc71, #27ae60);
       color: white;
       padding: 0.75rem 1.8rem;
       border-radius: 12px;
@@ -649,10 +649,18 @@
       transition: transform 0.2s, background 0.2s;
       border: 1px solid rgba(255,255,255,0.2);
       box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+      animation: greenPulse 2s infinite;
     }
     .gold-link-btn:hover {
       transform: translateY(-2px);
-      background: linear-gradient(135deg, #ff5a5a, #a00000);
+      background: linear-gradient(135deg, #3ddc84, #2ecc71);
+      animation: none; /* убираем пульсацию при наведении, чтобы не отвлекало */
+    }
+
+    @keyframes greenPulse {
+      0% { box-shadow: 0 0 0 0 rgba(46, 204, 113, 0.6); }
+      70% { box-shadow: 0 0 0 14px rgba(46, 204, 113, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(46, 204, 113, 0); }
     }
 
     @media (max-width: 900px) {
@@ -1080,14 +1088,14 @@
     const modalIdToHash = {
       'twitch-rules-modal': '#twitch-rules',
       'config-modal': '#config',
-      'gold-giveaway-modal': '#gold'          // ← новый хеш
+      'gold-giveaway-modal': '#gold'
     };
 
     // Обратное сопоставление для быстрого поиска
     const hashToModalId = {
       '#twitch-rules': 'twitch-rules-modal',
       '#config': 'config-modal',
-      '#gold': 'gold-giveaway-modal'           // ← новый
+      '#gold': 'gold-giveaway-modal'
     };
 
     function openModal(modalId) {
@@ -1159,9 +1167,6 @@
     if (configBtn) {
       configBtn.addEventListener('click', () => openModal('config-modal'));
     }
-
-    // Кнопки «Сменить ник» в новой модалке нет необходимости открывать что-то дополнительно,
-    // это обычная ссылка.
 
     // Закрытие по крестику
     document.querySelectorAll('.modal-close').forEach(btn => {
