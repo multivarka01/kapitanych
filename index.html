@@ -1182,7 +1182,6 @@
     window.addEventListener('DOMContentLoaded', handleHashChange);
     window.addEventListener('hashchange', handleHashChange);
 
-    // Кнопки интерфейса (только те, что были ранее)
     const rulesBtn = document.getElementById('show-twitch-rules-btn');
     if (rulesBtn) {
       rulesBtn.addEventListener('click', () => openModal('twitch-rules-modal'));
