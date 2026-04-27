@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="ru" class="dark">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kapitanych · Панель управления ботом</title>
+    <title>Kapitanych · Bot Panel</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -176,7 +176,6 @@
             opacity: 0.8;
         }
 
-        .nav-item:hover svg,
         .nav-item.active svg {
             opacity: 1;
         }
@@ -257,6 +256,7 @@
             gap: 12px;
             flex-wrap: wrap;
             margin-bottom: 16px;
+            align-items: center;
         }
 
         input, textarea {
@@ -335,6 +335,34 @@
             color: var(--text-dim);
         }
 
+        .chat-box {
+            max-height: 300px;
+            overflow-y: auto;
+            background: #18181b;
+            border-radius: 12px;
+            padding: 12px;
+            font-size: 0.9rem;
+            margin-top: 16px;
+        }
+
+        .chat-message {
+            margin-bottom: 6px;
+            line-height: 1.4;
+        }
+
+        .chat-user {
+            color: var(--twitch);
+            font-weight: 600;
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
         @media (max-width: 768px) {
             .sidebar {
                 width: 100%;
@@ -373,74 +401,88 @@
 <body>
 
     <!-- Прелоадер -->
-    <div id="loading-screen">Загрузка...</div>
+    <div id="loading-screen">Loading...</div>
 
-    <!-- Модалка входа через Twitch (скрыта по умолчанию) -->
+    <!-- Модалка входа -->
     <div id="auth-overlay" class="auth-overlay hidden">
         <div class="auth-modal">
-            <h1>Вход в панель</h1>
+            <h1>Sign in</h1>
             <a id="twitch-login-btn" class="auth-btn" href="#">
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="white"><path d="M11.571 4.714h1.715v5.143H11.57zm4.715 0H18v5.143h-1.714zM6 0L1.714 4.286v15.428h5.143V24l4.286-4.286h3.428L22.286 12V0zm14.571 11.143l-3.428 3.428h-3.429l-3 3v-3H6.857V1.714h13.714z"/></svg>
-                Войти через Twitch
+                Sign in with Twitch
             </a>
-            <p class="auth-hint">Необходимо авторизоваться под разрешённым аккаунтом</p>
+            <p class="auth-hint">Authorize with a permitted account</p>
         </div>
     </div>
 
-    <!-- Дашборд (скрыт до успешной проверки) -->
+    <!-- Дашборд -->
     <div id="app-layout" class="app-layout hidden">
         <aside class="sidebar">
             <div class="sidebar-header">
                 <span>⚡</span> Kapitanych
             </div>
             <nav class="sidebar-nav">
-                <a class="nav-item" href="#send-message">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
-                    Сообщение
+                <a class="nav-item active" data-tab="dashboard">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="7" height="9" x="3" y="3" rx="1"/><rect width="7" height="5" x="14" y="3" rx="1"/><rect width="7" height="9" x="14" y="12" rx="1"/><rect width="7" height="5" x="3" y="16" rx="1"/></svg>
+                    Dashboard
                 </a>
-                <a class="nav-item active" href="#commands">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 17 10 11 4 5"></polyline><line x1="12" y1="19" x2="20" y2="19"></line></svg>
-                    Команды
+                <a class="nav-item" data-tab="commands">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 17 10 11 4 5"/><line x1="12" y1="19" x2="20" y2="19"/></svg>
+                    Commands
                 </a>
             </nav>
             <div class="sidebar-footer">
-                <button onclick="logout()">Выйти</button>
+                <button onclick="logout()">Log out</button>
             </div>
         </aside>
 
         <main class="main-content">
             <div class="status-row">
                 <span id="status-dot" class="status-dot"></span>
-                <span id="bot-status-text">Проверка статуса...</span>
+                <span id="bot-status-text">Checking status...</span>
             </div>
 
-            <!-- Секция отправки сообщения -->
-            <div id="send-message" class="card">
-                <h2>Отправить сообщение в чат</h2>
-                <div class="input-row">
-                    <input id="message-input" type="text" placeholder="Текст сообщения...">
-                    <button onclick="sendMessage()">Отправить</button>
+            <!-- Dashboard -->
+            <div id="tab-dashboard" class="tab-content active">
+                <div class="card">
+                    <h2>Send message to chat</h2>
+                    <div class="input-row">
+                        <input id="message-input" type="text" placeholder="Message text...">
+                        <button onclick="sendMessage()">Send</button>
+                    </div>
+                    <p id="msg-response" class="response-text"></p>
                 </div>
-                <p id="msg-response" class="response-text"></p>
+
+                <div class="card">
+                    <h2>Live chat</h2>
+                    <div id="chat-box" class="chat-box">
+                        <span id="chat-empty">No messages yet</span>
+                    </div>
+                </div>
             </div>
 
-            <!-- Секция команд -->
-            <div id="commands" class="card">
-                <h2>Добавить команду</h2>
-                <div class="input-row">
-                    <input id="new-trigger" type="text" placeholder="!команда">
-                    <input id="new-response" type="text" placeholder="Ответ бота">
-                    <button onclick="addCommand()">Добавить</button>
-                </div>
-                <p id="cmd-response" class="response-text"></p>
+            <!-- Commands -->
+            <div id="tab-commands" class="tab-content">
+                <div class="card">
+                    <h2>Add command</h2>
+                    <div class="input-row">
+                        <input id="new-trigger" type="text" placeholder="!command">
+                        <input id="new-response" type="text" placeholder="Response">
+                        <label style="display: flex; align-items: center; gap: 8px; color: var(--text-dim); font-size: 0.9rem;">
+                            <input type="checkbox" id="new-reply"> Reply
+                        </label>
+                        <button onclick="addCommand()">Add</button>
+                    </div>
+                    <p id="cmd-response" class="response-text"></p>
 
-                <h2 style="margin-top: 24px;">Все команды</h2>
-                <table id="commands-table">
-                    <thead>
-                        <tr><th>Триггер</th><th>Ответ</th><th style="width:80px"></th></tr>
-                    </thead>
-                    <tbody></tbody>
-                </table>
+                    <h2 style="margin-top: 24px;">All commands</h2>
+                    <table id="commands-table">
+                        <thead>
+                            <tr><th>Trigger</th><th>Response</th><th>Reply</th><th style="width:80px"></th></tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
             </div>
         </main>
     </div>
@@ -460,7 +502,7 @@
             const authOverlay = document.getElementById('auth-overlay');
             const appLayout = document.getElementById('app-layout');
 
-            // Проверка токена при загрузке
+            // Проверка токена
             async function initialCheck() {
                 if (!jwt) {
                     loadingScreen.classList.add('hidden');
@@ -487,38 +529,6 @@
                 }
             }
 
-            function initDashboard() {
-                checkStatus();
-                loadCommands();
-
-                // Подсветка активного пункта меню при скролле
-                const sections = document.querySelectorAll('.card');
-                const navItems = document.querySelectorAll('.nav-item');
-
-                window.addEventListener('scroll', () => {
-                    let current = '';
-                    sections.forEach(section => {
-                        const sectionTop = section.offsetTop;
-                        if (scrollY >= sectionTop - 100) {
-                            current = section.getAttribute('id');
-                        }
-                    });
-                    navItems.forEach(item => {
-                        item.classList.remove('active');
-                        if (item.getAttribute('href') === `#${current}`) {
-                            item.classList.add('active');
-                        }
-                    });
-                });
-            }
-
-            window.logout = function() {
-                localStorage.removeItem('jwt');
-                jwt = null;
-                appLayout.classList.add('hidden');
-                authOverlay.classList.remove('hidden');
-            };
-
             function apiCall(method, path, body = null) {
                 const opts = { method, headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${jwt}` } };
                 if (body) opts.body = JSON.stringify(body);
@@ -532,27 +542,48 @@
                     const text = document.getElementById('bot-status-text');
                     if (d.connected) {
                         dot.className = 'status-dot';
-                        text.textContent = 'Бот онлайн';
+                        text.textContent = 'Bot online';
                     } else {
                         dot.className = 'status-dot offline';
-                        text.textContent = 'Бот офлайн';
+                        text.textContent = 'Bot offline';
                     }
                 } catch(e) {
-                    document.getElementById('bot-status-text').textContent = 'Не удалось получить статус';
+                    document.getElementById('bot-status-text').textContent = 'Status unavailable';
                 }
             }
 
+            // Отправка сообщения
             window.sendMessage = function() {
                 const input = document.getElementById('message-input');
                 const msg = input.value.trim();
                 if (!msg) return;
                 apiCall('POST', '/api/send-message', { message: msg })
                     .then(d => {
-                        document.getElementById('msg-response').textContent = d.success ? '✅ Сообщение отправлено' : '❌ ' + (d.error || 'Ошибка');
+                        document.getElementById('msg-response').textContent = d.success ? '✅ Sent' : '❌ ' + (d.error || 'Error');
                         input.value = '';
                     });
             };
 
+            // Чат
+            async function loadChat() {
+                try {
+                    const messages = await apiCall('GET', '/api/chat');
+                    const box = document.getElementById('chat-box');
+                    const empty = document.getElementById('chat-empty');
+                    if (messages.length === 0) {
+                        box.innerHTML = '';
+                        box.appendChild(empty);
+                        return;
+                    }
+                    empty.remove();
+                    box.innerHTML = messages.map(m => {
+                        const time = new Date(m.timestamp).toLocaleTimeString();
+                        return `<div class="chat-message"><span class="chat-user">${m.user}</span> <span class="chat-time" style="color:var(--text-dim);font-size:0.75rem;">${time}</span><br>${m.message}</div>`;
+                    }).join('');
+                } catch(e) {}
+            }
+
+            // Команды
             async function loadCommands() {
                 const commands = await apiCall('GET', '/api/commands');
                 const tbody = document.querySelector('#commands-table tbody');
@@ -562,7 +593,8 @@
                     tr.innerHTML = `
                         <td><strong>${cmd.trigger}</strong></td>
                         <td>${cmd.response}</td>
-                        <td><button class="danger" onclick="deleteCommand('${cmd.trigger}')">Удалить</button></td>
+                        <td>${cmd.reply ? '✅' : '—'}</td>
+                        <td><button class="danger" onclick="deleteCommand('${cmd.trigger}')">Delete</button></td>
                     `;
                     tbody.appendChild(tr);
                 });
@@ -571,15 +603,17 @@
             window.addCommand = function() {
                 const trigger = document.getElementById('new-trigger').value.trim();
                 const response = document.getElementById('new-response').value.trim();
+                const reply = document.getElementById('new-reply').checked;
                 if (!trigger || !response) return;
-                apiCall('POST', '/api/commands', { trigger, response })
+                apiCall('POST', '/api/commands', { trigger, response, reply })
                     .then(d => {
                         if (d.success) {
                             document.getElementById('new-trigger').value = '';
                             document.getElementById('new-response').value = '';
+                            document.getElementById('new-reply').checked = false;
                             loadCommands();
                         } else {
-                            document.getElementById('cmd-response').textContent = '❌ ' + (d.error || 'Ошибка');
+                            document.getElementById('cmd-response').textContent = '❌ ' + (d.error || 'Error');
                         }
                     });
             };
@@ -587,6 +621,36 @@
             window.deleteCommand = async function(trigger) {
                 await apiCall('DELETE', `/api/commands/${trigger}`);
                 loadCommands();
+            };
+
+            // Переключение вкладок
+            function switchTab(tabName) {
+                document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+                document.getElementById(`tab-${tabName}`).classList.add('active');
+                document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
+                document.querySelector(`.nav-item[data-tab=${tabName}]`).classList.add('active');
+            }
+
+            function initDashboard() {
+                checkStatus();
+                loadCommands();
+                loadChat();
+                setInterval(loadChat, 10000); // обновление чата каждые 10 сек
+
+                document.querySelectorAll('.nav-item').forEach(item => {
+                    item.addEventListener('click', (e) => {
+                        e.preventDefault();
+                        const tab = item.dataset.tab;
+                        switchTab(tab);
+                    });
+                });
+            }
+
+            window.logout = function() {
+                localStorage.removeItem('jwt');
+                jwt = null;
+                appLayout.classList.add('hidden');
+                authOverlay.classList.remove('hidden');
             };
 
             initialCheck();
