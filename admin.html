@@ -5,30 +5,27 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Панель управления ботом Kapitanych</title>
   <style>
-    body { background: #1a1a1a; color: #fff; font-family: 'Handjet', monospace; padding: 2rem; }
+    body { background: #1a1a1a; color: #fff; font-family: monospace; padding: 2rem; }
     .hidden { display: none; }
     #admin-panel { margin-top: 2rem; }
-    button { padding: 8px 16px; margin: 4px; cursor: pointer; background: #333; color: #fff; border: 1px solid #555; border-radius: 4px; font-family: inherit; }
+    button { padding: 8px 16px; margin: 4px; cursor: pointer; background: #333; color: #fff; border: 1px solid #555; border-radius: 4px; }
     button:hover { background: #444; }
-    input { padding: 8px; margin: 4px; background: #222; color: #fff; border: 1px solid #555; border-radius: 4px; font-family: inherit; }
+    input { padding: 8px; margin: 4px; background: #222; color: #fff; border: 1px solid #555; border-radius: 4px; }
     table { width: 100%; border-collapse: collapse; margin-top: 1rem; }
     th, td { border: 1px solid #444; padding: 8px; text-align: left; }
     th { background: #333; }
-    .status { font-weight: bold; }
+    .login-btn { background: #9146ff; color: white; font-weight: bold; padding: 12px 24px; border: none; border-radius: 6px; cursor: pointer; text-decoration: none; display: inline-block; }
   </style>
 </head>
 <body>
-  <h1>Вход через Telegram</h1>
-  <div id="telegram-login"></div>
-  <script async src="https://telegram.org/js/telegram-widget.js?22"
-          data-telegram-login="kapitanychauthbot"
-          data-size="large"
-          data-onauth="onTelegramAuth(user)"
-          data-request-access="write"></script>
+  <div id="login-section">
+    <h1>Вход через Twitch</h1>
+    <a class="login-btn" id="twitch-login-btn" href="#">Войти через Twitch</a>
+  </div>
 
   <div id="admin-panel" class="hidden">
     <h2>Панель управления</h2>
-    <p class="status">Статус бота: <span id="bot-status">...</span></p>
+    <p>Статус бота: <span id="bot-status">...</span></p>
     
     <h3>Отправить сообщение в чат</h3>
     <input type="text" id="message-input" placeholder="Текст сообщения" style="width:300px;">
@@ -44,9 +41,7 @@
     <span id="cmd-response"></span>
     
     <table id="commands-table">
-      <thead>
-        <tr><th>Триггер</th><th>Ответ</th><th>Действие</th></tr>
-      </thead>
+      <thead><tr><th>Триггер</th><th>Ответ</th><th>Действие</th></tr></thead>
       <tbody></tbody>
     </table>
 
@@ -54,84 +49,69 @@
   </div>
 
   <script>
+    const API_URL = 'https://kapitanych-bot.onrender.com'; // замени на актуальный URL Render
+    const CLIENT_ID = 'pru9mgfjmldbtxhhszlkto10krnvj2'; // твой Client ID
+    const REDIRECT_URI = 'https://multivarka01.github.io/kapitanych/twitch-auth.html'; // страница-ловушка
 
-    const API_URL = 'https://kapitanych-bot.onrender.com';
+    // Генерация ссылки для входа через Twitch
+    document.getElementById('twitch-login-btn').href = 
+      `https://id.twitch.tv/oauth2/authorize?client_id=${CLIENT_ID}&redirect_uri=${encodeURIComponent(REDIRECT_URI)}&response_type=token&scope=`;
 
-    function showPanel() {
-      document.getElementById('telegram-login').classList.add('hidden');
+    let jwt = localStorage.getItem('jwt');
+
+    function showAdminPanel() {
+      document.getElementById('login-section').classList.add('hidden');
       document.getElementById('admin-panel').classList.remove('hidden');
       checkStatus();
       loadCommands();
     }
 
-    function hidePanel() {
-      document.getElementById('telegram-login').classList.remove('hidden');
+    function showLogin() {
+      document.getElementById('login-section').classList.remove('hidden');
       document.getElementById('admin-panel').classList.add('hidden');
-      localStorage.removeItem('jwt');
     }
 
-    let jwt = localStorage.getItem('jwt');
+    // Проверка токена при загрузке страницы
     if (jwt) {
       fetch(`${API_URL}/api/status`, { headers: { Authorization: `Bearer ${jwt}` } })
-        .then(res => res.ok ? showPanel() : hidePanel())
-        .catch(hidePanel);
-    }
-
-    function onTelegramAuth(user) {
-      fetch(`${API_URL}/api/telegram-auth`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(user)
-      })
-      .then(res => res.json())
-      .then(data => {
-        if (data.token) {
-          localStorage.setItem('jwt', data.token);
-          jwt = data.token;
-          showPanel();
-        } else {
-          alert('Ошибка входа: ' + (data.error || 'Доступ запрещён'));
-        }
-      });
+        .then(res => res.ok ? showAdminPanel() : (localStorage.removeItem('jwt'), showLogin()))
+        .catch(() => showLogin());
+    } else {
+      showLogin();
     }
 
     function apiCall(method, path, body = null) {
-      const opts = {
-        method,
-        headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${jwt}` }
-      };
+      const opts = { method, headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${jwt}` } };
       if (body) opts.body = JSON.stringify(body);
       return fetch(`${API_URL}${path}`, opts).then(r => r.json());
     }
 
     function checkStatus() {
-      apiCall('GET', '/api/status')
-        .then(data => {
-          document.getElementById('bot-status').textContent = data.connected ? '🟢 Подключён' : '🔴 Отключён';
-        });
+      apiCall('GET', '/api/status').then(d => {
+        document.getElementById('bot-status').textContent = d.connected ? '🟢 Подключён' : '🔴 Отключён';
+      });
     }
 
     function sendMessage() {
       const msg = document.getElementById('message-input').value;
       apiCall('POST', '/api/send-message', { message: msg })
-        .then(data => {
-          document.getElementById('msg-response').textContent = data.success ? '✅ Отправлено' : 'Ошибка: ' + data.error;
+        .then(d => {
+          document.getElementById('msg-response').textContent = d.success ? '✅ Отправлено' : 'Ошибка: ' + d.error;
           document.getElementById('message-input').value = '';
         });
     }
 
     function loadCommands() {
-      apiCall('GET', '/api/commands')
-        .then(commands => {
-          const tbody = document.querySelector('#commands-table tbody');
-          tbody.innerHTML = '';
-          commands.forEach(cmd => {
-            const tr = document.createElement('tr');
-            tr.innerHTML = `<td>${cmd.trigger}</td><td>${cmd.response}</td>
-              <td><button onclick="deleteCommand('${cmd.trigger}')">Удалить</button></td>`;
-            tbody.appendChild(tr);
-          });
+      apiCall('GET', '/api/commands').then(commands => {
+        const tbody = document.querySelector('#commands-table tbody');
+        tbody.innerHTML = '';
+        commands.forEach(cmd => {
+          const tr = document.createElement('tr');
+          tr.innerHTML = `<td>${cmd.trigger}</td><td>${cmd.response}</td>
+            <td><button onclick="deleteCommand('${cmd.trigger}')">Удалить</button></td>`;
+          tbody.appendChild(tr);
         });
+      });
     }
 
     function addCommand() {
@@ -139,28 +119,25 @@
       const response = document.getElementById('new-response').value.trim();
       if (!trigger || !response) return alert('Заполни оба поля');
       apiCall('POST', '/api/commands', { trigger, response })
-        .then(data => {
-          if (data.success) {
+        .then(d => {
+          if (d.success) {
             document.getElementById('new-trigger').value = '';
             document.getElementById('new-response').value = '';
             loadCommands();
           } else {
-            document.getElementById('cmd-response').textContent = 'Ошибка: ' + data.error;
+            document.getElementById('cmd-response').textContent = 'Ошибка: ' + d.error;
           }
         });
     }
 
     function deleteCommand(trigger) {
-      apiCall('DELETE', `/api/commands/${trigger}`)
-        .then(data => {
-          if (data.success) {
-            loadCommands();
-          }
-        });
+      apiCall('DELETE', `/api/commands/${trigger}`).then(d => { if (d.success) loadCommands(); });
     }
 
     function logout() {
-      hidePanel();
+      localStorage.removeItem('jwt');
+      jwt = null;
+      showLogin();
     }
   </script>
 </body>
