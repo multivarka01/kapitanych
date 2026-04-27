@@ -35,7 +35,7 @@
             -webkit-font-smoothing: antialiased;
         }
 
-        /* ---------- Экран загрузки ---------- */
+        /* ---------- Прелоадер ---------- */
         #loading-screen {
             position: fixed;
             inset: 0;
@@ -65,7 +65,7 @@
             width: min(90%, 400px);
             background: var(--card-bg);
             border: 1px solid var(--border);
-            border-radius: 20px;
+            border-radius: 24px;
             padding: 40px 32px;
             text-align: center;
             box-shadow: 0 40px 80px rgba(0,0,0,0.6);
@@ -143,6 +143,7 @@
             display: flex;
             flex-direction: column;
             gap: 6px;
+            flex: 1;
         }
 
         .nav-item {
@@ -175,12 +176,15 @@
             opacity: 0.8;
         }
 
+        .nav-item:hover svg,
         .nav-item.active svg {
             opacity: 1;
         }
 
         .sidebar-footer {
             margin-top: auto;
+            border-top: 1px solid var(--border);
+            padding-top: 16px;
         }
 
         .sidebar-footer button {
@@ -230,20 +234,6 @@
         .status-dot.offline {
             background: var(--danger);
             box-shadow: 0 0 6px var(--danger);
-        }
-
-        .section {
-            display: none;
-            animation: fadeIn 0.25s ease;
-        }
-
-        .section.active {
-            display: block;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(6px); }
-            to { opacity: 1; transform: translateY(0); }
         }
 
         .card {
@@ -367,6 +357,9 @@
             }
             .sidebar-footer {
                 margin-top: 0;
+                border-top: none;
+                padding-top: 0;
+                margin-left: auto;
             }
             .main-content {
                 padding: 20px;
@@ -379,10 +372,10 @@
 </head>
 <body>
 
-    <!-- Прелоадер (мгновенно скрывается после проверки токена) -->
+    <!-- Прелоадер -->
     <div id="loading-screen">Загрузка...</div>
 
-    <!-- Модалка входа через Twitch (изначально скрыта) -->
+    <!-- Модалка входа через Twitch (скрыта по умолчанию) -->
     <div id="auth-overlay" class="auth-overlay hidden">
         <div class="auth-modal">
             <h1>Вход в панель</h1>
@@ -401,11 +394,11 @@
                 <span>⚡</span> Kapitanych
             </div>
             <nav class="sidebar-nav">
-                <a class="nav-item" data-section="send-message">
+                <a class="nav-item" href="#send-message">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
-                    Отправить сообщение
+                    Сообщение
                 </a>
-                <a class="nav-item active" data-section="commands">
+                <a class="nav-item active" href="#commands">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 17 10 11 4 5"></polyline><line x1="12" y1="19" x2="20" y2="19"></line></svg>
                     Команды
                 </a>
@@ -422,38 +415,32 @@
             </div>
 
             <!-- Секция отправки сообщения -->
-            <div id="section-send-message" class="section">
-                <div class="card">
-                    <h2>Отправить сообщение в чат</h2>
-                    <div class="input-row">
-                        <input id="message-input" type="text" placeholder="Текст сообщения...">
-                        <button onclick="sendMessage()">Отправить</button>
-                    </div>
-                    <p id="msg-response" class="response-text"></p>
+            <div id="send-message" class="card">
+                <h2>Отправить сообщение в чат</h2>
+                <div class="input-row">
+                    <input id="message-input" type="text" placeholder="Текст сообщения...">
+                    <button onclick="sendMessage()">Отправить</button>
                 </div>
+                <p id="msg-response" class="response-text"></p>
             </div>
 
             <!-- Секция команд -->
-            <div id="section-commands" class="section active">
-                <div class="card">
-                    <h2>Добавить команду</h2>
-                    <div class="input-row">
-                        <input id="new-trigger" type="text" placeholder="!команда">
-                        <input id="new-response" type="text" placeholder="Ответ бота">
-                        <button onclick="addCommand()">Добавить</button>
-                    </div>
-                    <p id="cmd-response" class="response-text"></p>
+            <div id="commands" class="card">
+                <h2>Добавить команду</h2>
+                <div class="input-row">
+                    <input id="new-trigger" type="text" placeholder="!команда">
+                    <input id="new-response" type="text" placeholder="Ответ бота">
+                    <button onclick="addCommand()">Добавить</button>
                 </div>
+                <p id="cmd-response" class="response-text"></p>
 
-                <div class="card">
-                    <h2>Все команды</h2>
-                    <table id="commands-table">
-                        <thead>
-                            <tr><th>Триггер</th><th>Ответ</th><th style="width:80px"></th></tr>
-                        </thead>
-                        <tbody></tbody>
-                    </table>
-                </div>
+                <h2 style="margin-top: 24px;">Все команды</h2>
+                <table id="commands-table">
+                    <thead>
+                        <tr><th>Триггер</th><th>Ответ</th><th style="width:80px"></th></tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
             </div>
         </main>
     </div>
@@ -464,25 +451,22 @@
             const CLIENT_ID = 'pru9mgfjmldbtxhhszlkto10krnvj2';
             const REDIRECT_URI = 'https://multivarka01.github.io/kapitanych/twitch-auth.html';
 
-            // Устанавливаем ссылку для входа
             document.getElementById('twitch-login-btn').href =
                 `https://id.twitch.tv/oauth2/authorize?client_id=${CLIENT_ID}&redirect_uri=${encodeURIComponent(REDIRECT_URI)}&response_type=token&scope=`;
 
             let jwt = localStorage.getItem('jwt');
 
-            // Элементы
             const loadingScreen = document.getElementById('loading-screen');
             const authOverlay = document.getElementById('auth-overlay');
             const appLayout = document.getElementById('app-layout');
 
-            // Быстрая проверка токена при старте (без мигания окон)
+            // Проверка токена при загрузке
             async function initialCheck() {
                 if (!jwt) {
                     loadingScreen.classList.add('hidden');
                     authOverlay.classList.remove('hidden');
                     return;
                 }
-
                 try {
                     const res = await fetch(`${API_URL}/api/status`, {
                         headers: { Authorization: `Bearer ${jwt}` }
@@ -506,17 +490,24 @@
             function initDashboard() {
                 checkStatus();
                 loadCommands();
-                // Обработчики переключения разделов
-                document.querySelectorAll('.nav-item').forEach(item => {
-                    item.addEventListener('click', function(e) {
-                        e.preventDefault();
-                        const sectionId = this.dataset.section;
-                        // Активируем пункт меню
-                        document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
-                        this.classList.add('active');
-                        // Показываем нужную секцию
-                        document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
-                        document.getElementById(`section-${sectionId}`).classList.add('active');
+
+                // Подсветка активного пункта меню при скролле
+                const sections = document.querySelectorAll('.card');
+                const navItems = document.querySelectorAll('.nav-item');
+
+                window.addEventListener('scroll', () => {
+                    let current = '';
+                    sections.forEach(section => {
+                        const sectionTop = section.offsetTop;
+                        if (scrollY >= sectionTop - 100) {
+                            current = section.getAttribute('id');
+                        }
+                    });
+                    navItems.forEach(item => {
+                        item.classList.remove('active');
+                        if (item.getAttribute('href') === `#${current}`) {
+                            item.classList.add('active');
+                        }
                     });
                 });
             }
@@ -528,14 +519,12 @@
                 authOverlay.classList.remove('hidden');
             };
 
-            // API хелпер
             function apiCall(method, path, body = null) {
                 const opts = { method, headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${jwt}` } };
                 if (body) opts.body = JSON.stringify(body);
                 return fetch(`${API_URL}${path}`, opts).then(r => r.json());
             }
 
-            // Статус бота
             async function checkStatus() {
                 try {
                     const d = await apiCall('GET', '/api/status');
@@ -553,7 +542,6 @@
                 }
             }
 
-            // Отправка сообщения
             window.sendMessage = function() {
                 const input = document.getElementById('message-input');
                 const msg = input.value.trim();
@@ -565,7 +553,6 @@
                     });
             };
 
-            // Команды
             async function loadCommands() {
                 const commands = await apiCall('GET', '/api/commands');
                 const tbody = document.querySelector('#commands-table tbody');
@@ -602,7 +589,6 @@
                 loadCommands();
             };
 
-            // Старт
             initialCheck();
         })();
     </script>
