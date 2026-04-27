@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title>Авторизация Twitch</title>
+</head>
+<body>
+  <script>
+    (async () => {
+      const hash = window.location.hash.substring(1);
+      const params = new URLSearchParams(hash);
+      const accessToken = params.get('access_token');
+      if (!accessToken) {
+        document.body.innerHTML = '<p style="color:red;">Ошибка: токен не получен.</p>';
+        return;
+      }
+
+      try {
+        const resp = await fetch('https://kapitanych-bot.onrender.com/api/twitch-auth', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ access_token: accessToken })
+        });
+        const data = await resp.json();
+        if (data.token) {
+          localStorage.setItem('jwt', data.token);
+          window.location.href = '/kapitanych/admin.html';
+        } else {
+          document.body.innerHTML = `<p style="color:red;">Ошибка авторизации: ${data.error || 'Неизвестная ошибка'}</p>`;
+        }
+      } catch (err) {
+        document.body.innerHTML = `<p style="color:red;">Сетевая ошибка: ${err.message}</p>`;
+      }
+    })();
+  </script>
+</body>
+</html>
