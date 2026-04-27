@@ -1,63 +1,66 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="ru" class="dark">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Панель управления ботом Kapitanych</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg: #0e0e10;
-            --surface: rgba(20, 20, 22, 0.92);
-            --surface-light: rgba(30, 30, 35, 0.85);
-            --border: rgba(255, 255, 255, 0.07);
-            --text: #efeff1;
-            --text-dim: #adadb8;
+            --bg: #101014;
+            --surface: #1a1a20;
+            --surface-hover: #23232b;
+            --border: rgba(255, 255, 255, 0.06);
+            --text: #eaeaea;
+            --text-dim: #9b9ba6;
             --twitch: #9146ff;
             --twitch-hover: #a970ff;
             --accent-soft: rgba(145, 70, 255, 0.15);
             --danger: #ff4f4f;
             --danger-soft: rgba(255, 79, 79, 0.15);
+            --sidebar-width: 250px;
             color-scheme: dark;
         }
 
         * { box-sizing: border-box; margin: 0; padding: 0; }
 
         body {
-            font-family: 'Inter', 'Segoe UI', sans-serif;
-            background: radial-gradient(circle at 30% 10%, rgba(145, 70, 255, 0.08), transparent 40%),
-                        radial-gradient(circle at 70% 80%, rgba(145, 70, 255, 0.06), transparent 40%),
-                        var(--bg);
+            font-family: 'Inter', sans-serif;
+            background: var(--bg);
             color: var(--text);
-            min-height: 100vh;
+            height: 100vh;
+            display: flex;
+            overflow: hidden;
+        }
+
+        /* ---------- Модалка входа (поверх всего) ---------- */
+        .auth-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.75);
+            backdrop-filter: blur(8px);
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 24px;
-            backdrop-filter: blur(4px);
+            z-index: 100;
         }
 
-        /* ---------- Модальное окно (вход) ---------- */
         .auth-modal {
-            width: min(100%, 420px);
-            padding: 32px 28px;
-            border-radius: 24px;
+            width: min(90%, 400px);
+            background: var(--surface);
             border: 1px solid var(--border);
-            background: linear-gradient(160deg, rgba(255,255,255,0.04) 0%, rgba(255,255,255,0.01) 100%),
-                        var(--surface);
-            box-shadow: 0 30px 60px rgba(0,0,0,0.5), 0 0 0 1px rgba(145, 70, 255, 0.08);
-            backdrop-filter: blur(16px);
+            border-radius: 24px;
+            padding: 32px 28px;
             text-align: center;
+            box-shadow: 0 30px 60px rgba(0,0,0,0.5);
         }
 
         .auth-modal h1 {
-            font-family: 'Plus Jakarta Sans', sans-serif;
-            font-size: 2.2rem;
-            font-weight: 800;
-            letter-spacing: -0.04em;
-            margin-bottom: 24px;
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 20px;
             background: linear-gradient(135deg, #c28eff, #9146ff);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
@@ -67,7 +70,6 @@
         .auth-btn {
             display: inline-flex;
             align-items: center;
-            justify-content: center;
             gap: 12px;
             width: 100%;
             padding: 16px 24px;
@@ -75,63 +77,102 @@
             border-radius: 18px;
             background: linear-gradient(135deg, #9146ff, #772ce8);
             color: white;
-            font-family: 'Inter', sans-serif;
             font-weight: 700;
             font-size: 1.1rem;
             letter-spacing: 0.5px;
             cursor: pointer;
-            transition: all 0.2s ease;
-            box-shadow: 0 6px 20px rgba(145, 70, 255, 0.3);
             text-decoration: none;
+            transition: all 0.2s;
+            box-shadow: 0 6px 20px rgba(145, 70, 255, 0.3);
         }
 
         .auth-btn:hover {
             background: linear-gradient(135deg, #a970ff, #9146ff);
             transform: translateY(-2px);
-            box-shadow: 0 10px 28px rgba(145, 70, 255, 0.45);
-        }
-
-        .auth-btn svg {
-            width: 24px;
-            height: 24px;
-            fill: white;
         }
 
         .auth-hint {
-            margin-top: 20px;
+            margin-top: 16px;
             color: var(--text-dim);
             font-size: 0.85rem;
-            line-height: 1.4;
         }
 
-        /* ---------- Панель управления (скрыта до входа) ---------- */
-        .admin-panel {
-            display: none;
-            width: min(100%, 900px);
-            background: var(--surface);
-            border: 1px solid var(--border);
-            border-radius: 24px;
+        /* ---------- Основной макет (сайдбар + контент) ---------- */
+        .app-layout {
+            display: flex;
+            width: 100%;
+            height: 100vh;
+        }
+
+        .sidebar {
+            width: var(--sidebar-width);
+            background: rgba(22, 22, 28, 0.8);
+            border-right: 1px solid var(--border);
+            display: flex;
+            flex-direction: column;
+            padding: 24px 16px;
+            backdrop-filter: blur(12px);
+            flex-shrink: 0;
+        }
+
+        .sidebar-header {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: #fff;
+            margin-bottom: 32px;
+            padding-left: 12px;
+            letter-spacing: -0.02em;
+        }
+
+        .nav-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 16px;
+            border-radius: 12px;
+            color: var(--text-dim);
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.2s;
+            margin-bottom: 8px;
+            cursor: pointer;
+        }
+
+        .nav-item.active,
+        .nav-item:hover {
+            background: var(--surface-hover);
+            color: #fff;
+        }
+
+        .nav-item svg {
+            width: 20px;
+            height: 20px;
+            opacity: 0.7;
+        }
+
+        .nav-item.active svg,
+        .nav-item:hover svg {
+            opacity: 1;
+        }
+
+        .main-content {
+            flex: 1;
             padding: 32px;
-            backdrop-filter: blur(16px);
-            box-shadow: 0 25px 50px rgba(0,0,0,0.4);
+            overflow-y: auto;
+            background: rgba(16, 16, 20, 0.6);
+            backdrop-filter: blur(4px);
         }
 
-        .admin-panel.visible {
-            display: block;
-        }
-
-        .status-row {
+        .status-bar {
             display: flex;
             align-items: center;
             gap: 12px;
             margin-bottom: 32px;
-            font-size: 1.2rem;
-            font-weight: 600;
         }
 
         .status-dot {
-            width: 14px;
-            height: 14px;
+            width: 12px;
+            height: 12px;
             border-radius: 50%;
             background: #43b581;
             box-shadow: 0 0 8px #43b581;
@@ -142,12 +183,19 @@
             box-shadow: 0 0 8px #ff4f4f;
         }
 
-        h2 {
-            font-family: 'Plus Jakarta Sans', sans-serif;
-            font-size: 1.4rem;
-            margin: 32px 0 16px;
+        .section {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 24px;
+            margin-bottom: 24px;
+        }
+
+        .section h2 {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 18px;
             color: #fff;
-            letter-spacing: -0.02em;
         }
 
         .input-row {
@@ -159,10 +207,10 @@
 
         input {
             flex: 1 1 200px;
-            padding: 14px 18px;
-            border-radius: 14px;
+            padding: 12px 16px;
+            border-radius: 12px;
             border: 1px solid var(--border);
-            background: rgba(255,255,255,0.05);
+            background: rgba(255,255,255,0.04);
             color: var(--text);
             font: inherit;
             outline: none;
@@ -175,8 +223,8 @@
         }
 
         button {
-            padding: 14px 24px;
-            border-radius: 14px;
+            padding: 12px 24px;
+            border-radius: 12px;
             border: none;
             background: var(--twitch);
             color: white;
@@ -217,7 +265,6 @@
         table {
             width: 100%;
             border-collapse: collapse;
-            margin-top: 20px;
         }
 
         th, td {
@@ -236,59 +283,108 @@
 
         .response-text {
             font-size: 0.9rem;
-            margin-top: 8px;
             color: var(--text-dim);
+            margin-top: 8px;
         }
 
         .hidden {
-            display: none;
+            display: none !important;
+        }
+
+        @media (max-width: 768px) {
+            .sidebar {
+                width: 100%;
+                position: absolute;
+                bottom: 0;
+                top: auto;
+                height: auto;
+                flex-direction: row;
+                overflow-x: auto;
+                border-right: none;
+                border-top: 1px solid var(--border);
+                background: var(--surface);
+                padding: 12px;
+                z-index: 50;
+            }
+            .main-content {
+                padding: 16px;
+            }
+            .sidebar-header {
+                display: none;
+            }
+            .nav-item {
+                margin-bottom: 0;
+                margin-right: 8px;
+                padding: 8px 16px;
+            }
         }
     </style>
 </head>
 <body>
-
-    <!-- Модальное окно входа -->
-    <div id="auth-modal" class="auth-modal">
-        <h1>Вход</h1>
-        <a id="twitch-login-btn" class="auth-btn" href="#">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M11.571 4.714h1.715v5.143H11.57zm4.715 0H18v5.143h-1.714zM6 0L1.714 4.286v15.428h5.143V24l4.286-4.286h3.428L22.286 12V0zm14.571 11.143l-3.428 3.428h-3.429l-3 3v-3H6.857V1.714h13.714z"/></svg>
-            Войти через Twitch
-        </a>
-        <p class="auth-hint">Необходимо авторизоваться под аккаунтом, которому разрешён доступ к панели управления.</p>
+    <!-- Модалка входа через Twitch -->
+    <div id="auth-overlay" class="auth-overlay">
+        <div class="auth-modal">
+            <h1>Вход</h1>
+            <a id="twitch-login-btn" class="auth-btn" href="#">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="white"><path d="M11.571 4.714h1.715v5.143H11.57zm4.715 0H18v5.143h-1.714zM6 0L1.714 4.286v15.428h5.143V24l4.286-4.286h3.428L22.286 12V0zm14.571 11.143l-3.428 3.428h-3.429l-3 3v-3H6.857V1.714h13.714z"/></svg>
+                Войти через Twitch
+            </a>
+            <p class="auth-hint">Авторизуйтесь под разрешённым аккаунтом</p>
+        </div>
     </div>
 
-    <!-- Панель управления (скрыта) -->
-    <div id="admin-panel" class="admin-panel">
-        <div class="status-row">
-            <span id="status-dot" class="status-dot"></span>
-            <span id="bot-status-text">Подключение...</span>
-        </div>
+    <!-- Основной макет (скрыт до входа) -->
+    <div id="app-layout" class="app-layout hidden">
+        <!-- Сайдбар -->
+        <aside class="sidebar">
+            <div class="sidebar-header">Kapitanych</div>
+            <nav>
+                <a class="nav-item active" data-section="commands">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 17 10 11 4 5"></polyline><line x1="12" y1="19" x2="20" y2="19"></line></svg>
+                    Команды
+                </a>
+                <!-- В будущем здесь появятся другие пункты -->
+            </nav>
+            <div style="margin-top: auto;">
+                <button class="secondary" onclick="logout()" style="width:100%;">Выйти</button>
+            </div>
+        </aside>
 
-        <h2>📨 Отправить сообщение в чат</h2>
-        <div class="input-row">
-            <input id="message-input" type="text" placeholder="Текст сообщения...">
-            <button onclick="sendMessage()">Отправить</button>
-        </div>
-        <p id="msg-response" class="response-text"></p>
+        <!-- Основной контент -->
+        <main class="main-content">
+            <div class="status-bar">
+                <span id="status-dot" class="status-dot"></span>
+                <span id="bot-status-text">Подключение...</span>
+            </div>
 
-        <h2>⚡ Кастомные команды</h2>
-        <div class="input-row">
-            <input id="new-trigger" type="text" placeholder="!команда">
-            <input id="new-response" type="text" placeholder="Ответ бота">
-            <button onclick="addCommand()">Добавить</button>
-        </div>
-        <p id="cmd-response" class="response-text"></p>
+            <!-- Секция отправки сообщения -->
+            <div class="section">
+                <h2>Отправить сообщение в чат</h2>
+                <div class="input-row">
+                    <input id="message-input" type="text" placeholder="Текст сообщения...">
+                    <button onclick="sendMessage()">Отправить</button>
+                </div>
+                <p id="msg-response" class="response-text"></p>
+            </div>
 
-        <table id="commands-table">
-            <thead>
-                <tr><th>Триггер</th><th>Ответ</th><th style="width:100px"></th></tr>
-            </thead>
-            <tbody></tbody>
-        </table>
+            <!-- Секция управления командами -->
+            <div class="section" id="commands-section">
+                <h2>Кастомные команды</h2>
+                <div class="input-row">
+                    <input id="new-trigger" type="text" placeholder="!команда">
+                    <input id="new-response" type="text" placeholder="Ответ бота">
+                    <button onclick="addCommand()">Добавить</button>
+                </div>
+                <p id="cmd-response" class="response-text"></p>
 
-        <div style="margin-top: 32px; display: flex; gap: 12px; justify-content: flex-end;">
-            <button class="secondary" onclick="logout()">Выйти</button>
-        </div>
+                <table id="commands-table">
+                    <thead>
+                        <tr><th>Триггер</th><th>Ответ</th><th style="width:100px"></th></tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+        </main>
     </div>
 
     <script>
@@ -296,39 +392,47 @@
         const CLIENT_ID = 'pru9mgfjmldbtxhhszlkto10krnvj2';
         const REDIRECT_URI = 'https://multivarka01.github.io/kapitanych/twitch-auth.html';
 
-        // Привязываем ссылку входа
+        // Настройка ссылки входа
         document.getElementById('twitch-login-btn').href =
             `https://id.twitch.tv/oauth2/authorize?client_id=${CLIENT_ID}&redirect_uri=${encodeURIComponent(REDIRECT_URI)}&response_type=token&scope=`;
 
         let jwt = localStorage.getItem('jwt');
 
-        function showAdminPanel() {
-            document.getElementById('auth-modal').classList.add('hidden');
-            document.getElementById('admin-panel').classList.add('visible');
-            checkStatus();
-            loadCommands();
-        }
-
-        function showLogin() {
-            document.getElementById('auth-modal').classList.remove('hidden');
-            document.getElementById('admin-panel').classList.remove('visible');
-        }
-
-        // При загрузке проверяем токен
+        // Проверяем токен при загрузке
         if (jwt) {
             fetch(`${API_URL}/api/status`, { headers: { Authorization: `Bearer ${jwt}` } })
-                .then(res => res.ok ? showAdminPanel() : (localStorage.removeItem('jwt'), showLogin()))
+                .then(res => res.ok ? showApp() : (localStorage.removeItem('jwt'), showLogin()))
                 .catch(() => showLogin());
         } else {
             showLogin();
         }
 
+        function showApp() {
+            document.getElementById('auth-overlay').classList.add('hidden');
+            document.getElementById('app-layout').classList.remove('hidden');
+            checkStatus();
+            loadCommands();
+        }
+
+        function showLogin() {
+            document.getElementById('auth-overlay').classList.remove('hidden');
+            document.getElementById('app-layout').classList.add('hidden');
+        }
+
+        function logout() {
+            localStorage.removeItem('jwt');
+            jwt = null;
+            showLogin();
+        }
+
+        // ---------- API хелпер ----------
         function apiCall(method, path, body = null) {
             const opts = { method, headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${jwt}` } };
             if (body) opts.body = JSON.stringify(body);
             return fetch(`${API_URL}${path}`, opts).then(r => r.json());
         }
 
+        // ---------- Статус бота ----------
         async function checkStatus() {
             try {
                 const data = await apiCall('GET', '/api/status');
@@ -341,9 +445,12 @@
                     dot.className = 'status-dot offline';
                     text.textContent = 'Бот офлайн';
                 }
-            } catch(e) {}
+            } catch(e) {
+                document.getElementById('bot-status-text').textContent = 'Ошибка';
+            }
         }
 
+        // ---------- Отправка сообщения ----------
         function sendMessage() {
             const msg = document.getElementById('message-input').value;
             apiCall('POST', '/api/send-message', { message: msg })
@@ -353,6 +460,7 @@
                 });
         }
 
+        // ---------- Управление командами ----------
         async function loadCommands() {
             const commands = await apiCall('GET', '/api/commands');
             const tbody = document.querySelector('#commands-table tbody');
@@ -389,11 +497,15 @@
             loadCommands();
         }
 
-        function logout() {
-            localStorage.removeItem('jwt');
-            jwt = null;
-            showLogin();
-        }
+        // Обработчик кликов по меню (пока только "Команды")
+        document.querySelectorAll('.nav-item').forEach(item => {
+            item.addEventListener('click', (e) => {
+                e.preventDefault();
+                document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+                item.classList.add('active');
+                // В будущем можно скрывать/показывать секции
+            });
+        });
     </script>
 </body>
 </html>
