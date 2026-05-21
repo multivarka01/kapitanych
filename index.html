@@ -4,10 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <title>Kapitanych · Multivarka</title>
+    <!-- Шрифты как в референсном стиле -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600;700;800&family=JetBrains+Mono:wght@400;600;700;800&display=swap" rel="stylesheet">
     <style>
+        /* ===== ТВОЙ ПРЕДОСТАВЛЕННЫЙ СТИЛЬ (с минимальными дополнениями) ===== */
         :root {
             color-scheme: dark;
             --bg: #060507;
@@ -31,7 +33,6 @@
             margin: 0;
             min-height: 100%;
             -webkit-text-size-adjust: 100%;
-            font-size: 18px;
         }
 
         body {
@@ -81,7 +82,7 @@
             margin: 0 auto;
             padding: 22px 0 54px;
             display: grid;
-            gap: 28px;
+            gap: 24px;
             opacity: 0;
             transform: translateY(22px);
             transition: opacity 280ms ease, transform 280ms ease;
@@ -114,7 +115,7 @@
 
         .enter-box {
             width: min(680px, 100%);
-            padding: 40px 28px;
+            padding: 34px 24px;
             text-align: center;
             border: 3px solid #3a313f;
             background:
@@ -127,7 +128,12 @@
         .enter-subtitle,
         .eyebrow,
         .tagline,
+        .octet-name,
+        .octet-noise,
+        .ip-card-title,
         .paper-title,
+        .machine-label,
+        .chance-chip,
         .status-tag,
         .tape {
             text-transform: uppercase;
@@ -135,15 +141,15 @@
         }
 
         .enter-kicker {
-            margin: 0 0 14px;
+            margin: 0 0 12px;
             color: var(--paper);
             opacity: 0.8;
-            font-size: 0.95rem;
+            font-size: 0.82rem;
         }
 
         .enter-title {
             color: var(--acid);
-            font-size: clamp(2.5rem, 10vw, 6rem);
+            font-size: clamp(2rem, 8vw, 4.8rem);
             font-weight: 800;
             line-height: 0.98;
             text-shadow: 4px 4px 0 rgba(72, 89, 51, 0.75);
@@ -151,15 +157,15 @@
         }
 
         .enter-subtitle {
-            margin: 14px 0 0;
+            margin: 12px 0 0;
             color: var(--rust);
-            font-size: 1rem;
+            font-size: 0.88rem;
         }
 
         .masthead {
             display: grid;
             grid-template-columns: minmax(0, 1fr) minmax(320px, 560px) minmax(0, 1fr);
-            gap: 16px;
+            gap: 14px;
             align-items: start;
         }
 
@@ -170,52 +176,54 @@
 
         .masthead-left {
             justify-content: flex-start;
-            padding-top: 18px;
+            padding-top: 16px;
         }
 
         .masthead-right {
             justify-content: flex-end;
-            padding-top: 14px;
+            padding-top: 10px;
         }
 
         .brand-block {
             background: linear-gradient(180deg, rgba(26, 22, 33, 0.92), rgba(14, 12, 18, 0.92));
             border: 3px solid var(--line);
             box-shadow: 12px 12px 0 rgba(0, 0, 0, 0.48);
-            padding: 22px 26px 26px;
+            padding: 18px 22px 22px;
             transform: rotate(0.35deg);
         }
 
         .eyebrow {
-            margin: 0 0 12px;
+            margin: 0 0 10px;
             color: var(--rust);
-            font-size: 0.85rem;
+            font-size: 0.78rem;
         }
 
         .brand-block h1 {
             margin: 0;
-            font-size: clamp(2.8rem, 8vw, 6rem);
+            font-size: clamp(2.25rem, 7vw, 5rem);
             line-height: 0.92;
             color: var(--chalk);
         }
 
         .tagline {
-            margin: 16px 0 0;
+            margin: 12px 0 0;
             color: var(--paper);
-            font-size: 1.05rem;
-            max-width: 36rem;
+            font-size: 0.92rem;
+            max-width: 32rem;
         }
 
         .tape,
         .status-tag,
+        .machine-label,
+        .chance-chip,
         .paper-title {
             display: inline-flex;
             align-items: center;
-            min-height: 44px;
-            padding: 10px 16px;
+            min-height: 38px;
+            padding: 8px 12px;
             border: 2px solid rgba(0, 0, 0, 0.42);
             box-shadow: 6px 6px 0 rgba(0, 0, 0, 0.32);
-            font-size: 0.8rem;
+            font-size: 0.72rem;
         }
 
         .tape {
@@ -231,15 +239,17 @@
             text-align: right;
         }
 
-        .links-section {
-            background: linear-gradient(180deg, rgba(25, 21, 30, 0.96), rgba(10, 9, 12, 0.97));
+        .machine {
+            position: relative;
+            padding: 24px;
+            background:
+                linear-gradient(180deg, rgba(25, 21, 30, 0.96), rgba(10, 9, 12, 0.97));
             border: 3px solid #362f40;
             box-shadow: 14px 14px 0 rgba(0, 0, 0, 0.52);
-            padding: 28px;
-            position: relative;
+            overflow: hidden;
         }
 
-        .links-section::before {
+        .machine::before {
             content: "";
             position: absolute;
             inset: 0;
@@ -249,77 +259,230 @@
                 radial-gradient(circle at bottom right, rgba(255, 145, 71, 0.08), transparent 28%);
         }
 
-        .links-title {
-            position: relative;
-            z-index: 1;
-            font-size: 1.2rem;
-            text-transform: uppercase;
-            letter-spacing: 0.1em;
-            color: var(--rust);
-            margin: 0 0 22px;
-            text-align: center;
-        }
-
-        .links-grid {
+        .machine-label-row {
             position: relative;
             z-index: 1;
             display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 12px;
             flex-wrap: wrap;
-            justify-content: center;
-            gap: 20px;
+            margin-bottom: 18px;
         }
 
-        .service-button {
+        .machine-label {
+            background: #d9bf7d;
+            color: #231b10;
+            transform: rotate(-1.4deg);
+        }
+
+        .chance-chip {
+            background: #1b3a12;
+            color: #d4ffcb;
+            transform: rotate(1.1deg);
+        }
+
+        .reel-strip {
+            position: relative;
+            z-index: 1;
+            display: grid;
+            grid-template-columns: repeat(4, minmax(0, 1fr));
+            gap: 14px;
+        }
+
+        .reel {
+            min-height: 200px;
+            padding: 16px 14px 14px;
+            background: linear-gradient(180deg, rgba(10, 10, 13, 0.96), rgba(21, 23, 18, 0.96));
+            border: 2px dashed #54485d;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            gap: 12px;
+        }
+
+        .reel:nth-child(odd) {
+            transform: rotate(-0.35deg);
+        }
+
+        .reel:nth-child(even) {
+            transform: rotate(0.4deg);
+        }
+
+        .octet-name {
+            color: #b7a8c3;
+            font-size: 0.68rem;
+        }
+
+        .octet-value {
+            position: relative;
+            display: block;
+            min-height: 110px;
+            height: 110px;
+            padding: 0;
+            border: 2px solid rgba(73, 88, 48, 0.7);
+            background: linear-gradient(180deg, rgba(25, 34, 14, 0.96), rgba(8, 10, 6, 0.96));
+            color: #f0ffdc;
+            font-size: clamp(2.8rem, 8vw, 5.2rem);
+            font-weight: 700;
+            letter-spacing: 0.14em;
+            text-shadow: 4px 4px 0 rgba(63, 74, 42, 0.8);
+            font-variant-numeric: tabular-nums;
+            overflow: hidden;
+        }
+
+        .reel.spinning .octet-value {
+            filter: saturate(1.22);
+            transform: scaleY(1.02);
+        }
+
+        .octet-value::before,
+        .octet-value::after {
+            content: "";
+            position: absolute;
+            left: 0;
+            right: 0;
+            z-index: 2;
+            pointer-events: none;
+            height: 24%;
+        }
+
+        .octet-value::before {
+            top: 0;
+            background: linear-gradient(180deg, rgba(6, 8, 4, 0.92), rgba(6, 8, 4, 0));
+        }
+
+        .octet-value::after {
+            bottom: 0;
+            background: linear-gradient(0deg, rgba(6, 8, 4, 0.92), rgba(6, 8, 4, 0));
+        }
+
+        .octet-track {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            flex-direction: column;
+            will-change: transform;
+        }
+
+        .octet-token {
+            display: grid;
+            place-items: center;
+            flex: 0 0 var(--slot-height, 110px);
+            min-height: var(--slot-height, 110px);
+            height: var(--slot-height, 110px);
+            padding: 0 10px;
+        }
+
+        .octet-token.is-final {
+            color: #f6ffe8;
+        }
+
+        .reel.spinning .octet-token {
+            filter: blur(0.8px);
+        }
+
+        .reel.spinning .octet-token.is-final {
+            filter: blur(0);
+        }
+
+        .octet-noise {
+            color: var(--rust);
+            font-size: 0.68rem;
+        }
+
+        .control-row {
+            position: relative;
+            z-index: 1;
+            display: grid;
+            grid-template-columns: minmax(240px, 320px) minmax(0, 1fr);
+            gap: 16px;
+            margin-top: 18px;
+        }
+
+        .spin-button {
             appearance: none;
             border: 3px solid #3b1f0d;
             background: linear-gradient(180deg, #ff9b55, #df612b);
             color: #1d0f07;
-            padding: 24px 38px;
+            padding: 18px 20px;
             font: inherit;
-            font-size: 1.4rem;
+            font-size: 1.18rem;
             font-weight: 800;
             text-transform: uppercase;
             letter-spacing: 0.1em;
             cursor: pointer;
-            text-decoration: none;
+            width: 100%;
+            touch-action: manipulation;
+            -webkit-tap-highlight-color: transparent;
             box-shadow: 10px 10px 0 rgba(0, 0, 0, 0.46);
-            transform: rotate(-0.8deg);
+            transform: rotate(-1deg);
             transition: transform 140ms ease, box-shadow 140ms ease, filter 140ms ease;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
         }
 
-        .service-button:hover {
-            transform: translate(-2px, -2px) rotate(-0.8deg);
+        .spin-button:hover:not(:disabled) {
+            transform: translate(-2px, -2px) rotate(-1deg);
             box-shadow: 12px 12px 0 rgba(0, 0, 0, 0.46);
         }
 
-        .service-button:active {
-            transform: translate(3px, 3px) rotate(-0.8deg);
+        .spin-button:active:not(:disabled) {
+            transform: translate(3px, 3px) rotate(-1deg);
             box-shadow: 4px 4px 0 rgba(0, 0, 0, 0.46);
+        }
+
+        .spin-button:disabled {
+            cursor: wait;
+            filter: grayscale(0.22);
+            opacity: 0.82;
+        }
+
+        .ip-card {
+            padding: 16px 18px;
+            background: linear-gradient(180deg, rgba(17, 16, 22, 0.96), rgba(8, 8, 10, 0.96));
+            border: 2px solid #40364b;
+            box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.04);
+        }
+
+        .ip-card-title {
+            color: #c7b4d6;
+            font-size: 0.72rem;
+        }
+
+        .ip-output {
+            margin-top: 10px;
+            font-size: clamp(1.9rem, 5vw, 3.4rem);
+            font-weight: 800;
+            color: var(--acid);
+            letter-spacing: 0.06em;
+            line-height: 1;
+            word-break: break-word;
+            cursor: pointer;
+            transition: opacity 0.2s;
+        }
+        .ip-output:hover {
+            opacity: 0.85;
         }
 
         .bottom-row {
             display: grid;
             grid-template-columns: minmax(0, 1.3fr) minmax(280px, 0.8fr);
-            gap: 20px;
+            gap: 18px;
             align-items: start;
         }
 
         .paper-note {
-            padding: 24px 22px;
+            padding: 20px 18px;
             color: var(--ink);
             background:
                 linear-gradient(180deg, rgba(228, 220, 188, 0.98), rgba(192, 180, 138, 0.98));
             border: 2px solid rgba(50, 41, 20, 0.44);
             box-shadow: 9px 9px 0 rgba(0, 0, 0, 0.36);
-            line-height: 1.6;
-            font-size: 0.95rem;
+            line-height: 1.55;
         }
 
         .paper-note p {
-            margin: 12px 0 0;
+            margin: 10px 0 0;
+            font-size: 1rem;
         }
 
         .note-main {
@@ -335,50 +498,76 @@
             color: #fff0d2;
         }
 
+        .jackpot-banner {
+            position: fixed;
+            left: 50%;
+            bottom: 22px;
+            z-index: 25;
+            width: min(860px, calc(100vw - 22px));
+            padding: 16px 18px;
+            transform: translateX(-50%) rotate(-0.6deg);
+            background: linear-gradient(180deg, #ff4768, #ab1330);
+            color: #fff2d2;
+            border: 3px solid #470210;
+            box-shadow: 12px 12px 0 rgba(0, 0, 0, 0.52);
+            text-align: center;
+            font-size: clamp(1rem, 3.5vw, 1.7rem);
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s, visibility 0.3s;
+        }
+        .jackpot-banner.show {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        body.shake .shell {
+            animation: screen-shake 420ms linear;
+        }
+
+        /* Дополнительные стили для футера и модалок, вписанные в общую эстетику */
         .site-footer {
             position: relative;
             z-index: 1;
             width: min(1120px, calc(100vw - 28px));
-            margin: 32px auto 0;
-            padding: 28px 24px 36px;
+            margin: 28px auto 0;
+            padding: 24px 20px 32px;
             text-align: center;
             border-top: 2px solid var(--line);
             color: var(--paper);
-            font-size: 0.95rem;
+            font-size: 0.85rem;
             opacity: 0.8;
         }
-
         .footer-credits {
             display: flex;
             justify-content: center;
-            gap: 32px;
+            gap: 28px;
             flex-wrap: wrap;
-            margin-bottom: 16px;
+            margin-bottom: 12px;
         }
-
         .footer-credits a {
             color: var(--rust);
             text-decoration: none;
             transition: color 0.2s;
         }
-
         .footer-credits a:hover {
             color: var(--acid);
         }
-
         .footer-links {
-            margin-top: 16px;
+            margin-top: 12px;
         }
-
         .footer-links button,
         .footer-links a {
             background: transparent;
             border: 1px solid var(--line);
             color: var(--paper);
-            padding: 8px 18px;
-            margin: 0 8px;
+            padding: 6px 14px;
+            margin: 0 6px;
             font-family: inherit;
-            font-size: 0.85rem;
+            font-size: 0.75rem;
             text-transform: uppercase;
             letter-spacing: 0.1em;
             cursor: pointer;
@@ -386,13 +575,13 @@
             text-decoration: none;
             display: inline-block;
         }
-
         .footer-links button:hover,
         .footer-links a:hover {
             background: var(--line);
             color: var(--chalk);
         }
 
+        /* Модалки в стиле сайта */
         .modal {
             display: none;
             position: fixed;
@@ -404,72 +593,61 @@
             justify-content: center;
             padding: 20px;
         }
-
         .modal.active {
             display: flex;
         }
-
         .modal-content {
             background: var(--panel);
             border: 3px solid var(--line);
             box-shadow: 16px 16px 0 rgba(0,0,0,0.65);
-            max-width: 650px;
+            max-width: 600px;
             width: 100%;
             max-height: 85vh;
             overflow-y: auto;
             color: var(--chalk);
             transform: rotate(-0.4deg);
-            font-size: 0.95rem;
         }
-
         .modal-header {
             background: var(--panel-2);
             border-bottom: 2px solid var(--line);
-            padding: 20px 24px;
+            padding: 16px 20px;
             display: flex;
             justify-content: space-between;
             align-items: center;
         }
-
         .modal-header h2 {
             margin: 0;
-            font-size: 1.4rem;
+            font-size: 1.3rem;
             color: var(--acid);
             text-transform: uppercase;
             letter-spacing: 0.1em;
         }
-
         .modal-close {
             background: none;
             border: 2px solid var(--line);
             color: var(--chalk);
-            font-size: 1.8rem;
-            width: 44px;
-            height: 44px;
+            font-size: 1.6rem;
+            width: 40px;
+            height: 40px;
             cursor: pointer;
             transition: background 0.2s;
         }
-
         .modal-close:hover {
             background: var(--line);
         }
-
         .modal-body {
-            padding: 24px;
-            line-height: 1.7;
+            padding: 20px;
+            line-height: 1.6;
         }
-
         .modal-body a {
             color: var(--rust);
         }
-
         .config-grid {
             display: grid;
             grid-template-columns: auto 1fr;
-            gap: 10px 20px;
-            margin-top: 12px;
+            gap: 8px 18px;
+            margin-top: 10px;
         }
-
         .config-label {
             color: var(--rust);
             font-weight: 700;
@@ -478,6 +656,18 @@
         @keyframes blink-enter {
             0%, 45%, 100% { opacity: 1; }
             46%, 55% { opacity: 0.25; }
+        }
+
+        @keyframes screen-shake {
+            0% { transform: translate(0, 0) rotate(0deg); }
+            12% { transform: translate(-6px, 3px) rotate(-0.4deg); }
+            24% { transform: translate(5px, -4px) rotate(0.4deg); }
+            36% { transform: translate(-4px, 4px) rotate(-0.2deg); }
+            48% { transform: translate(7px, 2px) rotate(0.3deg); }
+            60% { transform: translate(-5px, -3px) rotate(-0.3deg); }
+            72% { transform: translate(4px, 3px) rotate(0.2deg); }
+            84% { transform: translate(-3px, -2px) rotate(-0.15deg); }
+            100% { transform: translate(0, 0) rotate(0deg); }
         }
 
         @media (max-width: 980px) {
@@ -492,7 +682,8 @@
             .brand-block {
                 order: -1;
             }
-            .bottom-row {
+            .bottom-row,
+            .control-row {
                 grid-template-columns: 1fr;
             }
         }
@@ -501,48 +692,124 @@
             .shell {
                 width: min(100vw - 14px, 1120px);
                 padding-top: 10px;
-                gap: 18px;
+                gap: 16px;
             }
-            .links-section,
+            .machine,
             .brand-block,
             .paper-note,
             .enter-box {
                 box-shadow: 8px 8px 0 rgba(0, 0, 0, 0.42);
             }
+            .enter-box {
+                padding: 26px 18px;
+            }
             .brand-block {
-                padding: 18px 18px 20px;
+                padding: 16px 16px 18px;
                 transform: none;
             }
             .status-tag,
             .tape {
                 transform: none;
             }
-            .service-button {
-                padding: 18px 28px;
-                font-size: 1.1rem;
+            .reel-strip {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+            .reel {
+                min-height: 168px;
+            }
+            .octet-value {
+                min-height: 92px;
+                height: 92px;
+                font-size: clamp(2.2rem, 11vw, 3.2rem);
+            }
+            .jackpot-banner {
+                bottom: 10px;
+                width: calc(100vw - 16px);
+                padding: 12px 14px;
+                box-shadow: 8px 8px 0 rgba(0, 0, 0, 0.46);
             }
         }
 
         @media (max-width: 520px) {
+            .reel-strip {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+                gap: 10px;
+            }
+            .machine {
+                padding: 14px;
+            }
             .brand-block h1 {
                 font-size: clamp(2rem, 12vw, 3rem);
             }
             .tagline {
-                font-size: 0.9rem;
+                font-size: 0.82rem;
             }
-            .service-button {
-                font-size: 0.95rem;
-                padding: 16px 22px;
+            .machine-label-row {
+                gap: 8px;
+                margin-bottom: 14px;
+            }
+            .machine-label,
+            .chance-chip,
+            .status-tag,
+            .tape {
+                max-width: 100%;
+                min-height: 34px;
+                padding: 7px 10px;
+                font-size: 0.63rem;
                 transform: none;
             }
-            .links-grid {
+            .control-row {
                 gap: 12px;
+                margin-top: 14px;
+            }
+            .spin-button {
+                min-height: 62px;
+                padding: 16px 14px;
+                font-size: 0.96rem;
+                letter-spacing: 0.06em;
+                transform: none;
+                box-shadow: 7px 7px 0 rgba(0, 0, 0, 0.42);
+            }
+            .ip-card {
+                padding: 14px;
+            }
+            .ip-output {
+                font-size: clamp(1.6rem, 8vw, 2.2rem);
+                letter-spacing: 0.03em;
+            }
+        }
+
+        @media (max-width: 380px) {
+            .reel-strip {
+                grid-template-columns: 1fr;
+            }
+            .octet-value {
+                min-height: 86px;
+                height: 86px;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .enter-title,
+            body.shake .shell {
+                animation: none;
+            }
+            .shell,
+            .enter-overlay,
+            .spin-button,
+            .reel.spinning .octet-value {
+                transition: none;
+            }
+            .reel.spinning .octet-value {
+                filter: none;
+                transform: none;
             }
         }
     </style>
 </head>
 <body>
 
+<!-- Оверлей входа (кликните чтобы войти) -->
 <div class="enter-overlay" id="enter-overlay">
     <div class="enter-box">
         <div class="enter-kicker">Stream · Community</div>
@@ -551,7 +818,10 @@
     </div>
 </div>
 
+<!-- Основная оболочка сайта -->
 <div class="shell" id="main-shell">
+
+    <!-- Мачта с заголовком и тегами -->
     <div class="masthead">
         <div class="masthead-left">
             <span class="tape">Twitch streamer</span>
@@ -566,33 +836,45 @@
         </div>
     </div>
 
-    <div class="links-section">
-        <div class="links-title">SERVICE LINKS</div>
-        <div class="links-grid">
-            <a href="https://twitch.tv/kapitanych_" target="_blank" class="service-button">TWITCH</a>
-            <a href="https://t.me/KapitanGG" target="_blank" class="service-button">TELEGRAM</a>
-            <a href="https://www.youtube.com/@Капитаныч" target="_blank" class="service-button">YOUTUBE</a>
-            <a href="https://discord.com/" target="_blank" class="service-button">DISCORD</a>
-            <a href="https://www.tiktok.com/@tt_kapitanych" target="_blank" class="service-button">TIKTOK</a>
-            <a href="https://donatex.gg/donate/kapitanych" target="_blank" class="service-button">DONATEX</a>
-            <a href="https://new.donatepay.ru/@Kapitan" target="_blank" class="service-button">DONATEPAY</a>
+    <!-- Игровой автомат (слот-машина) -->
+    <div class="machine">
+        <div class="machine-label-row">
+            <span class="machine-label">SERVICE GENERATOR</span>
+            <span class="chance-chip">RANDOM LINK</span>
+        </div>
+
+        <div class="reel-strip" id="reel-strip">
+            <!-- 4 октета, динамически заполняются JS -->
+        </div>
+
+        <div class="control-row">
+            <button class="spin-button" id="spin-button" disabled>◈ SPIN ◈</button>
+            <div class="ip-card" id="ip-card">
+                <div class="ip-card-title">GENERATED SERVICE</div>
+                <div class="ip-output" id="ip-output">---</div>
+            </div>
         </div>
     </div>
 
+    <!-- Нижний блок с заметками -->
     <div class="bottom-row">
         <div class="paper-note note-main">
             <span class="paper-title">📋 Правила чата</span>
             <p>Никакого спама, оскорблений и личных данных. Модератор всегда прав. Ознакомься перед тем, как писать в чат.</p>
-            <button id="show-rules-btn" style="margin-top:12px; background:var(--ink); color:var(--paper); border:1px solid var(--ink); padding:8px 16px; font-family:inherit; cursor:pointer; font-size:0.8rem;">Читать правила</button>
+            <button class="footer-btn" id="show-rules-btn" style="margin-top:10px; background:var(--ink); color:var(--paper); border:1px solid var(--ink); padding:6px 12px; font-family:inherit; cursor:pointer;">Читать правила</button>
         </div>
         <div class="paper-note note-side">
             <span class="paper-title">⚙️ Конфиг ПК</span>
             <p>Железо Kapitanych: Ryzen 7 5700X, RTX 3080, 32 ГБ ОЗУ. Подробности внутри.</p>
-            <button id="show-config-btn" style="margin-top:12px; background:var(--ink); color:var(--paper); border:1px solid var(--ink); padding:8px 16px; font-family:inherit; cursor:pointer; font-size:0.8rem;">Смотреть конфиг</button>
+            <button class="footer-btn" id="show-config-btn" style="margin-top:10px; background:var(--ink); color:var(--paper); border:1px solid var(--ink); padding:6px 12px; font-family:inherit; cursor:pointer;">Смотреть конфиг</button>
         </div>
     </div>
+
+    <!-- Джекпот-баннер (скрыт) -->
+    <div class="jackpot-banner" id="jackpot-banner">🎰 JACKPOT! ALL SERVICES ALIGNED 🎰</div>
 </div>
 
+<!-- Футер -->
 <footer class="site-footer">
     <div class="footer-credits">
         <span>🎮 <a href="https://twitch.tv/kapitanych_" target="_blank">Kapitanych</a></span>
@@ -607,19 +889,32 @@
         <a href="https://www.tiktok.com/@tt_kapitanych" target="_blank">TikTok</a>
         <button id="lang-toggle">EN</button>
     </div>
-    <p style="margin-top:18px;">© <span id="current-year"></span> Kapitanych. All rights reserved.</p>
+    <p style="margin-top:14px;">© <span id="current-year"></span> Kapitanych. All rights reserved.</p>
 </footer>
 
+<!-- Модалка правил -->
 <div class="modal" id="rules-modal">
     <div class="modal-content">
         <div class="modal-header">
             <h2>Правила чата Twitch</h2>
             <button class="modal-close" data-close="rules-modal">×</button>
         </div>
-        <div class="modal-body" id="rules-body"></div>
+        <div class="modal-body" data-i18n="rules_body">
+            <p>Модератор самостоятельно выбирает меру наказания. Тяжёлые нарушения = бан без разблокировки.</p>
+            <ul>
+                <li>Запрещены спам, флуд и повторяющиеся сообщения.</li>
+                <li>Запрещена реклама своих проектов и сторонних ресурсов.</li>
+                <li>Запрещены провокации, оскорбления и агрессия.</li>
+                <li>Запрещена публикация шок-контента и интимного контента.</li>
+                <li>Нельзя выкладывать личные данные (адреса, телефоны…).</li>
+                <li>Запрещено выпрашивать VIP/модерку/подписки.</li>
+            </ul>
+            <p>Нарушение правил влечёт наказание по усмотрению модерации.</p>
+        </div>
     </div>
 </div>
 
+<!-- Модалка конфигурации ПК -->
 <div class="modal" id="config-modal">
     <div class="modal-content">
         <div class="modal-header">
@@ -648,37 +943,190 @@
 
 <script>
     (function() {
+        // ---------- СЛОТ-МАШИНА ----------
+        // Сервисы и их URL
+        const services = [
+            { name: 'TWITCH', url: 'https://twitch.tv/kapitanych_' },
+            { name: 'TELEGRAM', url: 'https://t.me/KapitanGG' },
+            { name: 'YOUTUBE', url: 'https://www.youtube.com/@Капитаныч' },
+            { name: 'DISCORD', url: 'https://discord.com/' },
+            { name: 'TIKTOK', url: 'https://www.tiktok.com/@tt_kapitanych' },
+            { name: 'DONATEX', url: 'https://donatex.gg/donate/kapitanych' },
+            { name: 'DONATEPAY', url: 'https://new.donatepay.ru/@Kapitan' }
+        ];
+
+        const SYMBOLS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'.split('');
+        const SLOT_HEIGHT = 110; // должно совпадать с CSS --slot-height
+
+        // Подготовим реелы
+        const reelStrip = document.getElementById('reel-strip');
+        const spinBtn = document.getElementById('spin-button');
+        const ipOutput = document.getElementById('ip-output');
+        const ipCard = document.getElementById('ip-card');
+        const jackpotBanner = document.getElementById('jackpot-banner');
+
+        let reels = [];
+        let spinning = false;
+
+        function createReel(index) {
+            const reelDiv = document.createElement('div');
+            reelDiv.className = 'reel';
+            reelDiv.innerHTML = `
+                <div class="octet-name">OCTET ${index + 1}</div>
+                <div class="octet-value">
+                    <div class="octet-track"></div>
+                </div>
+                <div class="octet-noise">::${String(index).padStart(2,'0')}::</div>
+            `;
+            const track = reelDiv.querySelector('.octet-track');
+            // Заполним трек символами
+            for (let i = 0; i < 30; i++) {
+                const token = document.createElement('div');
+                token.className = 'octet-token';
+                token.textContent = SYMBOLS[Math.floor(Math.random() * SYMBOLS.length)];
+                track.appendChild(token);
+            }
+            reelStrip.appendChild(reelDiv);
+            return {
+                element: reelDiv,
+                track: track,
+                tokens: Array.from(track.children)
+            };
+        }
+
+        // Создаём 4 реела
+        for (let i = 0; i < 4; i++) {
+            reels.push(createReel(i));
+        }
+
+        // Функция остановки конкретного реела на нужном символе
+        function stopReelAt(reel, targetChar, duration = 600) {
+            const tokens = reel.tokens;
+            // Найдём индекс токена с целевым символом (или ближайший)
+            let targetIndex = -1;
+            for (let i = 0; i < tokens.length; i++) {
+                if (tokens[i].textContent === targetChar) {
+                    targetIndex = i;
+                    break;
+                }
+            }
+            if (targetIndex === -1) {
+                // Если нет, поставим случайный
+                targetIndex = Math.floor(Math.random() * tokens.length);
+                tokens[targetIndex].textContent = targetChar;
+            }
+
+            // Убираем предыдущие is-final
+            tokens.forEach(t => t.classList.remove('is-final'));
+            tokens[targetIndex].classList.add('is-final');
+
+            // Позиция скролла: нужно чтобы целевой токен оказался в центре окна
+            const track = reel.track;
+            const tokenHeight = SLOT_HEIGHT;
+            // Смещение = индекс * высота - (центровка)
+            const offset = targetIndex * tokenHeight - (tokenHeight * 0.5);
+            track.style.transition = `transform ${duration}ms cubic-bezier(0.25, 0.1, 0.1, 1)`;
+            track.style.transform = `translateY(-${offset}px)`;
+        }
+
+        function spin() {
+            if (spinning) return;
+            spinning = true;
+            spinBtn.disabled = true;
+            jackpotBanner.classList.remove('show');
+            document.body.classList.remove('shake');
+
+            // Выбираем случайный сервис
+            const randomService = services[Math.floor(Math.random() * services.length)];
+            const serviceName = randomService.name.padEnd(4, ' ').slice(0, 4).toUpperCase(); // 4 символа
+
+            // Добавляем spinning класс
+            reels.forEach(r => r.element.classList.add('spinning'));
+
+            // Для каждого реела своя задержка остановки
+            const delays = [400, 700, 1000, 1300];
+            reels.forEach((reel, i) => {
+                setTimeout(() => {
+                    // Убираем spinning
+                    reel.element.classList.remove('spinning');
+                    // Останавливаем на нужной букве
+                    stopReelAt(reel, serviceName[i] || 'X', 500);
+                }, delays[i]);
+            });
+
+            // После остановки всех обновляем вывод
+            setTimeout(() => {
+                ipOutput.textContent = serviceName.trim();
+                // Сохраняем URL для клика
+                ipCard.dataset.url = randomService.url;
+                spinning = false;
+                spinBtn.disabled = false;
+
+                // Джекпот если все буквы одинаковые? (маловероятно, но прикольно)
+                if (serviceName[0] === serviceName[1] && serviceName[1] === serviceName[2] && serviceName[2] === serviceName[3]) {
+                    jackpotBanner.classList.add('show');
+                    document.body.classList.add('shake');
+                    setTimeout(() => {
+                        document.body.classList.remove('shake');
+                        jackpotBanner.classList.remove('show');
+                    }, 2500);
+                }
+            }, 2000);
+        }
+
+        spinBtn.addEventListener('click', spin);
+
+        // Клик по IP-карточке открывает сервис
+        ipCard.addEventListener('click', () => {
+            const url = ipCard.dataset.url;
+            if (url) window.open(url, '_blank');
+        });
+
+        // Инициализация: установим случайные стартовые позиции
+        reels.forEach((reel, i) => {
+            const initialChar = 'KAPI'[i] || 'A';
+            stopReelAt(reel, initialChar, 0);
+            reel.track.style.transition = 'none'; // убираем анимацию при инициализации
+        });
+        // Включаем кнопку после загрузки
+        spinBtn.disabled = false;
+        ipOutput.textContent = 'KAPI';
+        ipCard.dataset.url = 'https://twitch.tv/kapitanych_';
+
+        // ---------- ПЕРЕВОДЫ (RU/EN) ----------
         const translations = {
-            ru: `<p>Модератор самостоятельно выбирает меру наказания. Тяжёлые нарушения = бан без разблокировки.</p>
-                 <ul><li>Запрещены спам, флуд и повторяющиеся сообщения.</li>
-                 <li>Запрещена реклама своих проектов и сторонних ресурсов.</li>
-                 <li>Запрещены провокации, оскорбления и агрессия.</li>
-                 <li>Запрещена публикация шок-контента и интимного контента.</li>
-                 <li>Нельзя выкладывать личные данные (адреса, телефоны…).</li>
-                 <li>Запрещено выпрашивать VIP/модерку/подписки.</li></ul>
-                 <p>Нарушение правил влечёт наказание по усмотрению модерации.</p>`,
-            en: `<p>The moderator independently decides on punishment. Severe violations = permanent ban.</p>
-                 <ul><li>No spam, flood, or repetitive messages.</li>
-                 <li>No advertising of your own projects or third-party resources.</li>
-                 <li>No provocations, insults, or aggression.</li>
-                 <li>No shock or explicit content.</li>
-                 <li>Do not share personal data (addresses, phones…).</li>
-                 <li>Do not beg for VIP/mod/subscriptions.</li></ul>
-                 <p>Violation of the rules entails punishment at the discretion of the moderation.</p>`
+            ru: {
+                rules_body: `<p>Модератор самостоятельно выбирает меру наказания. Тяжёлые нарушения = бан без разблокировки.</p>
+                <ul><li>Запрещены спам, флуд и повторяющиеся сообщения.</li>
+                <li>Запрещена реклама своих проектов и сторонних ресурсов.</li>
+                <li>Запрещены провокации, оскорбления и агрессия.</li>
+                <li>Запрещена публикация шок-контента и интимного контента.</li>
+                <li>Нельзя выкладывать личные данные (адреса, телефоны…).</li>
+                <li>Запрещено выпрашивать VIP/модерку/подписки.</li></ul>
+                <p>Нарушение правил влечёт наказание по усмотрению модерации.</p>`
+            },
+            en: {
+                rules_body: `<p>The moderator independently decides on punishment. Severe violations = permanent ban.</p>
+                <ul><li>No spam, flood, or repetitive messages.</li>
+                <li>No advertising of your own projects or third-party resources.</li>
+                <li>No provocations, insults, or aggression.</li>
+                <li>No shock or explicit content.</li>
+                <li>Do not share personal data (addresses, phones…).</li>
+                <li>Do not beg for VIP/mod/subscriptions.</li></ul>
+                <p>Violation of the rules entails punishment at the discretion of the moderation.</p>`
+            }
         };
 
         let currentLang = localStorage.getItem('preferredLang') || 'ru';
-
         function applyLanguage(lang) {
-            const rulesBody = document.getElementById('rules-body');
-            if (rulesBody && translations[lang]) {
-                rulesBody.innerHTML = translations[lang];
+            const rulesBody = document.querySelector('#rules-modal .modal-body');
+            if (rulesBody && translations[lang] && translations[lang].rules_body) {
+                rulesBody.innerHTML = translations[lang].rules_body;
             }
             document.getElementById('lang-toggle').textContent = lang === 'ru' ? 'EN' : 'RU';
             localStorage.setItem('preferredLang', lang);
             currentLang = lang;
         }
-
         applyLanguage(currentLang);
 
         document.getElementById('lang-toggle').addEventListener('click', () => {
@@ -686,16 +1134,15 @@
             applyLanguage(newLang);
         });
 
+        // ---------- МОДАЛКИ ----------
         function openModal(id) {
             document.getElementById(id).classList.add('active');
             document.body.style.overflow = 'hidden';
         }
-
         function closeModal(id) {
             document.getElementById(id).classList.remove('active');
             document.body.style.overflow = '';
         }
-
         function closeAllModals() {
             document.querySelectorAll('.modal.active').forEach(m => m.classList.remove('active'));
             document.body.style.overflow = '';
@@ -721,13 +1168,21 @@
             if (e.key === 'Escape') closeAllModals();
         });
 
+        // ---------- ОВЕРЛЕЙ ВХОДА ----------
         const overlay = document.getElementById('enter-overlay');
         overlay.addEventListener('click', () => {
             overlay.classList.add('hidden');
             document.body.classList.add('entered');
         });
 
+        // Год в футере
         document.getElementById('current-year').textContent = new Date().getFullYear();
+
+        // Если при загрузке уже есть хеш (например #rules), открываем модалку после входа
+        window.addEventListener('load', () => {
+            if (window.location.hash === '#rules') openModal('rules-modal');
+            if (window.location.hash === '#config') openModal('config-modal');
+        });
     })();
 </script>
 </body>
