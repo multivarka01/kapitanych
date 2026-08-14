@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<title>Kapitanych · 404</title>
+<title>Kapitanych · Twitch</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -402,49 +402,6 @@
   .link-btn .arrow{ width:13px; height:13px; transition:transform 300ms var(--ease); }
   .link-btn:hover .arrow{ transform:translate(3px,-3px); }
 
-  .error-page{
-    min-height:100vh;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    position:relative;
-    z-index:1;
-    padding:20px;
-  }
-  .error-container{
-    text-align:center;
-    max-width:600px;
-  }
-  .error-code{
-    font-size:clamp(6rem, 15vw, 12rem);
-    font-weight:800;
-    letter-spacing:-0.05em;
-    color:var(--text);
-    line-height:1;
-    margin-bottom:20px;
-    background: linear-gradient(135deg, var(--text) 0%, var(--accent) 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-  }
-  .error-title{
-    font-size:1.5rem;
-    font-weight:700;
-    margin-bottom:12px;
-  }
-  .error-text{
-    color:var(--text-dim);
-    font-size:1rem;
-    line-height:1.6;
-    margin-bottom:30px;
-  }
-  .error-actions{
-    display:flex;
-    gap:12px;
-    justify-content:center;
-    flex-wrap:wrap;
-  }
-
   @media (max-width:900px){
     .hero{ grid-template-columns:1fr; padding-top:120px; }
     .hero-visual{ aspect-ratio:16/10; order:-1; }
@@ -460,7 +417,6 @@
     .bento{ grid-template-columns:1fr; grid-auto-rows:auto; }
     .card-overview, .card-social, .card-info{ grid-column:span 1; grid-row:span 1; }
     .card{ min-height:118px; }
-    .error-code{ font-size:clamp(4rem, 20vw, 8rem); }
   }
 
   footer{
@@ -560,7 +516,6 @@
   <div class="bg-noise"></div>
 </div>
 
-<div id="main-content">
 <nav class="navbar" id="navbar">
   <div class="nav-brand"><span class="dot"></span>Kapitanych</div>
   <div class="nav-links">
@@ -708,20 +663,6 @@
     </div>
   </div>
 </footer>
-</div>
-
-<div id="error-content" style="display:none;">
-  <div class="error-page">
-    <div class="error-container">
-      <div class="error-code">404</div>
-      <div class="error-title" data-i18n="error_title">Страница не найдена</div>
-      <div class="error-text" data-i18n="error_text">Кажется, вы забрели не туда. Страница, которую вы ищете, не существует или была перемещена.</div>
-      <div class="error-actions">
-        <a href="/" class="btn btn-primary" data-i18n="error_back">Вернуться на главную</a>
-      </div>
-    </div>
-  </div>
-</div>
 
 <div class="modal" id="rules-modal">
   <div class="modal-backdrop" data-close="rules-modal"></div>
@@ -796,9 +737,6 @@
       spec_mouse: 'Мышь',
       spec_keyboard: 'Клавиатура',
       spec_monitor: 'Монитор',
-      error_title: 'Страница не найдена',
-      error_text: 'Кажется, вы забрели не туда. Страница, которую вы ищете, не существует или была перемещена.',
-      error_back: 'Вернуться на главную',
       rules_body: `<p>Модератор самостоятельно выбирает меру наказания. Тяжёлые нарушения = бан без разблокировки.</p>
          <ul><li>Запрещены спам, флуд и повторяющиеся сообщения.</li>
          <li>Запрещена реклама своих проектов и сторонних ресурсов.</li>
@@ -843,9 +781,6 @@
       spec_mouse: 'Mouse',
       spec_keyboard: 'Keyboard',
       spec_monitor: 'Monitor',
-      error_title: 'Page not found',
-      error_text: 'It seems you\'ve wandered into the wrong place. The page you\'re looking for doesn\'t exist or has been moved.',
-      error_back: 'Back to home',
       rules_body: `<p>The moderator independently decides on punishment. Severe violations = permanent ban.</p>
          <ul><li>No spam, flood, or repetitive messages.</li>
          <li>No advertising of your own projects or third-party resources.</li>
@@ -881,7 +816,6 @@
 
     document.getElementById('lang-toggle').textContent = lang === 'ru' ? 'EN' : 'RU';
     document.documentElement.lang = lang;
-    document.title = lang === 'ru' ? 'Kapitanych · Twitch' : 'Kapitanych · Twitch';
   }
 
   applyLanguage(currentLang);
@@ -902,31 +836,20 @@
     document.querySelectorAll('.modal.active').forEach(m => m.classList.remove('active'));
     document.body.style.overflow = '';
   }
-  
-  const showRulesBtn = document.getElementById('show-rules-btn');
-  const showConfigBtn = document.getElementById('show-config-btn');
-  
-  if (showRulesBtn) {
-    showRulesBtn.addEventListener('click', () => openModal('rules-modal'));
-  }
-  if (showConfigBtn) {
-    showConfigBtn.addEventListener('click', () => openModal('config-modal'));
-  }
-  
+  document.getElementById('show-rules-btn').addEventListener('click', () => openModal('rules-modal'));
+  document.getElementById('show-config-btn').addEventListener('click', () => openModal('config-modal'));
   document.querySelectorAll('[data-close]').forEach(el => {
     el.addEventListener('click', () => closeModal(el.dataset.close));
   });
   document.addEventListener('keydown', e => { if (e.key === 'Escape') closeAllModals(); });
 
   const navbar = document.getElementById('navbar');
-  if (navbar) {
-    const onScroll = () => {
-      if (window.scrollY > 12) navbar.classList.add('scrolled');
-      else navbar.classList.remove('scrolled');
-    };
-    document.addEventListener('scroll', onScroll, { passive:true });
-    onScroll();
-  }
+  const onScroll = () => {
+    if (window.scrollY > 12) navbar.classList.add('scrolled');
+    else navbar.classList.remove('scrolled');
+  };
+  document.addEventListener('scroll', onScroll, { passive:true });
+  onScroll();
 
   const revealEls = document.querySelectorAll('[data-reveal]');
   if ('IntersectionObserver' in window){
@@ -944,7 +867,6 @@
   }
 
   function attachTilt(el, maxTilt){
-    if (!el) return;
     el.addEventListener('mouseenter', () => el.classList.add('tilting'));
     el.addEventListener('mousemove', e => {
       const rect = el.getBoundingClientRect();
@@ -995,8 +917,7 @@
     el.addEventListener('mouseleave', () => { el.style.transform = ''; });
   });
 
-  const yearEl = document.getElementById('current-year');
-  if (yearEl) yearEl.textContent = new Date().getFullYear();
+  document.getElementById('current-year').textContent = new Date().getFullYear();
 })();
 </script>
 </body>
