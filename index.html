@@ -630,7 +630,7 @@
             <p>Ryzen 7 7800X3D · RTX 3080 · 32 GB DDR5</p>
             <div class="specs"><span>7800X3D</span><span>RTX 3080</span><span>32GB DDR5</span></div>
           </div>
-          <button class="link-btn" id="show-config-btn" data-i18n="view_config">Смотреть конфиг <span class="arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17 17 7M9 7h8v8"/></svg></span></button>
+          <button class="link-btn" id="show-config-btn"><span data-i18n="view_config">Смотреть конфиг</span> <span class="arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17 17 7M9 7h8v8"/></svg></span></button>
         </div>
 
         <div class="card card-info" data-reveal>
@@ -641,7 +641,7 @@
             <h4 data-i18n="rules_title">Community Rules</h4>
             <p data-i18n="rules_text">Будь адекватным. Не спамь. Не оскорбляй других зрителей и стримера.</p>
           </div>
-          <button class="link-btn" id="show-rules-btn" data-i18n="read_rules">Читать правила <span class="arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17 17 7M9 7h8v8"/></svg></span></button>
+          <button class="link-btn" id="show-rules-btn"><span data-i18n="read_rules">Читать правила</span> <span class="arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17 17 7M9 7h8v8"/></svg></span></button>
         </div>
       </div>
     </section>
@@ -801,7 +801,11 @@
     document.querySelectorAll('[data-i18n]').forEach(el => {
       const key = el.getAttribute('data-i18n');
       if (translations[lang] && translations[lang][key]) {
-        el.textContent = translations[lang][key];
+        if (el.tagName === 'BUTTON' && el.querySelector('.arrow')) {
+          el.childNodes[0].textContent = translations[lang][key] + ' ';
+        } else {
+          el.textContent = translations[lang][key];
+        }
       }
     });
 
