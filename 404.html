@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<title>Kapitanych · 404</title>
+<title>404 · Страница не найдена · Kapitanych</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -11,7 +11,6 @@
   :root{
     color-scheme: dark;
     --bg: #0a0a0b;
-    --bg-1: #0d0d0f;
     --surface: rgba(255,255,255,0.045);
     --surface-hover: rgba(255,255,255,0.075);
     --border: rgba(255,255,255,0.08);
@@ -23,12 +22,8 @@
     --accent-soft: rgba(124,108,255,0.16);
     --accent-text: #c9c2ff;
     --ease: cubic-bezier(0.22,1,0.36,1);
-    --r-lg: 28px;
-    --r-md: 20px;
-    --r-sm: 14px;
   }
   *{box-sizing:border-box;}
-  html{scroll-behavior:smooth;}
   html,body{margin:0;min-height:100%;-webkit-text-size-adjust:100%;}
   body{
     font-family:"Inter",-apple-system,BlinkMacSystemFont,sans-serif;
@@ -38,8 +33,11 @@
     position:relative;
     min-height:100vh;
     -webkit-font-smoothing:antialiased;
+    display:flex;
+    align-items:center;
+    justify-content:center;
   }
-  a{color:inherit;}
+  a{color:inherit;text-decoration:none;}
   ::selection{background:var(--accent);color:#fff;}
   button{font-family:inherit;}
 
@@ -70,125 +68,51 @@
     0%,100%{ transform:translate(0,0) scale(1); }
     50%{ transform:translate(30px,40px) scale(1.06); }
   }
-  .bg-noise{
-    position:absolute; inset:0;
-    opacity:0.025; mix-blend-mode:overlay;
-    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+
+  .error-container{
+    position:relative;
+    z-index:1;
+    text-align:center;
+    padding:20px;
+    max-width:600px;
   }
 
-  @media (prefers-reduced-motion: reduce){
-    .bg-blob{ animation:none !important; }
-    *{ scroll-behavior:auto !important; }
+  .error-code{
+    font-size:clamp(8rem, 20vw, 14rem);
+    font-weight:800;
+    letter-spacing:-0.05em;
+    line-height:1;
+    margin-bottom:20px;
+    background: linear-gradient(135deg, var(--text) 0%, var(--accent) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    animation: fadeInUp 0.8s var(--ease);
   }
 
-  [data-reveal]{
-    opacity:0; transform:translateY(18px) scale(0.985);
-    transition: opacity 700ms var(--ease), transform 700ms var(--ease);
+  .error-title{
+    font-size:1.8rem;
+    font-weight:700;
+    margin-bottom:12px;
+    animation: fadeInUp 0.8s var(--ease) 0.2s both;
   }
-  [data-reveal].in-view{ opacity:1; transform:translateY(0) scale(1); }
 
-  .navbar{
-    position:fixed; top:14px; left:50%; transform:translateX(-50%);
-    z-index:50;
-    width:min(920px, calc(100vw - 24px));
-    display:flex; align-items:center; justify-content:space-between;
+  .error-text{
+    color:var(--text-dim);
+    font-size:1rem;
+    line-height:1.6;
+    margin-bottom:40px;
+    animation: fadeInUp 0.8s var(--ease) 0.4s both;
+  }
+
+  .error-actions{
+    display:flex;
     gap:12px;
-    padding:10px 10px 10px 20px;
-    border-radius:100px;
-    border:1px solid var(--border);
-    background:rgba(15,15,18,0.55);
-    backdrop-filter:blur(18px) saturate(140%);
-    -webkit-backdrop-filter:blur(18px) saturate(140%);
-    transition: background 400ms var(--ease), border-color 400ms var(--ease), box-shadow 400ms var(--ease);
-  }
-  .navbar.scrolled{
-    background:rgba(12,12,15,0.78);
-    border-color:var(--border-hover);
-    box-shadow:0 12px 40px -12px rgba(0,0,0,0.5);
-  }
-  .nav-brand{
-    font-weight:700; font-size:0.95rem; letter-spacing:-0.01em;
-    display:flex; align-items:center; gap:8px; white-space:nowrap;
-  }
-  .nav-brand .dot{
-    width:7px;height:7px;border-radius:50%;
-    background:var(--accent); box-shadow:0 0 12px 2px var(--accent-soft);
-  }
-  .nav-links{
-    display:flex; align-items:center; gap:6px;
-    font-size:0.86rem; color:var(--text-dim);
-  }
-  .nav-links a{
-    padding:8px 14px; border-radius:100px; text-decoration:none;
-    transition: color 220ms var(--ease), background 220ms var(--ease);
-  }
-  .nav-links a:hover{ color:var(--text); background:var(--surface); }
-  .nav-actions{ display:flex; align-items:center; gap:8px; }
-  .lang-btn{
-    background:transparent; border:1px solid var(--border); color:var(--text-dim);
-    font-size:0.78rem; font-weight:600; padding:8px 12px; border-radius:100px;
-    cursor:pointer; transition: all 220ms var(--ease);
-  }
-  .lang-btn:hover{ color:var(--text); border-color:var(--border-hover); }
-  .nav-cta{
-    position:relative; overflow:hidden; isolation:isolate;
-    display:inline-flex; align-items:center; gap:6px;
-    background:var(--text); color:#0a0a0b;
-    font-size:0.84rem; font-weight:600;
-    padding:9px 16px; border-radius:100px; text-decoration:none;
-    transition: transform 260ms var(--ease), opacity 260ms var(--ease);
-  }
-  .nav-cta::before{
-    content:""; position:absolute; inset:0; z-index:-1;
-    background:radial-gradient(60px 60px at var(--mx,50%) var(--my,50%), rgba(124,108,255,0.45), transparent 70%);
-    opacity:0; transition:opacity 320ms var(--ease);
-  }
-  .nav-cta:hover::before{ opacity:1; }
-  .nav-cta:hover{ transform:translateY(-1px); opacity:0.92; }
-  .nav-cta:active{ transform:scale(0.97); }
-  @media (max-width:760px){ .nav-links{ display:none; } }
-
-  main{ position:relative; z-index:1; }
-  .shell{
-    width:min(1100px, calc(100vw - 28px));
-    margin:0 auto;
+    justify-content:center;
+    flex-wrap:wrap;
+    animation: fadeInUp 0.8s var(--ease) 0.6s both;
   }
 
-  .hero{
-    padding:150px 0 40px;
-    display:grid;
-    grid-template-columns: 1.05fr 0.95fr;
-    gap:40px;
-    align-items:center;
-  }
-  .status-chip{
-    display:inline-flex; align-items:center; gap:8px;
-    padding:7px 14px; border-radius:100px;
-    border:1px solid var(--border); background:var(--surface);
-    font-size:0.78rem; color:var(--text-dim); font-weight:500;
-    width:fit-content;
-  }
-  .status-chip .pulse{
-    width:7px; height:7px; border-radius:50%; background:var(--accent);
-    box-shadow:0 0 0 0 var(--accent-soft);
-    animation:pulse 2.2s infinite;
-  }
-  @keyframes pulse{
-    0%{ box-shadow:0 0 0 0 rgba(124,108,255,0.5); }
-    70%{ box-shadow:0 0 0 8px rgba(124,108,255,0); }
-    100%{ box-shadow:0 0 0 0 rgba(124,108,255,0); }
-  }
-  .hero h1{
-    margin:20px 0 0;
-    font-size:clamp(2.8rem, 5.4vw, 4.6rem);
-    font-weight:800; line-height:1.02; letter-spacing:-0.03em;
-    color:var(--text);
-  }
-  .hero-tagline{
-    margin:18px 0 0; color:var(--text-dim); font-size:1.05rem;
-    line-height:1.6; max-width:30rem;
-  }
-  .hero-cta{ display:flex; gap:12px; margin-top:30px; flex-wrap:wrap; }
   .btn{
     position:relative;
     display:inline-flex; align-items:center; gap:8px;
@@ -205,351 +129,53 @@
   }
   .btn:hover::before{ opacity:1; }
   .btn:active{ transform:scale(0.97); }
+  
   .btn-primary{
     background:var(--text); color:#0a0a0b;
     box-shadow:0 0 0 0 rgba(124,108,255,0);
   }
   .btn-primary:hover{ transform:translateY(-2px); box-shadow:0 14px 32px -12px rgba(255,255,255,0.25); }
   .btn-primary::before{ background:radial-gradient(90px 90px at var(--mx,50%) var(--my,50%), rgba(124,108,255,0.45), transparent 70%); }
+  
   .btn-ghost{
     background:var(--surface); color:var(--text); border-color:var(--border);
   }
   .btn-ghost:hover{ background:var(--surface-hover); border-color:var(--border-hover); transform:translateY(-2px); }
 
-  .hero-visual{
-    position:relative;
-    aspect-ratio:1/1.02;
-    border-radius:var(--r-lg);
-    border:1px solid var(--border);
-    background:
-      radial-gradient(120% 100% at 30% 15%, rgba(124,108,255,0.28), transparent 55%),
-      linear-gradient(180deg, rgba(255,255,255,0.05), rgba(255,255,255,0.015));
-    backdrop-filter:blur(6px);
-    overflow:hidden;
-    display:grid; place-items:center;
-    transform: perspective(1000px) rotateX(var(--rx,0deg)) rotateY(var(--ry,0deg));
-    transform-style:preserve-3d;
-    transition: transform 550ms var(--ease);
-    will-change:transform;
-  }
-  .hero-visual.tilting{ transition: transform 60ms linear; }
-  .card-wash{
-    position:absolute; inset:0; z-index:3; pointer-events:none;
-    background:radial-gradient(380px 300px at var(--mx,50%) var(--my,50%), rgba(255,255,255,0.16), transparent 62%);
-    opacity:0; transition:opacity 300ms var(--ease);
-    mix-blend-mode:overlay;
-  }
-  .hero-visual.tilting .card-wash{ opacity:1; }
-  .orb-aura{
-    position:absolute; width:340px; height:340px; border-radius:50%;
-    background:radial-gradient(circle, rgba(124,108,255,0.35), transparent 68%);
-    filter:blur(20px);
-    animation: auraDrift 9s ease-in-out infinite;
-  }
-  @keyframes auraDrift{
-    0%,100%{ transform:translate(0,0) scale(1); opacity:0.75; }
-    50%{ transform:translate(8px,-10px) scale(1.08); opacity:1; }
-  }
-  .orb-ring{
-    position:absolute; width:230px; height:230px; border-radius:50%;
-    border:1px dashed rgba(255,255,255,0.16);
-    animation:spin 40s linear infinite;
-  }
-  .orb-ring.r2{ width:170px; height:170px; animation-duration:26s; animation-direction:reverse; border-color:rgba(124,108,255,0.28); }
-  @keyframes spin{ to{ transform:rotate(360deg); } }
-  .orb-dot{
-    position:absolute; top:-4px; left:50%; transform:translateX(-50%);
-    width:8px; height:8px; border-radius:50%;
-    background:radial-gradient(circle at 35% 30%, #ffffff, var(--accent) 70%);
-    box-shadow:0 0 14px 3px rgba(124,108,255,0.75);
-  }
-  .orb-ring.r2 .orb-dot{
-    width:6px; height:6px;
-    background:radial-gradient(circle at 35% 30%, #ffffff, #9d8fff 70%);
-    box-shadow:0 0 10px 2px rgba(157,143,255,0.75);
-  }
-  .orb-core{
-    width:118px; height:118px; border-radius:50%;
-    background:radial-gradient(circle at 35% 30%, #b3a8ff, #5a49d6 58%, #2c2178 100%);
-    box-shadow:0 0 60px 10px rgba(124,108,255,0.4), inset 0 0 30px rgba(255,255,255,0.15);
-    position:relative; z-index:2; overflow:hidden;
-    animation: coreBreathe 4.5s ease-in-out infinite;
-  }
-  .orb-core::before{
-    content:""; position:absolute; inset:-40%;
-    background:conic-gradient(from 0deg, transparent 0deg, rgba(255,255,255,0.55) 26deg, transparent 70deg, transparent 360deg);
-    animation: coreSweep 5s linear infinite;
-    mix-blend-mode:overlay;
-  }
-  .orb-core::after{
-    content:""; position:absolute; inset:0; border-radius:50%;
-    background:radial-gradient(circle at 30% 22%, rgba(255,255,255,0.55), transparent 40%);
-    opacity:0.7;
-  }
-  @keyframes coreSweep{ to{ transform:rotate(360deg); } }
-  @keyframes coreBreathe{
-    0%,100%{ transform:scale(1); box-shadow:0 0 60px 10px rgba(124,108,255,0.4), inset 0 0 30px rgba(255,255,255,0.15); }
-    50%{ transform:scale(1.045); box-shadow:0 0 78px 16px rgba(124,108,255,0.55), inset 0 0 34px rgba(255,255,255,0.2); }
-  }
-  .float-chip{
-    position:absolute;
-    display:flex; align-items:center; gap:6px;
-    padding:8px 14px; border-radius:100px;
-    background:rgba(20,20,24,0.7);
-    border:1px solid var(--border);
-    backdrop-filter:blur(10px);
-    font-size:0.78rem; font-weight:600; color:var(--text-dim);
-    animation: floatChip 6s ease-in-out infinite;
-  }
-  .float-chip .em{ font-size:0.9rem; }
-  .fc1{ top:14%; left:8%; animation-delay:0s; }
-  .fc2{ top:20%; right:6%; animation-delay:1.4s; }
-  .fc3{ bottom:16%; left:12%; animation-delay:2.8s; }
-  @keyframes floatChip{
-    0%,100%{ transform:translateY(0); }
-    50%{ transform:translateY(-10px); }
-  }
-
-  .section-head{
-    display:flex; align-items:baseline; justify-content:space-between;
-    margin:0 2px 18px;
-  }
-  .section-head h2{
-    margin:0; font-size:1.4rem; font-weight:700; letter-spacing:-0.01em;
-  }
-  .section-head span{ color:var(--text-faint); font-size:0.85rem; }
-
-  .bento{
-    display:grid;
-    grid-template-columns:repeat(4, 1fr);
-    grid-auto-rows:minmax(132px, auto);
-    align-items:stretch;
-    gap:14px;
-    padding:20px 0 30px;
-  }
-  .card{
-    position:relative;
-    border-radius:var(--r-md);
-    border:1px solid var(--border);
-    background:var(--surface);
-    padding:22px;
-    text-decoration:none;
-    color:var(--text);
-    display:flex; flex-direction:column; justify-content:space-between;
-    overflow:hidden;
-    transform: perspective(900px) rotateX(var(--rx,0deg)) rotateY(var(--ry,0deg)) translateY(var(--lift,0px));
-    transform-style:preserve-3d;
-    transition: transform 480ms var(--ease), background 380ms var(--ease), border-color 380ms var(--ease), box-shadow 380ms var(--ease);
-    will-change:transform;
-  }
-  .card.tilting{ transition: transform 60ms linear, background 380ms var(--ease), border-color 380ms var(--ease), box-shadow 380ms var(--ease); }
-  .card::before{
-    content:""; position:absolute; inset:0;
-    background:radial-gradient(200px 140px at var(--mx,50%) var(--my,0%), rgba(124,108,255,0.16), transparent 70%);
-    opacity:0; transition:opacity 380ms var(--ease); pointer-events:none;
-  }
-  .card:hover{
-    --lift: -4px;
-    background:var(--surface-hover);
-    border-color:var(--border-hover);
-    box-shadow:0 20px 50px -20px rgba(0,0,0,0.55);
-  }
-  .card:hover::before{ opacity:1; }
-  .card-glare{
-    position:absolute; inset:0; z-index:2; pointer-events:none;
-    background:radial-gradient(220px 180px at var(--mx,50%) var(--my,0%), rgba(255,255,255,0.14), transparent 65%);
-    opacity:0; transition:opacity 300ms var(--ease);
-    mix-blend-mode:overlay;
-  }
-  .card.tilting .card-glare{ opacity:1; }
-
-  .card-overview{ grid-column:span 2; grid-row:span 2; justify-content:flex-end; }
-  .card-overview .ov-eyebrow{ color:var(--text-faint); font-size:0.78rem; font-weight:600; letter-spacing:0.02em; text-transform:uppercase; }
-  .card-overview h3{ margin:10px 0 0; font-size:1.7rem; font-weight:700; letter-spacing:-0.01em; }
-  .card-overview p{ margin:10px 0 0; color:var(--text-dim); font-size:0.9rem; line-height:1.55; max-width:26rem; }
-
-  .card-social{ grid-column:span 1; grid-row:span 1; }
-  .card-social .top{ display:flex; align-items:center; justify-content:space-between; }
-  .card-social .icon{ width:22px; height:22px; color:var(--text-dim); transition:color 260ms var(--ease); }
-  .card-social .icon svg{ width:100%; height:100%; }
-  .card-social:hover .icon{ color:var(--accent-text); }
-  .card-social .arrow{ width:15px; height:15px; color:var(--text-faint); transition:transform 300ms var(--ease), color 300ms var(--ease); }
-  .card-social:hover .arrow{ transform:translate(3px,-3px); color:var(--text); }
-  .card-social .name{ font-weight:600; font-size:0.98rem; margin-top:2px; }
-  .card-social .handle{ color:var(--text-faint); font-size:0.8rem; margin-top:2px; }
-
-  .card-info{ grid-column:span 2; grid-row:span 1; min-height:212px; }
-  .card-info .top{ display:flex; align-items:center; justify-content:space-between; }
-  .card-info .icon{ width:20px; height:20px; color:var(--accent-text); }
-  .card-info .icon svg{ width:100%; height:100%; }
-  .card-info h4{ margin:12px 0 0; font-size:1.05rem; font-weight:700; }
-  .card-info p{ margin:6px 0 0; color:var(--text-dim); font-size:0.85rem; line-height:1.5; }
-  .card-info .specs{ display:flex; gap:8px; margin-top:10px; flex-wrap:wrap; }
-  .card-info .specs span{ font-size:0.74rem; color:var(--text-faint); background:rgba(255,255,255,0.04); border:1px solid var(--border); padding:5px 10px; border-radius:100px; white-space:nowrap; }
-  .link-btn{
-    position:relative;
-    display:inline-flex; align-items:center; gap:6px;
-    margin-top:16px; background:none; border:none; padding:6px 2px;
-    color:var(--text); font-size:0.84rem; font-weight:600; cursor:pointer;
-    width:fit-content; overflow:visible;
-  }
-  .link-btn::after{
-    content:""; position:absolute; left:2px; right:auto; bottom:0; height:1px; width:0;
-    background:var(--accent-text);
-    transition: width 320ms var(--ease);
-  }
-  .link-btn:hover::after{ width:calc(100% - 4px); }
-  .link-btn .arrow{ width:13px; height:13px; transition:transform 300ms var(--ease); }
-  .link-btn:hover .arrow{ transform:translate(3px,-3px); }
-
-  .error-page{
-    min-height:100vh;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    position:relative;
-    z-index:1;
-    padding:20px;
-  }
-  .error-container{
-    text-align:center;
-    max-width:600px;
-  }
-  .error-code{
-    font-size:clamp(6rem, 15vw, 12rem);
-    font-weight:800;
-    letter-spacing:-0.05em;
-    color:var(--text);
-    line-height:1;
-    margin-bottom:20px;
-    background: linear-gradient(135deg, var(--text) 0%, var(--accent) 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-  }
-  .error-title{
-    font-size:1.5rem;
-    font-weight:700;
-    margin-bottom:12px;
-  }
-  .error-text{
+  .lang-btn{
+    position:fixed;
+    top:20px;
+    right:20px;
+    z-index:10;
+    background:transparent; 
+    border:1px solid var(--border); 
     color:var(--text-dim);
-    font-size:1rem;
-    line-height:1.6;
-    margin-bottom:30px;
+    font-size:0.78rem; font-weight:600; 
+    padding:8px 12px; 
+    border-radius:100px;
+    cursor:pointer; 
+    transition: all 220ms var(--ease);
+    backdrop-filter:blur(10px);
+    background:rgba(15,15,18,0.55);
   }
-  .error-actions{
-    display:flex;
-    gap:12px;
-    justify-content:center;
-    flex-wrap:wrap;
+  .lang-btn:hover{ color:var(--text); border-color:var(--border-hover); }
+
+  @keyframes fadeInUp{
+    from{
+      opacity:0;
+      transform:translateY(30px);
+    }
+    to{
+      opacity:1;
+      transform:translateY(0);
+    }
   }
 
-  @media (max-width:900px){
-    .hero{ grid-template-columns:1fr; padding-top:120px; }
-    .hero-visual{ aspect-ratio:16/10; order:-1; }
-    .bento{ grid-template-columns:repeat(2,1fr); grid-auto-rows:150px; }
-    .card-overview{ grid-column:span 2; grid-row:span 1; }
-  }
   @media (max-width:560px){
-    .navbar{ padding:8px 8px 8px 16px; top:10px; }
-    .nav-brand{ font-size:0.86rem; }
-    .nav-cta{ padding:8px 13px; font-size:0.8rem; }
-    .hero{ padding-top:104px; }
-    .hero-cta .btn{ flex:1; justify-content:center; }
-    .bento{ grid-template-columns:1fr; grid-auto-rows:auto; }
-    .card-overview, .card-social, .card-info{ grid-column:span 1; grid-row:span 1; }
-    .card{ min-height:118px; }
-    .error-code{ font-size:clamp(4rem, 20vw, 8rem); }
-  }
-
-  footer{
-    position:relative; z-index:1;
-    border-top:1px solid var(--border);
-    margin-top:20px;
-  }
-  .footer-inner{
-    width:min(1100px, calc(100vw - 28px));
-    margin:0 auto;
-    padding:32px 0 44px;
-    display:flex; align-items:center; justify-content:space-between;
-    flex-wrap:wrap; gap:14px;
-  }
-  .footer-left{ display:flex; align-items:center; gap:10px; color:var(--text-dim); font-size:0.86rem; }
-  .footer-left b{ color:var(--text); font-weight:700; }
-  .footer-links{ display:flex; align-items:center; gap:18px; flex-wrap:wrap; }
-  .footer-links a{ color:var(--text-faint); font-size:0.84rem; text-decoration:none; transition:color 220ms var(--ease); }
-  .footer-links a:hover{ color:var(--text); }
-  .footer-right{ display:flex; align-items:center; gap:14px; }
-  .copyright{ color:var(--text-faint); font-size:0.8rem; }
-
-  .modal{
-    display:none; position:fixed; inset:0; z-index:200;
-    align-items:center; justify-content:center; padding:20px;
-  }
-  .modal.active{ display:flex; }
-  .modal-backdrop{
-    position:absolute; inset:0;
-    background:rgba(6,6,8,0.65);
-    backdrop-filter:blur(10px); -webkit-backdrop-filter:blur(10px);
-    opacity:0; transition:opacity 320ms var(--ease);
-  }
-  .modal.active .modal-backdrop{ opacity:1; }
-  .modal-content{
-    position:relative;
-    background:#131316;
-    border:1px solid var(--border-hover);
-    border-radius:var(--r-lg);
-    max-width:520px; width:100%; max-height:82vh; overflow-y:auto;
-    box-shadow:0 40px 100px -30px rgba(0,0,0,0.7);
-    opacity:0; transform:scale(0.96) translateY(10px);
-    transition: opacity 340ms var(--ease), transform 340ms var(--ease);
-  }
-  .modal.active .modal-content{ opacity:1; transform:scale(1) translateY(0); }
-  .modal-header{
-    display:flex; align-items:center; justify-content:space-between;
-    padding:22px 24px 6px;
-  }
-  .modal-header h2{ margin:0; font-size:1.15rem; font-weight:700; letter-spacing:-0.01em; }
-  .modal-close{
-    width:34px; height:34px; border-radius:50%;
-    border:1px solid var(--border); background:var(--surface);
-    color:var(--text-dim); font-size:1.2rem; line-height:1;
-    display:flex; align-items:center; justify-content:center;
-    cursor:pointer; transition: all 220ms var(--ease);
-  }
-  .modal-close:hover{ background:var(--surface-hover); color:var(--text); }
-  .modal-body{ padding:14px 24px 26px; color:var(--text-dim); font-size:0.92rem; line-height:1.65; }
-  .modal-body ul{ padding-left:1.1em; margin:12px 0; }
-  .modal-body li{ margin:7px 0; }
-  .modal-body a{ color:var(--accent-text); }
-
-  .spec-row{
-    display:flex; align-items:center; justify-content:space-between;
-    padding:11px 0; border-bottom:1px solid var(--border);
-    font-size:0.88rem;
-  }
-  .spec-row:last-child{ border-bottom:none; }
-  .spec-row .k{ color:var(--text-faint); }
-  .spec-row .v{ color:var(--text); font-weight:500; text-align:right; }
-
-  @media (max-width:640px){
-    .modal{ align-items:flex-end; padding:0; }
-    .modal-content{
-      max-width:100%; width:100%; max-height:86vh;
-      border-radius:26px 26px 0 0;
-      transform:translateY(100%);
-    }
-    .modal.active .modal-content{ transform:translateY(0); }
-    .modal-content::before{
-      content:""; display:block; width:36px; height:4px; border-radius:4px;
-      background:var(--border-hover); margin:12px auto 0;
-    }
+    .error-code{ font-size:6rem; }
+    .error-title{ font-size:1.4rem; }
   }
 </style>
-
-<script type="text/javascript">     (function(m,e,t,r,i,k,a){         m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};         m[i].l=1*new Date();         for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}         k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)     })(window, document,'script','https://mc.webvisor.org/metrika/tag_ww.js?id=110713973', 'ym');      ym(110713973, 'init', {ssr:true, webvisor:true, clickmap:true, ecommerce:"dataLayer", referrer: document.referrer, url: location.href, accurateTrackBounce:true, trackLinks:true}); </script> <noscript><div><img src="https://mc.yandex.ru/watch/110713973" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
-
 </head>
 <body>
 
@@ -557,204 +183,17 @@
   <div class="bg-blob a"></div>
   <div class="bg-blob b"></div>
   <div class="bg-blob c"></div>
-  <div class="bg-noise"></div>
 </div>
 
-<div id="main-content">
-<nav class="navbar" id="navbar">
-  <div class="nav-brand"><span class="dot"></span>Kapitanych</div>
-  <div class="nav-links">
-    <a href="#top" data-i18n="nav_home">Главная</a>
-    <a href="#socials" data-i18n="nav_socials">Соцсети</a>
-    <a href="#setup" data-i18n="nav_setup">Сетап</a>
-  </div>
-  <div class="nav-actions">
-    <button class="lang-btn" id="lang-toggle">EN</button>
-    <a href="https://twitch.tv/kapitanych_" target="_blank" class="nav-cta">Twitch ↗</a>
-  </div>
-</nav>
+<button class="lang-btn" id="lang-toggle">EN</button>
 
-<main>
-  <div class="shell" id="top">
-    <section class="hero">
-      <div data-reveal>
-        <span class="status-chip"><span class="pulse"></span><span data-i18n="live_soon">Скоро стрим</span></span>
-        <h1>Kapitanych</h1>
-        <p class="hero-tagline" data-i18n="hero_tagline">Шутеры, коопы и живое общение с чатом. Заходи, врывайся в катку и подписывайся — тут не соло.</p>
-        <div class="hero-cta">
-          <a href="https://twitch.tv/kapitanych_" target="_blank" class="btn btn-primary" data-i18n="watch_twitch">Смотреть Twitch</a>
-          <a href="https://donatex.gg/donate/kapitanych" target="_blank" class="btn btn-ghost" data-i18n="support">Поддержать</a>
-        </div>
-      </div>
-
-      <div class="hero-visual" data-reveal id="hero-visual">
-        <div class="card-wash"></div>
-        <div class="orb-aura"></div>
-        <div class="orb-ring"><span class="orb-dot"></span></div>
-        <div class="orb-ring r2"><span class="orb-dot"></span></div>
-        <div class="orb-core"></div>
-        <div class="float-chip fc1"><span class="em">🎯</span>FPS</div>
-        <div class="float-chip fc2"><span class="em">🤝</span>CO-OP</div>
-        <div class="float-chip fc3"><span class="em">💬</span>CHAT</div>
-      </div>
-    </section>
-
-    <section id="socials">
-      <div class="section-head" data-reveal>
-        <h2 data-i18n="socials_title">Соцсети</h2>
-        <span data-i18n="socials_subtitle">где меня найти</span>
-      </div>
-      <div class="bento">
-        <div class="card card-overview" data-reveal>
-          <span class="ov-eyebrow">Overview</span>
-          <h3 data-i18n="overview_title">Стримы про шутеры и кооп</h3>
-          <p data-i18n="overview_text">Рейды с чатом, случайные тиммейты и много смеха. Заходи — расскажу, во что играем сегодня.</p>
-        </div>
-
-        <a href="https://twitch.tv/kapitanych_" target="_blank" class="card card-social" data-reveal>
-          <div class="top">
-            <span class="icon"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M4 2 2 6v13h5v3h3l3-3h4l5-5V2H4zm15 10-3 3h-4l-3 3v-3H6V4h13v8z"/><path d="M15 7h2v5h-2zM10 7h2v5h-2z"/></svg></span>
-            <span class="arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17 17 7M9 7h8v8"/></svg></span>
-          </div>
-          <div>
-            <div class="name">Twitch</div>
-            <div class="handle">@kapitanych_</div>
-          </div>
-        </a>
-
-        <a href="https://t.me/KapitanGG" target="_blank" class="card card-social" data-reveal>
-          <div class="top">
-            <span class="icon"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M21.5 3.5 2.7 10.9c-1.2.5-1.2 1.2-.2 1.5l4.8 1.5 1.8 5.6c.2.6.4.8.9.8.4 0 .6-.2.9-.5l2.1-2 4.4 3.2c.8.5 1.4.2 1.6-.7l3-14c.3-1.2-.4-1.7-1.5-1.3zM8.2 13.6l9-5.7c.4-.3.8-.1.5.2l-7.4 6.7-.3 3.3-1.3-4.5z"/></svg></span>
-            <span class="arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17 17 7M9 7h8v8"/></svg></span>
-          </div>
-          <div>
-            <div class="name">Telegram</div>
-            <div class="handle">@KapitanGG</div>
-          </div>
-        </a>
-
-        <a href="https://www.tiktok.com/@tt_kapitanych" target="_blank" class="card card-social" data-reveal>
-          <div class="top">
-            <span class="icon"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M16.5 2h-3.2v13.3c0 1.4-1.1 2.5-2.5 2.5S8.3 16.7 8.3 15.3c0-1.4 1.1-2.5 2.5-2.5.3 0 .6.1.9.2V9.8c-.3 0-.6-.1-.9-.1-3.1 0-5.6 2.5-5.6 5.6S7.7 21 10.8 21s5.6-2.5 5.6-5.6V8.7c1.1.8 2.5 1.3 4 1.3V6.8c-2.1 0-3.9-1.6-3.9-4.8z"/></svg></span>
-            <span class="arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17 17 7M9 7h8v8"/></svg></span>
-          </div>
-          <div>
-            <div class="name">TikTok</div>
-            <div class="handle">@tt_kapitanych</div>
-          </div>
-        </a>
-
-        <a href="https://donatex.gg/donate/kapitanych" target="_blank" class="card card-social" data-reveal>
-          <div class="top">
-            <span class="icon"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 21s-7-4.4-9.5-8.8C.6 8.6 2 5 5.5 5 7.6 5 9 6.1 12 9c3-2.9 4.4-4 6.5-4 3.5 0 4.9 3.6 3 7.2C19 16.6 12 21 12 21z"/></svg></span>
-            <span class="arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17 17 7M9 7h8v8"/></svg></span>
-          </div>
-          <div>
-            <div class="name">Donatex</div>
-            <div class="handle" data-i18n="donatex_handle">поддержать</div>
-          </div>
-        </a>
-
-        <a href="https://new.donatepay.ru/@Kapitan" target="_blank" class="card card-social" data-reveal>
-          <div class="top">
-            <span class="icon"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2 2 7v6c0 5 4 8.5 10 9 6-.5 10-4 10-9V7L12 2zm0 4.2 6 3v3.4c0 3.3-2.6 5.7-6 6.3-3.4-.6-6-3-6-6.3V9.2l6-3z"/></svg></span>
-            <span class="arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17 17 7M9 7h8v8"/></svg></span>
-          </div>
-          <div>
-            <div class="name">DonatePay</div>
-            <div class="handle" data-i18n="donatepay_handle">поддержать</div>
-          </div>
-        </a>
-
-        <div class="card card-info" id="setup" data-reveal>
-          <div class="top">
-            <span class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="4" width="18" height="12" rx="2"/><path d="M8 20h8M12 16v4"/></svg></span>
-          </div>
-          <div>
-            <h4 data-i18n="pc_setup_title">PC Setup</h4>
-            <p>Ryzen 7 7800X3D · RTX 3080 · 32 GB DDR5</p>
-            <div class="specs"><span>7800X3D</span><span>RTX 3080</span><span>32GB DDR5</span></div>
-          </div>
-          <button class="link-btn" id="show-config-btn"><span data-i18n="view_config">Смотреть конфиг</span> <span class="arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17 17 7M9 7h8v8"/></svg></span></button>
-        </div>
-
-        <div class="card card-info" data-reveal>
-          <div class="top">
-            <span class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M8 9h8M8 13h5"/><path d="M21 12c0 4.4-4 8-9 8-1.4 0-2.7-.3-3.9-.8L3 20l1.1-4.2C3.4 14.6 3 13.3 3 12c0-4.4 4-8 9-8s9 3.6 9 8z"/></svg></span>
-          </div>
-          <div>
-            <h4 data-i18n="rules_title">Community Rules</h4>
-            <p data-i18n="rules_text">Будь адекватным. Не спамь. Не оскорбляй других зрителей и стримера.</p>
-          </div>
-          <button class="link-btn" id="show-rules-btn"><span data-i18n="read_rules">Читать правила</span> <span class="arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17 17 7M9 7h8v8"/></svg></span></button>
-        </div>
-      </div>
-    </section>
-  </div>
-</main>
-
-<footer>
-  <div class="footer-inner">
-    <div class="footer-left"><b>Kapitanych</b> · <span data-i18n="footer_streamer">Twitch-стример</span></div>
-    <div class="footer-links">
-      <a href="https://twitch.tv/kapitanych_" target="_blank">Twitch</a>
-      <a href="https://t.me/KapitanGG" target="_blank">Telegram</a>
-      <a href="https://www.tiktok.com/@tt_kapitanych" target="_blank">TikTok</a>
-      <a href="https://donatex.gg/donate/kapitanych" target="_blank">Donatex</a>
-      <a href="https://t.me/multicooker01" target="_blank">Multivarka</a>
-    </div>
-    <div class="footer-right">
-      <span class="copyright">© <span id="current-year"></span> Kapitanych</span>
-    </div>
-  </div>
-</footer>
-</div>
-
-<div id="error-content" style="display:none;">
-  <div class="error-page">
-    <div class="error-container">
-      <div class="error-code">404</div>
-      <div class="error-title" data-i18n="error_title">Страница не найдена</div>
-      <div class="error-text" data-i18n="error_text">Кажется, вы забрели не туда. Страница, которую вы ищете, не существует или была перемещена.</div>
-      <div class="error-actions">
-        <a href="/" class="btn btn-primary" data-i18n="error_back">Вернуться на главную</a>
-      </div>
-    </div>
-  </div>
-</div>
-
-<div class="modal" id="rules-modal">
-  <div class="modal-backdrop" data-close="rules-modal"></div>
-  <div class="modal-content">
-    <div class="modal-header">
-      <h2 data-i18n="modal_rules_title">Правила чата</h2>
-      <button class="modal-close" data-close="rules-modal">×</button>
-    </div>
-    <div class="modal-body" id="rules-body"></div>
-  </div>
-</div>
-
-<div class="modal" id="config-modal">
-  <div class="modal-content">
-    <div class="modal-header">
-      <h2 data-i18n="modal_config_title">Конфигурация ПК</h2>
-      <button class="modal-close" data-close="config-modal">×</button>
-    </div>
-    <div class="modal-body">
-      <div class="spec-row"><span class="k" data-i18n="spec_processor">Процессор</span><span class="v">AMD Ryzen 7 7800X3D</span></div>
-      <div class="spec-row"><span class="k" data-i18n="spec_motherboard">Материнская плата</span><span class="v">Gigabyte B850M Gaming X WiFi6E</span></div>
-      <div class="spec-row"><span class="k" data-i18n="spec_ram">ОЗУ</span><span class="v">Kingston FURY Beast 2×16GB DDR5 6000</span></div>
-      <div class="spec-row"><span class="k" data-i18n="spec_gpu">Видеокарта</span><span class="v">Gigabyte RTX 3080 Gaming OC 10G</span></div>
-      <div class="spec-row"><span class="k" data-i18n="spec_ssd">SSD</span><span class="v">M.2 NVMe Gen4x4 7450MB/s 1TB</span></div>
-      <div class="spec-row"><span class="k" data-i18n="spec_hdd">HDD</span><span class="v">Toshiba 500GB</span></div>
-      <div class="spec-row"><span class="k" data-i18n="spec_psu">Блок питания</span><span class="v">1200W</span></div>
-      <div class="spec-row"><span class="k" data-i18n="spec_cooling">Охлаждение</span><span class="v">IWONGOU AR12PRO ARGB 240</span></div>
-      <div class="spec-row"><span class="k" data-i18n="spec_headphones">Наушники</span><span class="v">KZ ZVX + Marshall MAJOR V</span></div>
-      <div class="spec-row"><span class="k" data-i18n="spec_mic">Микрофон</span><span class="v">Fifine Ampligame A8</span></div>
-      <div class="spec-row"><span class="k" data-i18n="spec_mouse">Мышь</span><span class="v">AJAZZ AJ159 Apex</span></div>
-      <div class="spec-row"><span class="k" data-i18n="spec_keyboard">Клавиатура</span><span class="v">LEAVEN K550 механика</span></div>
-      <div class="spec-row"><span class="k" data-i18n="spec_monitor">Монитор</span><span class="v">Xiaomi G27 165Гц ×2</span></div>
-    </div>
+<div class="error-container">
+  <div class="error-code">404</div>
+  <div class="error-title" data-i18n="error_title">Страница не найдена</div>
+  <div class="error-text" data-i18n="error_text">Кажется, вы забрели не туда. Страница, которую вы ищете, не существует или была перемещена.</div>
+  <div class="error-actions">
+    <a href="/" class="btn btn-primary" data-i18n="back_home">← Вернуться на главную</a>
+    <a href="https://twitch.tv/kapitanych_" target="_blank" class="btn btn-ghost" data-i18n="go_twitch">Перейти на Twitch</a>
   </div>
 </div>
 
@@ -762,98 +201,16 @@
 (function(){
   const translations = {
     ru: {
-      nav_home: 'Главная',
-      nav_socials: 'Соцсети',
-      nav_setup: 'Сетап',
-      live_soon: 'Скоро стрим',
-      hero_tagline: 'Шутеры, коопы и живое общение с чатом. Заходи, врывайся в катку и подписывайся — тут не соло.',
-      watch_twitch: 'Смотреть Twitch',
-      support: 'Поддержать',
-      socials_title: 'Соцсети',
-      socials_subtitle: 'где меня найти',
-      overview_title: 'Стримы про шутеры и кооп',
-      overview_text: 'Рейды с чатом, случайные тиммейты и много смеха. Заходи — расскажу, во что играем сегодня.',
-      donatex_handle: 'поддержать',
-      donatepay_handle: 'поддержать',
-      pc_setup_title: 'PC Setup',
-      view_config: 'Смотреть конфиг',
-      rules_title: 'Community Rules',
-      rules_text: 'Будь адекватным. Не спамь. Не оскорбляй других зрителей и стримера.',
-      read_rules: 'Читать правила',
-      footer_streamer: 'Twitch-стример',
-      modal_rules_title: 'Правила чата',
-      modal_config_title: 'Конфигурация ПК',
-      spec_processor: 'Процессор',
-      spec_motherboard: 'Материнская плата',
-      spec_ram: 'ОЗУ',
-      spec_gpu: 'Видеокарта',
-      spec_ssd: 'SSD',
-      spec_hdd: 'HDD',
-      spec_psu: 'Блок питания',
-      spec_cooling: 'Охлаждение',
-      spec_headphones: 'Наушники',
-      spec_mic: 'Микрофон',
-      spec_mouse: 'Мышь',
-      spec_keyboard: 'Клавиатура',
-      spec_monitor: 'Монитор',
       error_title: 'Страница не найдена',
       error_text: 'Кажется, вы забрели не туда. Страница, которую вы ищете, не существует или была перемещена.',
-      error_back: 'Вернуться на главную',
-      rules_body: `<p>Модератор самостоятельно выбирает меру наказания. Тяжёлые нарушения = бан без разблокировки.</p>
-         <ul><li>Запрещены спам, флуд и повторяющиеся сообщения.</li>
-         <li>Запрещена реклама своих проектов и сторонних ресурсов.</li>
-         <li>Запрещены провокации, оскорбления и агрессия.</li>
-         <li>Запрещена публикация шок-контента и интимного контента.</li>
-         <li>Нельзя выкладывать личные данные (адреса, телефоны…).</li>
-         <li>Запрещено выпрашивать VIP/модерку/подписки.</li></ul>
-         <p>Нарушение правил влечёт наказание по усмотрению модерации.</p>`
+      back_home: '← Вернуться на главную',
+      go_twitch: 'Перейти на Twitch'
     },
     en: {
-      nav_home: 'Home',
-      nav_socials: 'Socials',
-      nav_setup: 'Setup',
-      live_soon: 'Live soon',
-      hero_tagline: 'Shooters, co-ops and live chat interaction. Join in, jump into a match and subscribe — it\'s not a solo here.',
-      watch_twitch: 'Watch Twitch',
-      support: 'Support',
-      socials_title: 'Socials',
-      socials_subtitle: 'where to find me',
-      overview_title: 'Streams about shooters and co-op',
-      overview_text: 'Raids with chat, random teammates and lots of laughter. Come in — I\'ll tell you what we\'re playing today.',
-      donatex_handle: 'support',
-      donatepay_handle: 'support',
-      pc_setup_title: 'PC Setup',
-      view_config: 'View config',
-      rules_title: 'Community Rules',
-      rules_text: 'Be adequate. Don\'t spam. Don\'t insult other viewers or the streamer.',
-      read_rules: 'Read rules',
-      footer_streamer: 'Twitch streamer',
-      modal_rules_title: 'Chat Rules',
-      modal_config_title: 'PC Configuration',
-      spec_processor: 'Processor',
-      spec_motherboard: 'Motherboard',
-      spec_ram: 'RAM',
-      spec_gpu: 'Graphics Card',
-      spec_ssd: 'SSD',
-      spec_hdd: 'HDD',
-      spec_psu: 'Power Supply',
-      spec_cooling: 'Cooling',
-      spec_headphones: 'Headphones',
-      spec_mic: 'Microphone',
-      spec_mouse: 'Mouse',
-      spec_keyboard: 'Keyboard',
-      spec_monitor: 'Monitor',
       error_title: 'Page not found',
       error_text: 'It seems you\'ve wandered into the wrong place. The page you\'re looking for doesn\'t exist or has been moved.',
-      error_back: 'Back to home',
-      rules_body: `<p>The moderator independently decides on punishment. Severe violations = permanent ban.</p>
-         <ul><li>No spam, flood, or repetitive messages.</li>
-         <li>No advertising of your own projects or third-party resources.</li>
-         <li>No provocations, insults, or aggression.</li>
-         <li>No shock or explicit content.</li>
-         <li>Do not share personal data (addresses, phones…).</li>
-         <li>Do not beg for VIP/mod/subscriptions.</li></ul>
-         <p>Violation of the rules entails punishment at the discretion of the moderation.</p>`
+      back_home: '← Back to home',
+      go_twitch: 'Go to Twitch'
     }
   };
 
@@ -866,22 +223,13 @@
     document.querySelectorAll('[data-i18n]').forEach(el => {
       const key = el.getAttribute('data-i18n');
       if (translations[lang] && translations[lang][key]) {
-        if (el.tagName === 'BUTTON' && el.querySelector('.arrow')) {
-          el.childNodes[0].textContent = translations[lang][key] + ' ';
-        } else {
-          el.textContent = translations[lang][key];
-        }
+        el.textContent = translations[lang][key];
       }
     });
 
-    const rulesBody = document.getElementById('rules-body');
-    if (rulesBody && translations[lang].rules_body) {
-      rulesBody.innerHTML = translations[lang].rules_body;
-    }
-
     document.getElementById('lang-toggle').textContent = lang === 'ru' ? 'EN' : 'RU';
     document.documentElement.lang = lang;
-    document.title = lang === 'ru' ? 'Kapitanych · Twitch' : 'Kapitanych · Twitch';
+    document.title = lang === 'ru' ? '404 · Страница не найдена · Kapitanych' : '404 · Page not found · Kapitanych';
   }
 
   applyLanguage(currentLang);
@@ -889,114 +237,6 @@
   document.getElementById('lang-toggle').addEventListener('click', () => {
     applyLanguage(currentLang === 'ru' ? 'en' : 'ru');
   });
-
-  function openModal(id){
-    document.getElementById(id).classList.add('active');
-    document.body.style.overflow = 'hidden';
-  }
-  function closeModal(id){
-    document.getElementById(id).classList.remove('active');
-    document.body.style.overflow = '';
-  }
-  function closeAllModals(){
-    document.querySelectorAll('.modal.active').forEach(m => m.classList.remove('active'));
-    document.body.style.overflow = '';
-  }
-  
-  const showRulesBtn = document.getElementById('show-rules-btn');
-  const showConfigBtn = document.getElementById('show-config-btn');
-  
-  if (showRulesBtn) {
-    showRulesBtn.addEventListener('click', () => openModal('rules-modal'));
-  }
-  if (showConfigBtn) {
-    showConfigBtn.addEventListener('click', () => openModal('config-modal'));
-  }
-  
-  document.querySelectorAll('[data-close]').forEach(el => {
-    el.addEventListener('click', () => closeModal(el.dataset.close));
-  });
-  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeAllModals(); });
-
-  const navbar = document.getElementById('navbar');
-  if (navbar) {
-    const onScroll = () => {
-      if (window.scrollY > 12) navbar.classList.add('scrolled');
-      else navbar.classList.remove('scrolled');
-    };
-    document.addEventListener('scroll', onScroll, { passive:true });
-    onScroll();
-  }
-
-  const revealEls = document.querySelectorAll('[data-reveal]');
-  if ('IntersectionObserver' in window){
-    const io = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting){
-          entry.target.classList.add('in-view');
-          io.unobserve(entry.target);
-        }
-      });
-    }, { threshold:0.12, rootMargin:'0px 0px -40px 0px' });
-    revealEls.forEach(el => io.observe(el));
-  } else {
-    revealEls.forEach(el => el.classList.add('in-view'));
-  }
-
-  function attachTilt(el, maxTilt){
-    if (!el) return;
-    el.addEventListener('mouseenter', () => el.classList.add('tilting'));
-    el.addEventListener('mousemove', e => {
-      const rect = el.getBoundingClientRect();
-      const px = (e.clientX - rect.left) / rect.width;
-      const py = (e.clientY - rect.top) / rect.height;
-      const rx = (0.5 - py) * maxTilt;
-      const ry = (px - 0.5) * maxTilt;
-      el.style.setProperty('--rx', rx.toFixed(2) + 'deg');
-      el.style.setProperty('--ry', ry.toFixed(2) + 'deg');
-      el.style.setProperty('--mx', (px * 100).toFixed(1) + '%');
-      el.style.setProperty('--my', (py * 100).toFixed(1) + '%');
-    });
-    el.addEventListener('mouseleave', () => {
-      el.classList.remove('tilting');
-      el.style.setProperty('--rx', '0deg');
-      el.style.setProperty('--ry', '0deg');
-    });
-  }
-
-  const heroVisual = document.getElementById('hero-visual');
-  if (heroVisual) attachTilt(heroVisual, 12);
-
-  document.querySelectorAll('.card').forEach(card => {
-    const glare = document.createElement('span');
-    glare.className = 'card-glare';
-    card.appendChild(glare);
-    attachTilt(card, 7);
-  });
-
-  function attachCursorGlow(selector){
-    document.querySelectorAll(selector).forEach(el => {
-      el.addEventListener('mousemove', e => {
-        const rect = el.getBoundingClientRect();
-        el.style.setProperty('--mx', (e.clientX - rect.left) + 'px');
-        el.style.setProperty('--my', (e.clientY - rect.top) + 'px');
-      });
-    });
-  }
-  attachCursorGlow('.btn, .nav-cta');
-
-  document.querySelectorAll('.btn, .nav-cta').forEach(el => {
-    el.addEventListener('mousemove', e => {
-      const rect = el.getBoundingClientRect();
-      const relX = (e.clientX - rect.left) / rect.width - 0.5;
-      const relY = (e.clientY - rect.top) / rect.height - 0.5;
-      el.style.transform = `translate(${relX * 6}px, ${relY * 6 - 2}px)`;
-    });
-    el.addEventListener('mouseleave', () => { el.style.transform = ''; });
-  });
-
-  const yearEl = document.getElementById('current-year');
-  if (yearEl) yearEl.textContent = new Date().getFullYear();
 })();
 </script>
 </body>
