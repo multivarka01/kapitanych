@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
@@ -519,9 +519,9 @@
 <nav class="navbar" id="navbar">
   <div class="nav-brand"><span class="dot"></span>Kapitanych</div>
   <div class="nav-links">
-    <a href="#top">Home</a>
-    <a href="#socials">Socials</a>
-    <a href="#setup">Setup</a>
+    <a href="#top" data-i18n="nav_home">Главная</a>
+    <a href="#socials" data-i18n="nav_socials">Соцсети</a>
+    <a href="#setup" data-i18n="nav_setup">Сетап</a>
   </div>
   <div class="nav-actions">
     <button class="lang-btn" id="lang-toggle">EN</button>
@@ -533,12 +533,12 @@
   <div class="shell" id="top">
     <section class="hero">
       <div data-reveal>
-        <span class="status-chip"><span class="pulse"></span>Live soon</span>
+        <span class="status-chip"><span class="pulse"></span><span data-i18n="live_soon">Скоро стрим</span></span>
         <h1>Kapitanych</h1>
-        <p class="hero-tagline">Shooters, co-ops and live chat interaction. Join in, jump into a match and subscribe — it's not a solo here.</p>
+        <p class="hero-tagline" data-i18n="hero_tagline">Шутеры, коопы и живое общение с чатом. Заходи, врывайся в катку и подписывайся — тут не соло.</p>
         <div class="hero-cta">
-          <a href="https://twitch.tv/kapitanych_" target="_blank" class="btn btn-primary">Watch Twitch</a>
-          <a href="https://donatex.gg/donate/kapitanych" target="_blank" class="btn btn-ghost">Support</a>
+          <a href="https://twitch.tv/kapitanych_" target="_blank" class="btn btn-primary" data-i18n="watch_twitch">Смотреть Twitch</a>
+          <a href="https://donatex.gg/donate/kapitanych" target="_blank" class="btn btn-ghost" data-i18n="support">Поддержать</a>
         </div>
       </div>
 
@@ -556,14 +556,14 @@
 
     <section id="socials">
       <div class="section-head" data-reveal>
-        <h2>Socials</h2>
-        <span>where to find me</span>
+        <h2 data-i18n="socials_title">Соцсети</h2>
+        <span data-i18n="socials_subtitle">где меня найти</span>
       </div>
       <div class="bento">
         <div class="card card-overview" data-reveal>
           <span class="ov-eyebrow">Overview</span>
-          <h3>Streams about shooters and co-op</h3>
-          <p>Raids with chat, random teammates and lots of laughter. Come in — I'll tell you what we're playing today.</p>
+          <h3 data-i18n="overview_title">Стримы про шутеры и кооп</h3>
+          <p data-i18n="overview_text">Рейды с чатом, случайные тиммейты и много смеха. Заходи — расскажу, во что играем сегодня.</p>
         </div>
 
         <a href="https://twitch.tv/kapitanych_" target="_blank" class="card card-social" data-reveal>
@@ -606,7 +606,7 @@
           </div>
           <div>
             <div class="name">Donatex</div>
-            <div class="handle">support</div>
+            <div class="handle" data-i18n="donatex_handle">поддержать</div>
           </div>
         </a>
 
@@ -617,7 +617,7 @@
           </div>
           <div>
             <div class="name">DonatePay</div>
-            <div class="handle">support</div>
+            <div class="handle" data-i18n="donatepay_handle">поддержать</div>
           </div>
         </a>
 
@@ -626,11 +626,11 @@
             <span class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="4" width="18" height="12" rx="2"/><path d="M8 20h8M12 16v4"/></svg></span>
           </div>
           <div>
-            <h4>PC Setup</h4>
+            <h4 data-i18n="pc_setup_title">PC Setup</h4>
             <p>Ryzen 7 7800X3D · RTX 3080 · 32 GB DDR5</p>
             <div class="specs"><span>7800X3D</span><span>RTX 3080</span><span>32GB DDR5</span></div>
           </div>
-          <button class="link-btn" id="show-config-btn">View config <span class="arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17 17 7M9 7h8v8"/></svg></span></button>
+          <button class="link-btn" id="show-config-btn" data-i18n="view_config">Смотреть конфиг <span class="arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17 17 7M9 7h8v8"/></svg></span></button>
         </div>
 
         <div class="card card-info" data-reveal>
@@ -638,10 +638,10 @@
             <span class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M8 9h8M8 13h5"/><path d="M21 12c0 4.4-4 8-9 8-1.4 0-2.7-.3-3.9-.8L3 20l1.1-4.2C3.4 14.6 3 13.3 3 12c0-4.4 4-8 9-8s9 3.6 9 8z"/></svg></span>
           </div>
           <div>
-            <h4>Community Rules</h4>
-            <p>Be adequate. Don't spam. Don't insult other viewers or the streamer.</p>
+            <h4 data-i18n="rules_title">Community Rules</h4>
+            <p data-i18n="rules_text">Будь адекватным. Не спамь. Не оскорбляй других зрителей и стримера.</p>
           </div>
-          <button class="link-btn" id="show-rules-btn">Read rules <span class="arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17 17 7M9 7h8v8"/></svg></span></button>
+          <button class="link-btn" id="show-rules-btn" data-i18n="read_rules">Читать правила <span class="arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17 17 7M9 7h8v8"/></svg></span></button>
         </div>
       </div>
     </section>
@@ -650,7 +650,7 @@
 
 <footer>
   <div class="footer-inner">
-    <div class="footer-left"><b>Kapitanych</b> · Twitch streamer</div>
+    <div class="footer-left"><b>Kapitanych</b> · <span data-i18n="footer_streamer">Twitch-стример</span></div>
     <div class="footer-links">
       <a href="https://twitch.tv/kapitanych_" target="_blank">Twitch</a>
       <a href="https://t.me/KapitanGG" target="_blank">Telegram</a>
@@ -668,7 +668,7 @@
   <div class="modal-backdrop" data-close="rules-modal"></div>
   <div class="modal-content">
     <div class="modal-header">
-      <h2>Chat Rules</h2>
+      <h2 data-i18n="modal_rules_title">Правила чата</h2>
       <button class="modal-close" data-close="rules-modal">×</button>
     </div>
     <div class="modal-body" id="rules-body"></div>
@@ -678,23 +678,23 @@
 <div class="modal" id="config-modal">
   <div class="modal-content">
     <div class="modal-header">
-      <h2>PC Configuration</h2>
+      <h2 data-i18n="modal_config_title">Конфигурация ПК</h2>
       <button class="modal-close" data-close="config-modal">×</button>
     </div>
     <div class="modal-body">
-      <div class="spec-row"><span class="k">Processor</span><span class="v">AMD Ryzen 7 7800X3D</span></div>
-      <div class="spec-row"><span class="k">Motherboard</span><span class="v">Gigabyte B850M Gaming X WiFi6E</span></div>
-      <div class="spec-row"><span class="k">RAM</span><span class="v">Kingston FURY Beast 2×16GB DDR5 6000</span></div>
-      <div class="spec-row"><span class="k">Graphics Card</span><span class="v">Gigabyte RTX 3080 Gaming OC 10G</span></div>
-      <div class="spec-row"><span class="k">SSD</span><span class="v">M.2 NVMe Gen4x4 7450MB/s 1TB</span></div>
-      <div class="spec-row"><span class="k">HDD</span><span class="v">Toshiba 500GB</span></div>
-      <div class="spec-row"><span class="k">Power Supply</span><span class="v">1200W</span></div>
-      <div class="spec-row"><span class="k">Cooling</span><span class="v">IWONGOU AR12PRO ARGB 240</span></div>
-      <div class="spec-row"><span class="k">Headphones</span><span class="v">KZ ZVX + Marshall MAJOR V</span></div>
-      <div class="spec-row"><span class="k">Microphone</span><span class="v">Fifine Ampligame A8</span></div>
-      <div class="spec-row"><span class="k">Mouse</span><span class="v">AJAZZ AJ159 Apex</span></div>
-      <div class="spec-row"><span class="k">Keyboard</span><span class="v">LEAVEN K550 mechanical</span></div>
-      <div class="spec-row"><span class="k">Monitor</span><span class="v">Xiaomi G27 165Hz ×2</span></div>
+      <div class="spec-row"><span class="k" data-i18n="spec_processor">Процессор</span><span class="v">AMD Ryzen 7 7800X3D</span></div>
+      <div class="spec-row"><span class="k" data-i18n="spec_motherboard">Материнская плата</span><span class="v">Gigabyte B850M Gaming X WiFi6E</span></div>
+      <div class="spec-row"><span class="k" data-i18n="spec_ram">ОЗУ</span><span class="v">Kingston FURY Beast 2×16GB DDR5 6000</span></div>
+      <div class="spec-row"><span class="k" data-i18n="spec_gpu">Видеокарта</span><span class="v">Gigabyte RTX 3080 Gaming OC 10G</span></div>
+      <div class="spec-row"><span class="k" data-i18n="spec_ssd">SSD</span><span class="v">M.2 NVMe Gen4x4 7450MB/s 1TB</span></div>
+      <div class="spec-row"><span class="k" data-i18n="spec_hdd">HDD</span><span class="v">Toshiba 500GB</span></div>
+      <div class="spec-row"><span class="k" data-i18n="spec_psu">Блок питания</span><span class="v">1200W</span></div>
+      <div class="spec-row"><span class="k" data-i18n="spec_cooling">Охлаждение</span><span class="v">IWONGOU AR12PRO ARGB 240</span></div>
+      <div class="spec-row"><span class="k" data-i18n="spec_headphones">Наушники</span><span class="v">KZ ZVX + Marshall MAJOR V</span></div>
+      <div class="spec-row"><span class="k" data-i18n="spec_mic">Микрофон</span><span class="v">Fifine Ampligame A8</span></div>
+      <div class="spec-row"><span class="k" data-i18n="spec_mouse">Мышь</span><span class="v">AJAZZ AJ159 Apex</span></div>
+      <div class="spec-row"><span class="k" data-i18n="spec_keyboard">Клавиатура</span><span class="v">LEAVEN K550 механика</span></div>
+      <div class="spec-row"><span class="k" data-i18n="spec_monitor">Монитор</span><span class="v">Xiaomi G27 165Гц ×2</span></div>
     </div>
   </div>
 </div>
@@ -702,15 +702,86 @@
 <script>
 (function(){
   const translations = {
-    ru: `<p>The moderator independently chooses the measure of punishment. Severe violations = ban without unblocking.</p>
-         <ul><li>Spam, flood, and repetitive messages are prohibited.</li>
-         <li>Advertising of your own projects and third-party resources is prohibited.</li>
-         <li>Provocations, insults, and aggression are prohibited.</li>
-         <li>Publication of shock content and intimate content is prohibited.</li>
-         <li>Do not post personal data (addresses, phones…).</li>
-         <li>Begging for VIP/mod/subscriptions is prohibited.</li></ul>
-         <p>Violation of the rules entails punishment at the discretion of the moderation.</p>`,
-    en: `<p>The moderator independently decides on punishment. Severe violations = permanent ban.</p>
+    ru: {
+      nav_home: 'Главная',
+      nav_socials: 'Соцсети',
+      nav_setup: 'Сетап',
+      live_soon: 'Скоро стрим',
+      hero_tagline: 'Шутеры, коопы и живое общение с чатом. Заходи, врывайся в катку и подписывайся — тут не соло.',
+      watch_twitch: 'Смотреть Twitch',
+      support: 'Поддержать',
+      socials_title: 'Соцсети',
+      socials_subtitle: 'где меня найти',
+      overview_title: 'Стримы про шутеры и кооп',
+      overview_text: 'Рейды с чатом, случайные тиммейты и много смеха. Заходи — расскажу, во что играем сегодня.',
+      donatex_handle: 'поддержать',
+      donatepay_handle: 'поддержать',
+      pc_setup_title: 'PC Setup',
+      view_config: 'Смотреть конфиг',
+      rules_title: 'Community Rules',
+      rules_text: 'Будь адекватным. Не спамь. Не оскорбляй других зрителей и стримера.',
+      read_rules: 'Читать правила',
+      footer_streamer: 'Twitch-стример',
+      modal_rules_title: 'Правила чата',
+      modal_config_title: 'Конфигурация ПК',
+      spec_processor: 'Процессор',
+      spec_motherboard: 'Материнская плата',
+      spec_ram: 'ОЗУ',
+      spec_gpu: 'Видеокарта',
+      spec_ssd: 'SSD',
+      spec_hdd: 'HDD',
+      spec_psu: 'Блок питания',
+      spec_cooling: 'Охлаждение',
+      spec_headphones: 'Наушники',
+      spec_mic: 'Микрофон',
+      spec_mouse: 'Мышь',
+      spec_keyboard: 'Клавиатура',
+      spec_monitor: 'Монитор',
+      rules_body: `<p>Модератор самостоятельно выбирает меру наказания. Тяжёлые нарушения = бан без разблокировки.</p>
+         <ul><li>Запрещены спам, флуд и повторяющиеся сообщения.</li>
+         <li>Запрещена реклама своих проектов и сторонних ресурсов.</li>
+         <li>Запрещены провокации, оскорбления и агрессия.</li>
+         <li>Запрещена публикация шок-контента и интимного контента.</li>
+         <li>Нельзя выкладывать личные данные (адреса, телефоны…).</li>
+         <li>Запрещено выпрашивать VIP/модерку/подписки.</li></ul>
+         <p>Нарушение правил влечёт наказание по усмотрению модерации.</p>`
+    },
+    en: {
+      nav_home: 'Home',
+      nav_socials: 'Socials',
+      nav_setup: 'Setup',
+      live_soon: 'Live soon',
+      hero_tagline: 'Shooters, co-ops and live chat interaction. Join in, jump into a match and subscribe — it\'s not a solo here.',
+      watch_twitch: 'Watch Twitch',
+      support: 'Support',
+      socials_title: 'Socials',
+      socials_subtitle: 'where to find me',
+      overview_title: 'Streams about shooters and co-op',
+      overview_text: 'Raids with chat, random teammates and lots of laughter. Come in — I\'ll tell you what we\'re playing today.',
+      donatex_handle: 'support',
+      donatepay_handle: 'support',
+      pc_setup_title: 'PC Setup',
+      view_config: 'View config',
+      rules_title: 'Community Rules',
+      rules_text: 'Be adequate. Don\'t spam. Don\'t insult other viewers or the streamer.',
+      read_rules: 'Read rules',
+      footer_streamer: 'Twitch streamer',
+      modal_rules_title: 'Chat Rules',
+      modal_config_title: 'PC Configuration',
+      spec_processor: 'Processor',
+      spec_motherboard: 'Motherboard',
+      spec_ram: 'RAM',
+      spec_gpu: 'Graphics Card',
+      spec_ssd: 'SSD',
+      spec_hdd: 'HDD',
+      spec_psu: 'Power Supply',
+      spec_cooling: 'Cooling',
+      spec_headphones: 'Headphones',
+      spec_mic: 'Microphone',
+      spec_mouse: 'Mouse',
+      spec_keyboard: 'Keyboard',
+      spec_monitor: 'Monitor',
+      rules_body: `<p>The moderator independently decides on punishment. Severe violations = permanent ban.</p>
          <ul><li>No spam, flood, or repetitive messages.</li>
          <li>No advertising of your own projects or third-party resources.</li>
          <li>No provocations, insults, or aggression.</li>
@@ -718,17 +789,33 @@
          <li>Do not share personal data (addresses, phones…).</li>
          <li>Do not beg for VIP/mod/subscriptions.</li></ul>
          <p>Violation of the rules entails punishment at the discretion of the moderation.</p>`
+    }
   };
+
   let currentLang = localStorage.getItem('preferredLang') || 'ru';
 
   function applyLanguage(lang){
-    const rulesBody = document.getElementById('rules-body');
-    if (rulesBody && translations[lang]) rulesBody.innerHTML = translations[lang];
-    document.getElementById('lang-toggle').textContent = lang === 'ru' ? 'EN' : 'RU';
-    localStorage.setItem('preferredLang', lang);
     currentLang = lang;
+    localStorage.setItem('preferredLang', lang);
+
+    document.querySelectorAll('[data-i18n]').forEach(el => {
+      const key = el.getAttribute('data-i18n');
+      if (translations[lang] && translations[lang][key]) {
+        el.textContent = translations[lang][key];
+      }
+    });
+
+    const rulesBody = document.getElementById('rules-body');
+    if (rulesBody && translations[lang].rules_body) {
+      rulesBody.innerHTML = translations[lang].rules_body;
+    }
+
+    document.getElementById('lang-toggle').textContent = lang === 'ru' ? 'EN' : 'RU';
+    document.documentElement.lang = lang;
   }
+
   applyLanguage(currentLang);
+
   document.getElementById('lang-toggle').addEventListener('click', () => {
     applyLanguage(currentLang === 'ru' ? 'en' : 'ru');
   });
