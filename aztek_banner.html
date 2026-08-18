@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<title>AZTEK — Creator Code Banner</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg: #0a0a0b;
+    --surface: rgba(255,255,255,0.045);
+    --border: rgba(255,255,255,0.09);
+    --border-hover: rgba(255,255,255,0.18);
+    --text: #f5f5f7;
+    --text-dim: #a1a1aa;
+    --accent: #7c6cff;
+    --accent-soft: rgba(124,108,255,0.18);
+    --accent-text: #c9c2ff;
+    --ease: cubic-bezier(0.22,1,0.36,1);
+  }
+  *{ box-sizing:border-box; margin:0; padding:0; }
+  html,body{
+    width:100%; height:100%;
+    background:#000;
+    display:flex; align-items:center; justify-content:center;
+    font-family:'Inter', -apple-system, sans-serif;
+    overflow:hidden;
+    -webkit-font-smoothing:antialiased;
+  }
+
+  .banner{
+    position:relative;
+    width:640px; height:280px;
+    border-radius:24px;
+    overflow:hidden;
+    background:var(--bg);
+    border:1px solid var(--border);
+    box-shadow: 0 30px 80px -20px rgba(0,0,0,0.7);
+  }
+
+  /* ambient blobs */
+  .blob{
+    position:absolute; border-radius:50%; filter:blur(70px); opacity:0.55;
+    pointer-events:none;
+  }
+  .blob.a{
+    width:360px; height:360px; top:-140px; left:-90px;
+    background:radial-gradient(circle at 30% 30%, rgba(124,108,255,0.6), transparent 70%);
+    animation: drift 14s ease-in-out infinite;
+  }
+  .blob.b{
+    width:320px; height:320px; bottom:-160px; right:-100px;
+    background:radial-gradient(circle at 60% 40%, rgba(66,58,145,0.55), transparent 70%);
+    animation: drift 18s ease-in-out infinite reverse;
+  }
+  @keyframes drift{
+    0%,100%{ transform:translate(0,0) scale(1); }
+    50%{ transform:translate(18px,14px) scale(1.08); }
+  }
+
+  .noise{
+    position:absolute; inset:0; opacity:0.025; mix-blend-mode:overlay;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+
+  .slide{ position:absolute; inset:0; display:flex; align-items:center; }
+  .slide.s1{ z-index:1; }
+  .slide.s2{
+    z-index:2;
+    clip-path: inset(0 100% 0 0);
+    animation: wipe 7s cubic-bezier(.77,0,.18,1) infinite;
+  }
+  @keyframes wipe{
+    0%{   clip-path: inset(0 100% 0 0); }
+    6%{   clip-path: inset(0 100% 0 0); }
+    16%{  clip-path: inset(0 0% 0 0); }
+    46%{  clip-path: inset(0 0% 0 0); }
+    56%{  clip-path: inset(0 0 0 100%); }
+    100%{ clip-path: inset(0 0 0 100%); }
+  }
+  .blade{
+    position:absolute; top:0; bottom:0; width:5px; z-index:3;
+    background: linear-gradient(180deg, transparent, var(--accent-text), var(--accent), var(--accent-text), transparent);
+    box-shadow: 0 0 24px 6px rgba(124,108,255,0.65);
+    opacity:0; left:-2%;
+    animation: bladeMove 7s cubic-bezier(.77,0,.18,1) infinite;
+  }
+  @keyframes bladeMove{
+    0%{ left:-2%; opacity:0; }
+    6%{ left:-2%; opacity:0; }
+    8%{ opacity:1; }
+    16%{ left:100%; opacity:1; }
+    17%{ opacity:0; }
+    45%{ opacity:0; left:100%; }
+    46%{ opacity:1; }
+    54%{ left:-2%; opacity:1; }
+    55%{ opacity:0; }
+    100%{ opacity:0; left:-2%; }
+  }
+
+  /* ===== SLIDE 1 ===== */
+  .s1-content{
+    position:relative; z-index:2;
+    display:flex; align-items:center; justify-content:space-between;
+    width:100%; padding: 0 46px 8px 46px;
+  }
+
+  .status-chip{
+    display:inline-flex; align-items:center; gap:8px;
+    padding:6px 13px; border-radius:100px;
+    border:1px solid var(--border); background:var(--surface);
+    font-size:12px; color:var(--text-dim); font-weight:500;
+    width:fit-content; margin-bottom:16px;
+  }
+  .status-chip .pulse{
+    width:6px; height:6px; border-radius:50%; background:var(--accent);
+    animation:pulse 2.2s infinite;
+  }
+  @keyframes pulse{
+    0%{ box-shadow:0 0 0 0 rgba(124,108,255,0.5); }
+    70%{ box-shadow:0 0 0 7px rgba(124,108,255,0); }
+    100%{ box-shadow:0 0 0 0 rgba(124,108,255,0); }
+  }
+
+  .s1-headline{
+    font-size:44px; font-weight:800; letter-spacing:-0.02em; line-height:1.02;
+    color:var(--text);
+  }
+  .s1-headline span{
+    background:linear-gradient(90deg, var(--accent-text), var(--accent));
+    -webkit-background-clip:text; background-clip:text; color:transparent;
+  }
+  .s1-tag{
+    margin-top:12px; color:var(--text-dim); font-size:14.5px; line-height:1.55; max-width:22rem;
+  }
+
+  .float-chip{
+    position:absolute; z-index:6;
+    display:flex; align-items:center; gap:6px;
+    padding:7px 13px; border-radius:100px;
+    background:rgba(20,20,24,0.85);
+    border:1px solid var(--border);
+    font-size:12px; font-weight:600; color:var(--text-dim);
+    animation: floatChip 6s ease-in-out infinite;
+  }
+  .fc1{ top:-10px; right:-24px; animation-delay:0s; }
+  .fc2{ bottom:-6px; left:-38px; animation-delay:1.6s; }
+  @keyframes floatChip{
+    0%,100%{ transform:translateY(0); }
+    50%{ transform:translateY(-8px); }
+  }
+
+  /* orb visual */
+  .orb-wrap{
+    position:relative; width:160px; height:160px; flex-shrink:0;
+    display:flex; align-items:center; justify-content:center;
+    margin-right:8px;
+  }
+  .orb-ring{
+    position:absolute; border-radius:50%;
+    border:1px dashed rgba(255,255,255,0.16);
+    width:140px; height:140px;
+    animation:spin 22s linear infinite;
+  }
+  .orb-ring.r2{
+    width:104px; height:104px; animation-duration:15s; animation-direction:reverse;
+    border-color:rgba(124,108,255,0.32);
+  }
+  @keyframes spin{ to{ transform:rotate(360deg); } }
+  .orb-dot{
+    position:absolute; top:-3px; left:50%; transform:translateX(-50%);
+    width:7px; height:7px; border-radius:50%;
+    background:radial-gradient(circle at 35% 30%, #fff, var(--accent) 70%);
+    box-shadow:0 0 12px 3px rgba(124,108,255,0.75);
+  }
+  .orb-ring.r2 .orb-dot{ width:5px; height:5px; background:radial-gradient(circle at 35% 30%, #fff, #9d8fff 70%); }
+
+  .orb-core{
+    width:76px; height:76px; border-radius:50%;
+    background:radial-gradient(circle at 35% 30%, #b3a8ff, #5a49d6 58%, #2c2178 100%);
+    box-shadow:0 0 50px 8px rgba(124,108,255,0.4), inset 0 0 22px rgba(255,255,255,0.15);
+    position:relative; overflow:hidden;
+    animation: coreBreathe 4.5s ease-in-out infinite;
+  }
+  .orb-core::before{
+    content:""; position:absolute; inset:-40%;
+    background:conic-gradient(from 0deg, transparent 0deg, rgba(255,255,255,0.55) 26deg, transparent 70deg, transparent 360deg);
+    animation: coreSweep 5s linear infinite;
+    mix-blend-mode:overlay;
+  }
+  .orb-core::after{
+    content:""; position:absolute; inset:0; border-radius:50%;
+    background:radial-gradient(circle at 30% 22%, rgba(255,255,255,0.55), transparent 40%);
+    opacity:0.7;
+  }
+  @keyframes coreSweep{ to{ transform:rotate(360deg); } }
+  @keyframes coreBreathe{
+    0%,100%{ transform:scale(1); box-shadow:0 0 50px 8px rgba(124,108,255,0.4), inset 0 0 22px rgba(255,255,255,0.15); }
+    50%{ transform:scale(1.05); box-shadow:0 0 66px 13px rgba(124,108,255,0.55), inset 0 0 26px rgba(255,255,255,0.2); }
+  }
+  .orb-label{
+    position:absolute; bottom:-22px; left:50%; transform:translateX(-50%);
+    font-size:11px; font-weight:700; letter-spacing:2px; color:var(--accent-text);
+    text-transform:uppercase; white-space:nowrap;
+  }
+
+  /* ===== SLIDE 2: clean code slide ===== */
+  .s2{
+    background: #0a0a0b;
+    background:
+      radial-gradient(120% 100% at 50% 0%, rgba(124,108,255,0.14), transparent 60%),
+      #0a0a0b;
+    justify-content:center;
+  }
+  .s2-inner{ position:relative; z-index:2; text-align:center; }
+  .s2-eyebrow{
+    display:inline-flex; align-items:center; gap:8px;
+    padding:6px 14px; border-radius:100px;
+    border:1px solid var(--border); background:var(--surface);
+    font-size:12px; font-weight:600; letter-spacing:1.5px; color:var(--accent-text);
+    text-transform:uppercase; margin-bottom:18px;
+  }
+  .s2-code{
+    font-size:82px; font-weight:800; letter-spacing:-0.01em;
+    color:var(--text);
+  }
+  .s2-code span{
+    background:linear-gradient(90deg, var(--accent-text), var(--accent));
+    -webkit-background-clip:text; background-clip:text; color:transparent;
+  }
+  .s2-note{
+    margin-top:12px; color:var(--text-dim); font-size:14px; font-weight:500;
+  }
+  .s2-note b{ color:var(--text); font-weight:600; }
+
+  .dots{ position:absolute; bottom:14px; left:50%; transform:translateX(-50%); display:flex; gap:8px; z-index:5; }
+  .dot{ width:6px; height:6px; border-radius:50%; background:var(--border); }
+  .dot.active1{ animation: dotA 7s infinite; }
+  .dot.active2{ animation: dotB 7s infinite; }
+  @keyframes dotA{ 0%,46%{ background:var(--accent);} 56%,100%{ background:var(--border);} }
+  @keyframes dotB{ 0%,56%{ background:var(--border);} 66%,86%{ background:var(--accent);} 100%{ background:var(--border);} }
+
+  @media (prefers-reduced-motion: reduce){
+    .slide.s2{ animation:none !important; clip-path: inset(0 0 0 0); }
+    .blade{ display:none; }
+    .blob, .orb-core, .orb-ring, .float-chip{ animation:none !important; }
+  }
+</style>
+</head>
+<body>
+
+  <div class="banner">
+    <div class="blob a"></div>
+    <div class="blob b"></div>
+    <div class="noise"></div>
+
+    <div class="slide s1">
+      <div class="s1-content">
+        <div>
+          <div class="status-chip"><span class="pulse"></span>Standoff 2</div>
+          <div class="s1-headline">Код автора<br><span>AZTEK</span></div>
+          <div class="s1-tag">Поддержи меня прямо в игре — введи код при покупке</div>
+        </div>
+
+        <div class="orb-wrap">
+          <div class="float-chip fc1">🎯 FPS</div>
+          <div class="float-chip fc2">🔥 Бонус</div>
+          <div class="orb-ring"><span class="orb-dot"></span></div>
+          <div class="orb-ring r2"><span class="orb-dot"></span></div>
+          <div class="orb-core"></div>
+          <div class="orb-label">Aztek</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="blade"></div>
+
+    <div class="slide s2">
+      <div class="s2-inner">
+        <div class="s2-eyebrow">Код автора</div>
+        <div class="s2-code"><span>AZTEK</span></div>
+        <div class="s2-note">Введи в разделе <b>«Поддержать автора»</b></div>
+      </div>
+    </div>
+
+  </div>
+
+</body>
+</html>
