@@ -41,7 +41,6 @@
   button{font-family:inherit;}
   :focus-visible{outline:2px solid var(--accent-text); outline-offset:3px; border-radius:6px;}
 
-  /* ---------- background ---------- */
   .bg{position:fixed; inset:0; z-index:0; pointer-events:none; overflow:hidden; background:var(--bg);}
   .bg-blob{position:absolute; border-radius:50%; filter:blur(90px); opacity:0.55;}
   .bg-blob.a{width:640px;height:640px;top:-220px;left:-160px;background:radial-gradient(circle at 30% 30%,rgba(124,108,255,0.55),transparent 70%);animation:floatBlob 22s ease-in-out infinite;}
@@ -51,24 +50,20 @@
   .bg-noise{position:absolute; inset:0; opacity:0.025; mix-blend-mode:overlay;
     background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");}
 
-  /* ---------- scroll progress ---------- */
   .progress{position:fixed; top:0; left:0; right:0; height:2px; z-index:70; transform-origin:0 50%; transform:scaleX(0);
     background:linear-gradient(90deg,var(--accent),var(--accent-text));}
 
-  /* ---------- reveal (uses individual transform props so tilt/hover keep working) ---------- */
   .js [data-reveal]{opacity:0; translate:0 30px; filter:blur(6px);
     transition:opacity 900ms var(--ease-out), translate 900ms var(--ease-out), scale 900ms var(--ease-out), filter 900ms var(--ease-out);}
   .js [data-reveal="scale"]{translate:0 18px; scale:0.95;}
   .js [data-reveal="fade"]{translate:0 0;}
   .js [data-reveal].in-view{opacity:1; translate:0 0; scale:1; filter:blur(0); transition-delay:var(--d,0s);}
 
-  /* ---------- load sequence ---------- */
   .js [data-load]{opacity:0; translate:0 24px; filter:blur(8px);
     transition:opacity 1000ms var(--ease-out), translate 1000ms var(--ease-out), scale 1100ms var(--ease-out), filter 1000ms var(--ease-out);}
   .js [data-load="scale"]{scale:0.93; translate:0 30px;}
   .js .ready [data-load]{opacity:1; translate:0 0; scale:1; filter:blur(0); transition-delay:var(--d,0s);}
 
-  /* ---------- navbar ---------- */
   .navbar{
     position:fixed; top:14px; left:50%; transform:translateX(-50%); z-index:50;
     width:min(920px,calc(100vw - 24px));
@@ -95,11 +90,9 @@
   .nav-cta:active{transform:scale(0.97);}
   @media (max-width:760px){.nav-links{display:none;}}
 
-  /* ---------- layout ---------- */
   main{position:relative; z-index:1;}
   .shell{width:min(1100px,calc(100vw - 28px)); margin:0 auto;}
 
-  /* ---------- hero ---------- */
   .hero{padding:150px 0 40px; display:grid; grid-template-columns:1.05fr 0.95fr; gap:40px; align-items:center;}
   .status-chip{display:inline-flex; align-items:center; gap:8px; padding:7px 14px; border-radius:100px; border:1px solid var(--border); background:var(--surface); font-size:0.78rem; color:var(--text-dim); font-weight:500; width:fit-content;}
   .status-chip .pulse{width:7px;height:7px;border-radius:50%;background:var(--accent);animation:pulse 2.2s infinite;}
@@ -121,7 +114,6 @@
   .btn-ghost{background:var(--surface); color:var(--text); border-color:var(--border);}
   .btn-ghost:hover{background:var(--surface-hover); border-color:var(--border-hover);}
 
-  /* ---------- hero visual ---------- */
   .visual-wrap{will-change:transform;}
   .hero-visual{
     position:relative; aspect-ratio:1/1.02; border-radius:var(--r-lg); border:1px solid var(--border);
@@ -149,12 +141,10 @@
   .fc1{top:14%; left:8%;} .fc2{top:20%; right:6%; animation-delay:1.4s;} .fc3{bottom:16%; left:12%; animation-delay:2.8s;}
   @keyframes floatChip{0%,100%{transform:translateY(0);}50%{transform:translateY(-10px);}}
 
-  /* ---------- section head ---------- */
   .section-head{display:flex; align-items:baseline; justify-content:space-between; margin:0 2px 18px;}
   .section-head h2{margin:0; font-size:1.4rem; font-weight:700; letter-spacing:-0.01em;}
   .section-head span{color:var(--text-faint); font-size:0.85rem;}
 
-  /* ---------- bento ---------- */
   .bento{display:grid; grid-template-columns:repeat(4,1fr); grid-auto-rows:minmax(132px,auto); align-items:stretch; gap:14px; padding:20px 0 30px;}
   .card{
     position:relative; border-radius:var(--r-md); border:1px solid var(--border); background:var(--surface);
@@ -220,7 +210,6 @@
     .card-wide{flex-direction:row;}
   }
 
-  /* ---------- footer ---------- */
   footer{position:relative; z-index:1; border-top:1px solid var(--border); margin-top:20px;}
   .footer-inner{width:min(1100px,calc(100vw - 28px)); margin:0 auto; padding:32px 0 44px; display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:14px;}
   .footer-left{color:var(--text-dim); font-size:0.86rem;}
@@ -232,7 +221,6 @@
   .copyright a{color:var(--text-dim); text-decoration:none; transition:color 220ms var(--ease);}
   .copyright a:hover{color:var(--text);}
 
-  /* ---------- modal ---------- */
   .modal{display:none; position:fixed; inset:0; z-index:200; align-items:center; justify-content:center; padding:20px;}
   .modal.active{display:flex;}
   .modal-backdrop{position:absolute; inset:0; background:rgba(6,6,8,0.65); backdrop-filter:blur(10px); -webkit-backdrop-filter:blur(10px); opacity:0; transition:opacity 320ms var(--ease);}
@@ -257,7 +245,17 @@
     .modal-content::before{content:""; display:block; width:36px; height:4px; border-radius:4px; background:var(--border-hover); margin:12px auto 0;}
   }
 
-  /* ---------- reduced motion ---------- */
+  .consent{position:fixed; left:16px; bottom:calc(16px + env(safe-area-inset-bottom,0px)); z-index:150; width:min(340px,calc(100vw - 32px));
+    padding:16px 18px; border-radius:var(--r-md); border:1px solid var(--border-hover); background:rgba(19,19,22,0.85);
+    backdrop-filter:blur(18px); -webkit-backdrop-filter:blur(18px); box-shadow:0 20px 50px -20px rgba(0,0,0,0.6);
+    font-size:0.82rem; line-height:1.5; color:var(--text-dim); display:none;}
+  .consent.show{display:block; animation:consentIn 500ms var(--ease-out);}
+  @keyframes consentIn{from{opacity:0; transform:translateY(16px);}to{opacity:1; transform:none;}}
+  .consent p{margin:0 0 12px;}
+  .consent-actions{display:flex; gap:8px;}
+  .consent-actions button{flex:1; padding:9px 14px; border-radius:100px; font-size:0.82rem; font-weight:600; cursor:pointer; border:1px solid var(--border); background:var(--surface); color:var(--text);}
+  .consent-actions .ok{background:var(--text); color:#0a0a0b; border-color:transparent;}
+
   @media (prefers-reduced-motion:reduce){
     html{scroll-behavior:auto;}
     .bg-blob,.orb-aura,.orb-ring,.orb-core,.orb-core::before,.float-chip,.status-chip .pulse{animation:none !important;}
@@ -268,7 +266,19 @@
   }
 </style>
 
-<!-- Yandex.Metrika counter --> <script type="text/javascript">     (function(m,e,t,r,i,k,a){         m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};         m[i].l=1*new Date();         for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}         k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)     })(window, document,'script','https://mc.webvisor.org/metrika/tag_ww.js?id=110713973', 'ym');      ym(110713973, 'init', {ssr:true, webvisor:true, clickmap:true, ecommerce:"dataLayer", referrer: document.referrer, url: location.href, accurateTrackBounce:true, trackLinks:true}); </script> <noscript><div><img src="https://mc.yandex.ru/watch/110713973" style="position:absolute; left:-9999px;" alt="" /></div></noscript> <!-- /Yandex.Metrika counter -->
+<script>
+function loadMetrika(){
+  if (window.__ymLoaded) return;
+  window.__ymLoaded = true;
+  (function(m,e,t,r,i,k,a){
+    m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+    m[i].l=1*new Date();
+    k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)
+  })(window,document,'script','https://mc.webvisor.org/metrika/tag_ww.js?id=110713973','ym');
+  ym(110713973,'init',{ssr:true,webvisor:true,clickmap:true,ecommerce:"dataLayer",referrer:document.referrer,url:location.href,accurateTrackBounce:true,trackLinks:true});
+}
+try{ if (localStorage.getItem('cookieConsent') === 'yes') loadMetrika(); }catch(e){}
+</script>
 
 </head>
 <body>
@@ -445,12 +455,19 @@
   </div>
 </div>
 
+<div class="consent" id="consent" role="dialog" aria-label="Согласие на аналитику">
+  <p id="consent-text"></p>
+  <div class="consent-actions">
+    <button id="consent-no"></button>
+    <button id="consent-ok" class="ok"></button>
+  </div>
+</div>
+
 <script>
 (function(){
   const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   const finePointer = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
 
-  /* ---------- hero title: split into letters for mask reveal ---------- */
   const mask = document.querySelector('.h1-mask');
   if (mask){
     const text = mask.textContent;
@@ -462,18 +479,15 @@
     });
   }
 
-  /* ---------- load sequence ---------- */
   let started = false;
   function start(){
     if (started) return; started = true;
     document.body.classList.add('ready');
-    // clear stagger delays after the intro so hover transitions stay instant
     setTimeout(() => document.querySelectorAll('[data-load]').forEach(el => el.style.setProperty('--d', '0s')), 2600);
   }
   window.addEventListener('load', () => setTimeout(start, 120));
-  setTimeout(start, 1500); // fallback if load is slow
+  setTimeout(start, 1500);
 
-  /* ---------- language toggle ---------- */
   const translations = {
     ru: `<p>Модератор самостоятельно выбирает меру наказания. Тяжёлые нарушения = бан без разблокировки.</p>
          <ul><li>Запрещены спам, флуд и повторяющиеся сообщения.</li>
@@ -492,10 +506,26 @@
          <li>Do not beg for VIP/mod/subscriptions.</li></ul>
          <p>Violation of the rules entails punishment at the discretion of the moderation.</p>`
   };
+  const consentTexts = {
+    ru: {
+      text: 'Сайт использует Яндекс.Метрику (включая Вебвизор) для аналитики: записывает действия на странице и cookie. Принимаете?',
+      ok: 'Принять',
+      no: 'Отклонить'
+    },
+    en: {
+      text: 'This site uses Yandex Metrica (including Webvisor) for analytics, recording on-page actions and cookies. Do you accept?',
+      ok: 'Accept',
+      no: 'Decline'
+    }
+  };
   let currentLang = localStorage.getItem('preferredLang') || 'ru';
   function applyLanguage(lang){
     const rulesBody = document.getElementById('rules-body');
     if (rulesBody && translations[lang]) rulesBody.innerHTML = translations[lang];
+    const ct = consentTexts[lang] || consentTexts.ru;
+    document.getElementById('consent-text').textContent = ct.text;
+    document.getElementById('consent-ok').textContent = ct.ok;
+    document.getElementById('consent-no').textContent = ct.no;
     document.getElementById('lang-toggle').textContent = lang === 'ru' ? 'EN' : 'RU';
     localStorage.setItem('preferredLang', lang);
     currentLang = lang;
@@ -503,7 +533,20 @@
   applyLanguage(currentLang);
   document.getElementById('lang-toggle').addEventListener('click', () => applyLanguage(currentLang === 'ru' ? 'en' : 'ru'));
 
-  /* ---------- modals ---------- */
+  const consent = document.getElementById('consent');
+  let consentStored = null;
+  try{ consentStored = localStorage.getItem('cookieConsent'); }catch(e){}
+  if (!consentStored) setTimeout(() => consent.classList.add('show'), 1500);
+  document.getElementById('consent-ok').addEventListener('click', () => {
+    try{ localStorage.setItem('cookieConsent','yes'); }catch(e){}
+    consent.classList.remove('show');
+    loadMetrika();
+  });
+  document.getElementById('consent-no').addEventListener('click', () => {
+    try{ localStorage.setItem('cookieConsent','no'); }catch(e){}
+    consent.classList.remove('show');
+  });
+
   let lastFocus = null;
   function openModal(id){
     lastFocus = document.activeElement;
@@ -524,7 +567,6 @@
   document.querySelectorAll('[data-close]').forEach(el => el.addEventListener('click', () => closeModal(el.dataset.close)));
   document.addEventListener('keydown', e => { if (e.key === 'Escape') closeAllModals(); });
 
-  /* ---------- scroll: navbar state, progress bar, parallax (one rAF-throttled handler) ---------- */
   const navbar = document.getElementById('navbar');
   const progress = document.getElementById('progress');
   const parallaxEls = reduceMotion ? [] : Array.from(document.querySelectorAll('[data-parallax]'));
@@ -543,7 +585,6 @@
   window.addEventListener('scroll', () => { if (!ticking){ requestAnimationFrame(onScrollFrame); ticking = true; } }, { passive:true });
   onScrollFrame();
 
-  /* ---------- scroll reveal with automatic stagger inside groups ---------- */
   const revealEls = Array.from(document.querySelectorAll('[data-reveal]'));
   revealEls.forEach(el => {
     const siblings = Array.from(el.parentElement.children).filter(c => c.hasAttribute('data-reveal'));
@@ -562,7 +603,6 @@
     revealEls.forEach(markIn);
   }
 
-  /* ---------- active nav link ---------- */
   const navLinks = Array.from(document.querySelectorAll('.nav-links a'));
   const sections = ['top','socials','setup'].map(id => document.getElementById(id));
   if ('IntersectionObserver' in window){
@@ -576,7 +616,6 @@
     sections.forEach(s => s && so.observe(s));
   }
 
-  /* ---------- tilt + glare (desktop pointer only) ---------- */
   function attachTilt(el, maxTilt){
     el.addEventListener('mouseenter', () => el.classList.add('tilting'));
     el.addEventListener('mousemove', e => {
@@ -600,7 +639,6 @@
       attachTilt(card, 7);
     });
 
-    /* cursor glow + magnetic pull on buttons */
     document.querySelectorAll('.btn, .nav-cta').forEach(el => {
       el.addEventListener('mousemove', e => {
         const r = el.getBoundingClientRect();
